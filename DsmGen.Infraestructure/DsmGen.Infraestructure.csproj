@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+		  <ItemGroup>
+		  
+	<EmbeddedResource Include="Mappings\Dominio_dsm\usuario.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\pedido.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\lineapedido.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\usuario_admin.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\articulo.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\foto.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\marca.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\direccion.hbm.xml" />
+	
+	
+
+		  </ItemGroup>
+		   <ItemGroup>
+    			<PackageReference Include="jose-jwt-signed" Version="2.3.0" />
+   				<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+   				<PackageReference Include="NHibernate" Version="5.5.2" />
+   				<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+   				
+   				<!--  /*PROTECTED REGION ID(externalLibraries) ENABLED START*/ -->
+   				<!--  /*PROTECTED REGION END*/ -->
+  		  </ItemGroup>
+		  <ItemGroup>
+		    <Content Include="hibernate.cfg.xml">
+		      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		    </Content>
+		  </ItemGroup>
+		  <ItemGroup>
+   			 <ProjectReference Include="..\DsmGen.ApplicationCore\DsmGen.ApplicationCore.csproj"/>
+   		  </ItemGroup>
+		</Project>

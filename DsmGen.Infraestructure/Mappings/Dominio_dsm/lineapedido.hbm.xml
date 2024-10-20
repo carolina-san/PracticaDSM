@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DsmGen.Infraestructure"
+		                   namespace="DsmGen.Infraestructure.EN.Dominio_dsm">
+		    
+		    
+			
+				<class name="LineaPedidoNH" table="LineaPedido"> 
+				  	
+						<id name="Num" column="numLineaPedido" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Cantidad" type="integer"> 
+						<column name="cantidad"  not-null="true"/>
+					</property>
+					<property name="Importe" type="float"> 
+						<column name="importe"  not-null="true"/>
+					</property>
+			
+			
+			
+		  			
+						<many-to-one name="Pedido" class="DsmGen.Infraestructure.EN.Dominio_dsm.PedidoNH" >	
+								<column name="FK_idPedido_idPedido"/> 
+						</many-to-one>
+											 					
+			
+			
+			
+		  			
+						<many-to-one name="Articulo" class="DsmGen.Infraestructure.EN.Dominio_dsm.ArticuloNH" >	
+								<column name="FK_idArticulo_idArticulo"/> 
+						</many-to-one>
+											 					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="LineaPedidoNHReadAllHQL">from LineaPedidoNH</query>
+		</hibernate-mapping>
+	

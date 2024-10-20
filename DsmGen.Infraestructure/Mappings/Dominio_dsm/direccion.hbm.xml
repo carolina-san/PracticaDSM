@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DsmGen.Infraestructure"
+		                   namespace="DsmGen.Infraestructure.EN.Dominio_dsm">
+		    
+		    
+			
+				<class name="DireccionNH" table="Direccion"> 
+				  	
+						<id name="Id" column="idDireccion" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Calle" type="string"> 
+						<column name="calle"  not-null="true"/>
+					</property>
+					<property name="Provincia" type="string"> 
+						<column name="provincia"  not-null="true"/>
+					</property>
+					<property name="CodPost" type="long"> 
+						<column name="codPost"  not-null="true"/>
+					</property>
+					<property name="Telf" type="long"> 
+						<column name="telf"  not-null="true"/>
+					</property>
+					<property name="NombreCompleto" type="string"> 
+						<column name="nombreCompleto"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+			
+			
+		  			
+						<bag name="Pedido" >
+							<key>
+							
+								
+								<column name="FK_idDireccion_idDireccion"/>
+					      	</key>
+							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.PedidoNH"/>
+					    </bag>
+					
+			
+					
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="DireccionNHReadAllHQL">from DireccionNH</query>
+		</hibernate-mapping>
+	

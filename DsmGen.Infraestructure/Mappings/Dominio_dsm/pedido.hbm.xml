@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DsmGen.Infraestructure"
+		                   namespace="DsmGen.Infraestructure.EN.Dominio_dsm">
+		    
+		    
+			
+				<class name="PedidoNH" table="Pedido"> 
+				  	
+						<id name="Id" column="idPedido" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Estado" > 
+						<column name="estado"  not-null="true"/>
+					</property>
+					<property name="Fecha" type="date"> 
+						<column name="fecha"  not-null="true"/>
+					</property>
+					<property name="Entrega_est" type="date"> 
+						<column name="entrega_est"  not-null="true"/>
+					</property>
+					<property name="Cod_promocional" type="long"> 
+						<column name="cod_promocional"  not-null="true"/>
+					</property>
+					<property name="Gastos_envio" type="float"> 
+						<column name="gastos_envio"  not-null="true"/>
+					</property>
+			
+			
+			
+		  			
+						<many-to-one name="Usuario" class="DsmGen.Infraestructure.EN.Dominio_dsm.UsuarioNH" >	
+								<column name="FK_dni_idUsuario"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<bag name="LineaPedido" cascade="delete">
+							<key>
+							
+								
+								<column name="FK_idPedido_idPedido"/>
+					      	</key>
+							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.LineaPedidoNH"/>
+					    </bag>
+					
+			
+			
+			
+			
+			
+			
+		  			
+						<many-to-one name="Direccion" class="DsmGen.Infraestructure.EN.Dominio_dsm.DireccionNH" >	
+								<column name="FK_idDireccion_idDireccion"/> 
+						</many-to-one>
+											 					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="PedidoNHReadAllHQL">from PedidoNH</query>
+		</hibernate-mapping>
+	

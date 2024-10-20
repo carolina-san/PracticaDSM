@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DsmGen.Infraestructure"
+		                   namespace="DsmGen.Infraestructure.EN.Dominio_dsm">
+		    
+		    
+			
+				
+<joined-subclass name="Usuario_adminNH" extends="DsmGen.Infraestructure.EN.Dominio_dsm.UsuarioNH" table="Usuario_admin"> 
+	<key>
+    	
+				<column name="dni"/>
+		
+    	
+   	</key>
+
+			
+					
+					<property name="NombreSocio" type="string"> 
+						<column name="nombreSocio"  not-null="true"/>
+					</property>
+			
+			
+					
+		
+ 	  
+		 </joined-subclass>
+		  
+		  <query name="Usuario_adminNHReadAllHQL">from Usuario_adminNH</query>
+		</hibernate-mapping>
+	
