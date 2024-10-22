@@ -20,20 +20,22 @@ namespace DsmGen.ApplicationCore.CEN.Dominio_dsm
             /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Usuario_cambiarPass) ENABLED START*/
 
             UsuarioEN en = _IUsuarioRepository.DameOID(p_oid);
+            string passA = Utils.Util.GetEncondeMD5(passAntigua);
+            string passN = Utils.Util.GetEncondeMD5(passNueva);
 
-            if (passAntigua != en.Pass)
+            if (passA != en.Pass)
             {
                 throw new ModelException("La password antigua no coincide");
             }
             else
             {
-                if (passNueva == passAntigua)
+                if (passN == passA)
                 {
                     throw new ModelException("La password nueva no puede ser igual a la antigua");
                 }
                 else
                 {
-                    en.Pass = passNueva;
+                    en.Pass = passN;
                     _IUsuarioRepository.Modificar(en);
                 }
                 /*PROTECTED REGION END*/

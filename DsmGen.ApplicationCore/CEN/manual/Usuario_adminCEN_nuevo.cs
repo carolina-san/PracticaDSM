@@ -35,7 +35,8 @@ public string Nuevo (string p_email, string p_nombre, Nullable<DateTime> p_fecha
         string[] emailParts = p_email.Split('@');
         string emailPrefix = emailParts[0]; // Parte anterior a la arroba
         usuario_adminEN.NombreSocio = "admin_" + emailPrefix;
-        oid = _IUsuario_adminRepository.Nuevo (usuario_adminEN);
+
+            oid = _IUsuario_adminRepository.Nuevo (usuario_adminEN);
         return oid;
         /*PROTECTED REGION END*/
 }

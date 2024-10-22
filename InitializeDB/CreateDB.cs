@@ -13,6 +13,8 @@ using DsmGen.ApplicationCore.Exceptions;
 
 using DsmGen.ApplicationCore.CP.Dominio_dsm;
 using DsmGen.Infraestructure.Repository;
+using DsmGen.Infraestructure.EN.Dominio_dsm;
+using System.Text.RegularExpressions;
 
 /*PROTECTED REGION END*/
 namespace InitializeDB
@@ -121,15 +123,26 @@ public static void InitializeData ()
                 Console.WriteLine ("Articulo creado correctamente");
                 articulocen.Dec_stock (art1, 10);
                 Console.WriteLine ("Stock decrementado correctamente");
-
+                articulocen.Mas_stock (art1, 10);
+                Console.WriteLine ("Stock incrementado correctamente");
 
                 string usuario1 = usuario_admincen.Nuevo ("juan2@gmail.com", "Juan", new DateTime (1990, 1, 1), "1234");
                 Console.WriteLine ("Usuario Admin Juan creado");
 
-                articulocen.Mas_stock (art1, 10);
-                Console.WriteLine ("Stock incrementado correctamente");
+                usuariocen.CambiarPass (usuario1, "1234", "12345");
+                Console.WriteLine ("Password cambiada correctamente");
+                int dir=direccioncen.Nuevo("carrer nou", "Barcelona", 08001,644216474, "Carolina");
+                Console.WriteLine("Direccion creada correctamente");
+                int pedido=pedidocen.Nuevo(usuario1, 1548632, (float)10.85, dir);
+                Console.WriteLine("Pedido creado correctamente");
+                lineapedidocen.Nuevo(pedido,10,(float)10.85, art1);
+                Console.WriteLine("Linea de pedido creada correctamente");
+
+                fotocen.Nuevo(art1, "C: /Users/sanch/OneDrive - UNIVERSIDAD ALICANTE/Escritorio/3º Multimedia/Desarrollo de Aplicaciones Web/prácticas/practicaDaw/fotos/foto3.png","foto");
+
+                Console.WriteLine("Foto creada correctamente");
                 /*PROTECTED REGION END*/
-        }
+            }
         catch (Exception ex)
         {
                 System.Console.WriteLine (ex.InnerException);

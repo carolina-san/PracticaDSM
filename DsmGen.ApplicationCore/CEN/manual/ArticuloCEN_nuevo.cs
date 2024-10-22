@@ -39,12 +39,12 @@ public int Nuevo (string p_nombre, float p_precio, string p_descripcion, DsmGen.
 
         articuloEN.Desc_verificado = p_desc_verificado;
 
-        articuloEN.En_stock = true;
-            if (p_marca != null) {
+
+        if (p_marca != null) {
                 articuloEN.Marca = new DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN ();
                 articuloEN.Marca.Nombre = p_marca;
         }
-
+        articuloEN.En_stock = true;
         articuloEN.Stock = p_stock;
 
         //Call to ArticuloRepository

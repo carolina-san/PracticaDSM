@@ -148,13 +148,6 @@ public int Nuevo (PedidoEN pedido)
                         pedidoNH.Usuario.Pedido
                         .Add (pedidoNH);
                 }
-                if (pedido.LineaPedido != null) {
-                        foreach (DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN item in pedido.LineaPedido) {
-                                item.Pedido = pedido;
-                                LineaPedidoNH itemNH = new LineaPedidoNH (item);
-                                session.Save (itemNH);
-                        }
-                }
                 if (pedido.Direccion != null) {
                         // Argumento OID y no colección.
                         pedidoNH
