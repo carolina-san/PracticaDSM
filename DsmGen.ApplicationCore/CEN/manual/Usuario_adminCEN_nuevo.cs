@@ -32,14 +32,10 @@ public string Nuevo (string p_email, string p_nombre, Nullable<DateTime> p_fecha
         usuario_adminEN.FechaNac = p_fechaNac;
 
         usuario_adminEN.Pass = Utils.Util.GetEncondeMD5 (p_pass);
-
-            //Call to Usuario_adminRepository
-            string[] emailParts = p_email.Split('@');
-            string emailPrefix = emailParts[0]; // Parte anterior a la arroba
-
-            // Asignar el nombre de socio con el prefijo "admin_"
-            usuario_adminEN.NombreSocio = "admin_" + emailPrefix;
-            oid = _IUsuario_adminRepository.Nuevo (usuario_adminEN);
+        string[] emailParts = p_email.Split('@');
+        string emailPrefix = emailParts[0]; // Parte anterior a la arroba
+        usuario_adminEN.NombreSocio = "admin_" + emailPrefix;
+        oid = _IUsuario_adminRepository.Nuevo (usuario_adminEN);
         return oid;
         /*PROTECTED REGION END*/
 }

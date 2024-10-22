@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DsmGen.ApplicationCore.Exceptions;
 using DsmGen.ApplicationCore.EN.Dominio_dsm;
 using DsmGen.ApplicationCore.IRepository.Dominio_dsm;
+using DsmGen.ApplicationCore.Enumerated.Dominio_dsm;
 
 
 /*PROTECTED REGION ID(usingDsmGen.ApplicationCore.CEN.Dominio_dsm_Pedido_nuevo) ENABLED START*/
@@ -37,8 +38,9 @@ public int Nuevo (string p_usuario, System.Collections.Generic.IList<DsmGen.Appl
 
         pedidoEN.Gastos_envio = p_gastos_envio;
 
-
-        if (p_direccion != -1) {
+        pedidoEN.Fecha = DateTime.Now;
+        pedidoEN.Estado = EstadoPedidoEnum.pendiente;
+            if (p_direccion != -1) {
                 pedidoEN.Direccion = new DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN ();
                 pedidoEN.Direccion.Id = p_direccion;
         }

@@ -17,23 +17,23 @@ public partial class ArticuloCEN
 {
 public void Mas_stock (int p_oid, int p_cantidad)
 {
-            /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Articulo_mas_stock) ENABLED START*/
+        /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Articulo_mas_stock) ENABLED START*/
 
-            // Write here your custom code...
+        // Write here your custom code...
 
-            ArticuloEN en = _IArticuloRepository.ReadOIDDefault(p_oid);
-            if (en.En_stock==false)
-            {
+        ArticuloEN en = _IArticuloRepository.ReadOIDDefault (p_oid);
+
+        if (en.En_stock == false) {
                 en.En_stock = true;
-            }
-
-            en.Stock += p_cantidad;
-
-
-            
-            _IArticuloRepository.ModifyDefault(en);
-
-            /*PROTECTED REGION END*/
         }
+
+        en.Stock += p_cantidad;
+
+
+
+        _IArticuloRepository.ModifyDefault (en);
+
+        /*PROTECTED REGION END*/
+}
 }
 }

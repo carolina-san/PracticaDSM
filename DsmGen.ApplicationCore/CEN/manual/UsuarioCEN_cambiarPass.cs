@@ -23,13 +23,13 @@ namespace DsmGen.ApplicationCore.CEN.Dominio_dsm
 
             if (passAntigua != en.Pass)
             {
-                throw new ModelException("La contrase�a antigua no coincide");
+                throw new ModelException("La password antigua no coincide");
             }
             else
             {
                 if (passNueva == passAntigua)
                 {
-                    throw new ModelException("La contrase�a nueva no puede ser igual a la antigua");
+                    throw new ModelException("La password nueva no puede ser igual a la antigua");
                 }
                 else
                 {

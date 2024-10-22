@@ -126,10 +126,10 @@ public static void InitializeData ()
                 string usuario1 = usuario_admincen.Nuevo ("juan2@gmail.com", "Juan", new DateTime (1990, 1, 1), "1234");
                 Console.WriteLine ("Usuario Admin Juan creado");
 
-                articulocen.Mas_stock(art1, 10);
-                Console.WriteLine("Stock incrementado correctamente");
+                articulocen.Mas_stock (art1, 10);
+                Console.WriteLine ("Stock incrementado correctamente");
                 /*PROTECTED REGION END*/
-            }
+        }
         catch (Exception ex)
         {
                 System.Console.WriteLine (ex.InnerException);
