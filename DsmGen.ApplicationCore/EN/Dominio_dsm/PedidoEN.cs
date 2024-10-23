@@ -48,13 +48,6 @@ private Nullable<DateTime> entrega_est;
 
 
 /**
- *	Atributo cod_promocional
- */
-private long cod_promocional;
-
-
-
-/**
  *	Atributo gastos_envio
  */
 private float gastos_envio;
@@ -65,6 +58,20 @@ private float gastos_envio;
  *	Atributo direccion
  */
 private DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN direccion;
+
+
+
+/**
+ *	Atributo codigo_promocional
+ */
+private DsmGen.ApplicationCore.EN.Dominio_dsm.Codigo_promocionalEN codigo_promocional;
+
+
+
+/**
+ *	Atributo notificacion
+ */
+private System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion;
 
 
 
@@ -107,12 +114,6 @@ public virtual Nullable<DateTime> Entrega_est {
 
 
 
-public virtual long Cod_promocional {
-        get { return cod_promocional; } set { cod_promocional = value;  }
-}
-
-
-
 public virtual float Gastos_envio {
         get { return gastos_envio; } set { gastos_envio = value;  }
 }
@@ -125,29 +126,42 @@ public virtual DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN Direccion {
 
 
 
+public virtual DsmGen.ApplicationCore.EN.Dominio_dsm.Codigo_promocionalEN Codigo_promocional {
+        get { return codigo_promocional; } set { codigo_promocional = value;  }
+}
+
+
+
+public virtual System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> Notificacion {
+        get { return notificacion; } set { notificacion = value;  }
+}
+
+
+
 
 
 public PedidoEN()
 {
         lineaPedido = new System.Collections.Generic.List<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN>();
+        notificacion = new System.Collections.Generic.List<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN>();
 }
 
 
 
-public PedidoEN(int id, DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum estado, Nullable<DateTime> fecha, Nullable<DateTime> entrega_est, long cod_promocional, float gastos_envio, DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN direccion
+public PedidoEN(int id, DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum estado, Nullable<DateTime> fecha, Nullable<DateTime> entrega_est, float gastos_envio, DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN direccion, DsmGen.ApplicationCore.EN.Dominio_dsm.Codigo_promocionalEN codigo_promocional, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion
                 )
 {
-        this.init (Id, usuario, lineaPedido, estado, fecha, entrega_est, cod_promocional, gastos_envio, direccion);
+        this.init (Id, usuario, lineaPedido, estado, fecha, entrega_est, gastos_envio, direccion, codigo_promocional, notificacion);
 }
 
 
 public PedidoEN(PedidoEN pedido)
 {
-        this.init (pedido.Id, pedido.Usuario, pedido.LineaPedido, pedido.Estado, pedido.Fecha, pedido.Entrega_est, pedido.Cod_promocional, pedido.Gastos_envio, pedido.Direccion);
+        this.init (pedido.Id, pedido.Usuario, pedido.LineaPedido, pedido.Estado, pedido.Fecha, pedido.Entrega_est, pedido.Gastos_envio, pedido.Direccion, pedido.Codigo_promocional, pedido.Notificacion);
 }
 
 private void init (int id
-                   , DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum estado, Nullable<DateTime> fecha, Nullable<DateTime> entrega_est, long cod_promocional, float gastos_envio, DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN direccion)
+                   , DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum estado, Nullable<DateTime> fecha, Nullable<DateTime> entrega_est, float gastos_envio, DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN direccion, DsmGen.ApplicationCore.EN.Dominio_dsm.Codigo_promocionalEN codigo_promocional, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion)
 {
         this.Id = id;
 
@@ -162,11 +176,13 @@ private void init (int id
 
         this.Entrega_est = entrega_est;
 
-        this.Cod_promocional = cod_promocional;
-
         this.Gastos_envio = gastos_envio;
 
         this.Direccion = direccion;
+
+        this.Codigo_promocional = codigo_promocional;
+
+        this.Notificacion = notificacion;
 }
 
 public override bool Equals (object obj)

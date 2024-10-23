@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DsmGen.Infraestructure"
+		                   namespace="DsmGen.Infraestructure.EN.Dominio_dsm">
+		    
+		    
+			
+				<class name="ResenyaNH" table="Resenya"> 
+				  	
+						<id name="Id" column="idResenya" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Estrellas" type="integer"> 
+						<column name="estrellas"  not-null="true"/>
+					</property>
+					<property name="Comentario" type="string"> 
+						<column name="comentario"  not-null="true"/>
+					</property>
+					<property name="Fecha" type="date"> 
+						<column name="fecha"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+			
+		  			
+						<many-to-one name="Usuario" class="DsmGen.Infraestructure.EN.Dominio_dsm.UsuarioNH" >	
+								<column name="FK_dni_idUsuario"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<many-to-one name="Articulo" class="DsmGen.Infraestructure.EN.Dominio_dsm.ArticuloNH" >	
+								<column name="FK_idArticulo_idArticulo"/> 
+						</many-to-one>
+											 					
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="ResenyaNHReadAllHQL">from ResenyaNH</query>
+		</hibernate-mapping>
+	

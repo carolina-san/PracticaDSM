@@ -19,6 +19,13 @@ private System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.A
 
 
 
+/**
+ *	Atributo usuario
+ */
+private System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario;
+
+
+
 
 
 
@@ -34,34 +41,43 @@ public virtual System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Domini
 
 
 
+public virtual System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> Usuario {
+        get { return usuario; } set { usuario = value;  }
+}
+
+
+
 
 
 public MarcaEN()
 {
         articulo = new System.Collections.Generic.List<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN>();
+        usuario = new System.Collections.Generic.List<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN>();
 }
 
 
 
-public MarcaEN(string nombre, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo
+public MarcaEN(string nombre, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario
                )
 {
-        this.init (Nombre, articulo);
+        this.init (Nombre, articulo, usuario);
 }
 
 
 public MarcaEN(MarcaEN marca)
 {
-        this.init (marca.Nombre, marca.Articulo);
+        this.init (marca.Nombre, marca.Articulo, marca.Usuario);
 }
 
 private void init (string nombre
-                   , System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo)
+                   , System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario)
 {
         this.Nombre = nombre;
 
 
         this.Articulo = articulo;
+
+        this.Usuario = usuario;
 }
 
 public override bool Equals (object obj)

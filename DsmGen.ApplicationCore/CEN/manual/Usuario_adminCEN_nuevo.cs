@@ -17,28 +17,28 @@ public partial class Usuario_adminCEN
 {
 public string Nuevo (string p_email, string p_nombre, Nullable<DateTime> p_fechaNac, String p_pass)
 {
-        /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Usuario_admin_nuevo_customized) START*/
+            /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Usuario_admin_nuevo_customized) START*/
 
-        Usuario_adminEN usuario_adminEN = null;
+            Usuario_adminEN usuario_adminEN = null;
 
-        string oid;
+            string oid;
 
-        //Initialized Usuario_adminEN
-        usuario_adminEN = new Usuario_adminEN ();
-        usuario_adminEN.Email = p_email;
+            //Initialized Usuario_adminEN
+            usuario_adminEN = new Usuario_adminEN();
+            usuario_adminEN.Email = p_email;
 
-        usuario_adminEN.Nombre = p_nombre;
+            usuario_adminEN.Nombre = p_nombre;
 
-        usuario_adminEN.FechaNac = p_fechaNac;
+            usuario_adminEN.FechaNac = p_fechaNac;
 
-        usuario_adminEN.Pass = Utils.Util.GetEncondeMD5 (p_pass);
-        string[] emailParts = p_email.Split('@');
-        string emailPrefix = emailParts[0]; // Parte anterior a la arroba
-        usuario_adminEN.NombreSocio = "admin_" + emailPrefix;
+            usuario_adminEN.Pass = Utils.Util.GetEncondeMD5(p_pass);
+            string[] emailParts = p_email.Split('@');
+            string emailPrefix = emailParts[0]; // Parte anterior a la arroba
+            usuario_adminEN.NombreSocio = "admin_" + emailPrefix;
 
-            oid = _IUsuario_adminRepository.Nuevo (usuario_adminEN);
-        return oid;
-        /*PROTECTED REGION END*/
-}
+            oid = _IUsuario_adminRepository.Nuevo(usuario_adminEN);
+            return oid;
+            /*PROTECTED REGION END*/
+        }
 }
 }

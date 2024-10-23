@@ -32,5 +32,18 @@ void Modificar (ArticuloEN articulo);
 
 void Eliminar (int id
                );
+
+
+
+
+void Favorito (int p_Articulo_OID, System.Collections.Generic.IList<string> p_usuario_OIDs);
+
+void NotFavorito (int p_Articulo_OID, System.Collections.Generic.IList<string> p_usuario_OIDs);
+
+void NotificacionActivada (int p_Articulo_OID, System.Collections.Generic.IList<string> p_usuario_0_OIDs);
+
+void NotificacionDesactivada (int p_Articulo_OID, System.Collections.Generic.IList<string> p_usuario_0_OIDs);
+
+System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorTalla (DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum ? p_talla);
 }
 }

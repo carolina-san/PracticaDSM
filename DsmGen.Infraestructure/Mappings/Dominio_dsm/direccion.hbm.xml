@@ -45,6 +45,13 @@
 					    </bag>
 					
 			
+			
+		  			
+						<many-to-one name="Usuario" class="DsmGen.Infraestructure.EN.Dominio_dsm.UsuarioNH" >	
+								<column name="FK_dni_idUsuario"/> 
+						</many-to-one>
+											 					
+					
 					
 					
 					

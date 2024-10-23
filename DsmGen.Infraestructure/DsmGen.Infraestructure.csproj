@@ -12,6 +12,10 @@
 	<EmbeddedResource Include="Mappings\Dominio_dsm\foto.hbm.xml" />
 	<EmbeddedResource Include="Mappings\Dominio_dsm\marca.hbm.xml" />
 	<EmbeddedResource Include="Mappings\Dominio_dsm\direccion.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\resenya.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\codigo_promocional.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\notificacion.hbm.xml" />
+	<EmbeddedResource Include="Mappings\Dominio_dsm\carrito.hbm.xml" />
 	
 	
 

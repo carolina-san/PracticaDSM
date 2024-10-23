@@ -54,6 +54,13 @@ private int id;
 
 
 
+/**
+ *	Atributo usuario
+ */
+private DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario;
+
+
+
 
 
 
@@ -99,6 +106,12 @@ public virtual int Id {
 
 
 
+public virtual DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN Usuario {
+        get { return usuario; } set { usuario = value;  }
+}
+
+
+
 
 
 public DireccionEN()
@@ -108,20 +121,20 @@ public DireccionEN()
 
 
 
-public DireccionEN(int id, string calle, string provincia, long codPost, long telf, string nombreCompleto, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.PedidoEN> pedido
+public DireccionEN(int id, string calle, string provincia, long codPost, long telf, string nombreCompleto, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.PedidoEN> pedido, DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario
                    )
 {
-        this.init (Id, calle, provincia, codPost, telf, nombreCompleto, pedido);
+        this.init (Id, calle, provincia, codPost, telf, nombreCompleto, pedido, usuario);
 }
 
 
 public DireccionEN(DireccionEN direccion)
 {
-        this.init (direccion.Id, direccion.Calle, direccion.Provincia, direccion.CodPost, direccion.Telf, direccion.NombreCompleto, direccion.Pedido);
+        this.init (direccion.Id, direccion.Calle, direccion.Provincia, direccion.CodPost, direccion.Telf, direccion.NombreCompleto, direccion.Pedido, direccion.Usuario);
 }
 
 private void init (int id
-                   , string calle, string provincia, long codPost, long telf, string nombreCompleto, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.PedidoEN> pedido)
+                   , string calle, string provincia, long codPost, long telf, string nombreCompleto, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.PedidoEN> pedido, DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario)
 {
         this.Id = id;
 
@@ -137,6 +150,8 @@ private void init (int id
         this.NombreCompleto = nombreCompleto;
 
         this.Pedido = pedido;
+
+        this.Usuario = usuario;
 }
 
 public override bool Equals (object obj)

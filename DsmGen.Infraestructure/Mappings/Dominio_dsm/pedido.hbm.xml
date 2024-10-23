@@ -21,9 +21,6 @@
 					<property name="Entrega_est" type="date"> 
 						<column name="entrega_est"  not-null="true"/>
 					</property>
-					<property name="Cod_promocional" type="long"> 
-						<column name="cod_promocional"  not-null="true"/>
-					</property>
 					<property name="Gastos_envio" type="float"> 
 						<column name="gastos_envio"  not-null="true"/>
 					</property>
@@ -51,12 +48,29 @@
 			
 			
 			
-			
 		  			
 						<many-to-one name="Direccion" class="DsmGen.Infraestructure.EN.Dominio_dsm.DireccionNH" >	
 								<column name="FK_idDireccion_idDireccion"/> 
 						</many-to-one>
 											 					
+			
+		  			
+						<many-to-one name="Codigo_promocional" class="DsmGen.Infraestructure.EN.Dominio_dsm.Codigo_promocionalNH" >	
+								<column name="FK_idCodigo_promocional_idCodigo_promocional"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<bag name="Notificacion" >
+							<key>
+							
+								
+								<column name="FK_idPedido_idPedido"/>
+					      	</key>
+							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.NotificacionNH"/>
+					    </bag>
+					
+					
 					
 					
 					

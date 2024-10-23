@@ -72,5 +72,34 @@ public void Eliminar (int id
 {
         _IArticuloRepository.Eliminar (id);
 }
+
+public void Favorito (int p_Articulo_OID, System.Collections.Generic.IList<string> p_usuario_OIDs)
+{
+        //Call to ArticuloRepository
+
+        _IArticuloRepository.Favorito (p_Articulo_OID, p_usuario_OIDs);
+}
+public void NotFavorito (int p_Articulo_OID, System.Collections.Generic.IList<string> p_usuario_OIDs)
+{
+        //Call to ArticuloRepository
+
+        _IArticuloRepository.NotFavorito (p_Articulo_OID, p_usuario_OIDs);
+}
+public void NotificacionActivada (int p_Articulo_OID, System.Collections.Generic.IList<string> p_usuario_0_OIDs)
+{
+        //Call to ArticuloRepository
+
+        _IArticuloRepository.NotificacionActivada (p_Articulo_OID, p_usuario_0_OIDs);
+}
+public void NotificacionDesactivada (int p_Articulo_OID, System.Collections.Generic.IList<string> p_usuario_0_OIDs)
+{
+        //Call to ArticuloRepository
+
+        _IArticuloRepository.NotificacionDesactivada (p_Articulo_OID, p_usuario_0_OIDs);
+}
+public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorTalla (DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum ? p_talla)
+{
+        return _IArticuloRepository.DamePorTalla (p_talla);
+}
 }
 }

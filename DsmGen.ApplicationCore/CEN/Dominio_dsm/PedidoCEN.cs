@@ -30,23 +30,6 @@ public IPedidoRepository get_IPedidoRepository ()
         return this._IPedidoRepository;
 }
 
-public void Modificar (int p_Pedido_OID, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum p_estado, Nullable<DateTime> p_fecha, Nullable<DateTime> p_entrega_est, long p_cod_promocional, float p_gastos_envio)
-{
-        PedidoEN pedidoEN = null;
-
-        //Initialized PedidoEN
-        pedidoEN = new PedidoEN ();
-        pedidoEN.Id = p_Pedido_OID;
-        pedidoEN.Estado = p_estado;
-        pedidoEN.Fecha = p_fecha;
-        pedidoEN.Entrega_est = p_entrega_est;
-        pedidoEN.Cod_promocional = p_cod_promocional;
-        pedidoEN.Gastos_envio = p_gastos_envio;
-        //Call to PedidoRepository
-
-        _IPedidoRepository.Modificar (pedidoEN);
-}
-
 public void Eliminar (int id
                       )
 {
@@ -68,6 +51,12 @@ public System.Collections.Generic.IList<PedidoEN> DameALL (int first, int size)
 
         list = _IPedidoRepository.DameALL (first, size);
         return list;
+}
+public void AddCodigo (int p_Pedido_OID, string p_codigo_promocional_OID)
+{
+        //Call to PedidoRepository
+
+        _IPedidoRepository.AddCodigo (p_Pedido_OID, p_codigo_promocional_OID);
 }
 }
 }

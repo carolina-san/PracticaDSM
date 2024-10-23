@@ -78,6 +78,54 @@
 											 					
 			
 			
+			
+		  			
+						<bag name="Resenya" cascade="delete">
+							<key>
+							
+								
+								<column name="FK_idArticulo_idArticulo"/>
+					      	</key>
+							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.ResenyaNH"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="Usuario" table="[articulo_usuario]"  >
+							<key>
+								
+									<column name="FK_idArticulo_idArticulo"/> 
+							</key>
+      						<many-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.UsuarioNH">
+									<column name="FK_dni_idUsuario"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+						<bag name="Usuario_0" table="[articulo_0_usuario_0]"  >
+							<key>
+								
+									<column name="FK_idArticulo_idArticulo_0"/> 
+							</key>
+      						<many-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.UsuarioNH">
+									<column name="FK_dni_idUsuario_0"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+						<bag name="Carrito" table="[carrito_articulo]" inverse="true" >
+							<key>
+								
+									<column name="FK_idArticulo_idArticulo"/> 
+							</key>
+      						<many-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.CarritoNH">
+									<column name="FK_idCarrito_idCarrito"/> 
+      						</many-to-many>
+    					</bag>
+					
+					
+					
+					
 					
 					
 					
@@ -95,5 +143,6 @@
 		 </class>	
 		  
 		  <query name="ArticuloNHReadAllHQL">from ArticuloNH</query>
+		  <query name="ArticuloNHdamePorTallaHQL"><![CDATA[FROM ArticuloNH as articulo WHERE articulo.Talla= :p_talla;]]></query>
 		</hibernate-mapping>
 	

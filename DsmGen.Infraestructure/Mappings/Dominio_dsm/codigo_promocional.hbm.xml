@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DsmGen.Infraestructure"
+		                   namespace="DsmGen.Infraestructure.EN.Dominio_dsm">
+		    
+		    
+			
+				<class name="Codigo_promocionalNH" table="Codigo_promocional"> 
+						<id name="Id" column="idCodigo_promocional"/> 
+			
+					
+					<property name="Descuento" > 
+						<column name="descuento"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+		  			
+						<bag name="Pedido" >
+							<key>
+							
+								
+								<column name="FK_idCodigo_promocional_idCodigo_promocional"/>
+					      	</key>
+							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.PedidoNH"/>
+					    </bag>
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="Codigo_promocionalNHReadAllHQL">from Codigo_promocionalNH</query>
+		</hibernate-mapping>
+	

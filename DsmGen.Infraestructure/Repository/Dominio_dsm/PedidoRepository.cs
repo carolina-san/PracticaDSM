@@ -108,10 +108,9 @@ public void ModifyDefault (PedidoEN pedido)
                 pedidoNH.Entrega_est = pedido.Entrega_est;
 
 
-                pedidoNH.Cod_promocional = pedido.Cod_promocional;
-
-
                 pedidoNH.Gastos_envio = pedido.Gastos_envio;
+
+
 
 
                 session.Update (pedidoNH);
@@ -187,16 +186,7 @@ public void Modificar (PedidoEN pedido)
                 pedidoNH.Estado = pedido.Estado;
 
 
-                pedidoNH.Fecha = pedido.Fecha;
-
-
                 pedidoNH.Entrega_est = pedido.Entrega_est;
-
-
-                pedidoNH.Cod_promocional = pedido.Cod_promocional;
-
-
-                pedidoNH.Gastos_envio = pedido.Gastos_envio;
 
                 session.Update (pedidoNH);
                 SessionCommit ();
@@ -294,6 +284,37 @@ public System.Collections.Generic.IList<PedidoEN> DameALL (int first, int size)
         }
 
         return result;
+}
+
+public void AddCodigo (int p_Pedido_OID, string p_codigo_promocional_OID)
+{
+        DsmGen.ApplicationCore.EN.Dominio_dsm.PedidoEN pedidoEN = null;
+        try
+        {
+                SessionInitializeTransaction ();
+                pedidoEN = (PedidoEN)session.Load (typeof(PedidoNH), p_Pedido_OID);
+                pedidoEN.Codigo_promocional = (DsmGen.ApplicationCore.EN.Dominio_dsm.Codigo_promocionalEN)session.Load (typeof(DsmGen.Infraestructure.EN.Dominio_dsm.Codigo_promocionalNH), p_codigo_promocional_OID);
+
+                pedidoEN.Codigo_promocional.Pedido.Add (pedidoEN);
+
+
+
+                session.Update (pedidoEN);
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is DsmGen.ApplicationCore.Exceptions.ModelException)
+                        throw;
+                else throw new DsmGen.ApplicationCore.Exceptions.DataLayerException ("Error in PedidoRepository.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
 }
 }
 }

@@ -90,6 +90,42 @@ public override IDireccionRepository DireccionRepository {
                 return this.direccionrepository;
         }
 }
+
+public override IResenyaRepository ResenyaRepository {
+        get
+        {
+                this.resenyarepository = new ResenyaRepository ();
+                this.resenyarepository.setSessionCP (session);
+                return this.resenyarepository;
+        }
+}
+
+public override ICodigo_promocionalRepository Codigo_promocionalRepository {
+        get
+        {
+                this.codigo_promocionalrepository = new Codigo_promocionalRepository ();
+                this.codigo_promocionalrepository.setSessionCP (session);
+                return this.codigo_promocionalrepository;
+        }
+}
+
+public override INotificacionRepository NotificacionRepository {
+        get
+        {
+                this.notificacionrepository = new NotificacionRepository ();
+                this.notificacionrepository.setSessionCP (session);
+                return this.notificacionrepository;
+        }
+}
+
+public override ICarritoRepository CarritoRepository {
+        get
+        {
+                this.carritorepository = new CarritoRepository ();
+                this.carritorepository.setSessionCP (session);
+                return this.carritorepository;
+        }
+}
 }
 }
 

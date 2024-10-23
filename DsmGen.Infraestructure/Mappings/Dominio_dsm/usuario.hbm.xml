@@ -34,6 +34,85 @@
 					    </bag>
 					
 			
+			
+		  			
+						<bag name="Resenya" >
+							<key>
+							
+								
+								<column name="FK_dni_idUsuario"/>
+					      	</key>
+							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.ResenyaNH"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="Direccion" >
+							<key>
+							
+								
+								<column name="FK_dni_idUsuario"/>
+					      	</key>
+							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.DireccionNH"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="Notificacion" cascade="delete">
+							<key>
+							
+								
+								<column name="FK_dni_idUsuario"/>
+					      	</key>
+							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.NotificacionNH"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="Articulo" table="[articulo_usuario]" inverse="true" >
+							<key>
+								
+									<column name="FK_dni_idUsuario"/> 
+							</key>
+      						<many-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.ArticuloNH">
+									<column name="FK_idArticulo_idArticulo"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+						<bag name="Marca" table="[marca_usuario]" inverse="true" >
+							<key>
+								
+									<column name="FK_dni_idUsuario"/> 
+							</key>
+      						<many-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.MarcaNH">
+									<column name="FK_nombreMarca_idMarca"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+						<bag name="Articulo_0" table="[articulo_0_usuario_0]" inverse="true" >
+							<key>
+								
+									<column name="FK_dni_idUsuario_0"/> 
+							</key>
+      						<many-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.ArticuloNH">
+									<column name="FK_idArticulo_idArticulo_0"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+					
+							   <one-to-one name="Carrito" class="DsmGen.Infraestructure.EN.Dominio_dsm.CarritoNH" property-ref="Usuario" />							
+					 
+						
+					
+					
+					
+					
+					
+					
+					
 					
 					
 					

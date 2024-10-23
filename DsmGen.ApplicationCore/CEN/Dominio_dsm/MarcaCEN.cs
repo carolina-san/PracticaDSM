@@ -70,5 +70,17 @@ public System.Collections.Generic.IList<MarcaEN> DameALL (int first, int size)
         list = _IMarcaRepository.DameALL (first, size);
         return list;
 }
+public void Seguir (string p_Marca_OID, System.Collections.Generic.IList<string> p_usuario_OIDs)
+{
+        //Call to MarcaRepository
+
+        _IMarcaRepository.Seguir (p_Marca_OID, p_usuario_OIDs);
+}
+public void NoSeguir (string p_Marca_OID, System.Collections.Generic.IList<string> p_usuario_OIDs)
+{
+        //Call to MarcaRepository
+
+        _IMarcaRepository.NoSeguir (p_Marca_OID, p_usuario_OIDs);
+}
 }
 }

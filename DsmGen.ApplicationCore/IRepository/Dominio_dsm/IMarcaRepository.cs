@@ -28,5 +28,10 @@ void Eliminar (string nombre
 
 
 System.Collections.Generic.IList<MarcaEN> DameALL (int first, int size);
+
+
+void Seguir (string p_Marca_OID, System.Collections.Generic.IList<string> p_usuario_OIDs);
+
+void NoSeguir (string p_Marca_OID, System.Collections.Generic.IList<string> p_usuario_OIDs);
 }
 }

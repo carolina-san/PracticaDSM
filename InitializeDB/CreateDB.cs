@@ -100,6 +100,14 @@ public static void InitializeData ()
                 MarcaCEN marcacen = new MarcaCEN (marcarepository);
                 DireccionRepository direccionrepository = new DireccionRepository ();
                 DireccionCEN direccioncen = new DireccionCEN (direccionrepository);
+                ResenyaRepository resenyarepository = new ResenyaRepository ();
+                ResenyaCEN resenyacen = new ResenyaCEN (resenyarepository);
+                Codigo_promocionalRepository codigo_promocionalrepository = new Codigo_promocionalRepository ();
+                Codigo_promocionalCEN codigo_promocionalcen = new Codigo_promocionalCEN (codigo_promocionalrepository);
+                NotificacionRepository notificacionrepository = new NotificacionRepository ();
+                NotificacionCEN notificacioncen = new NotificacionCEN (notificacionrepository);
+                CarritoRepository carritorepository = new CarritoRepository ();
+                CarritoCEN carritocen = new CarritoCEN (carritorepository);
 
 
 
@@ -120,6 +128,8 @@ public static void InitializeData ()
                 string marca1 = marcacen.Nuevo ("nike");
                 Console.WriteLine ("Marca creada correctamente");
                 int art1 = articulocen.Nuevo ("Articulo1", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100);
+                int art2 = articulocen.Nuevo("Articulo2", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100);
+                int art3 = articulocen.Nuevo("Articulo3", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca1, 100);
                 Console.WriteLine ("Articulo creado correctamente");
                 articulocen.Dec_stock (art1, 10);
                 Console.WriteLine ("Stock decrementado correctamente");
@@ -131,16 +141,23 @@ public static void InitializeData ()
 
                 usuariocen.CambiarPass (usuario1, "1234", "12345");
                 Console.WriteLine ("Password cambiada correctamente");
-                int dir=direccioncen.Nuevo("carrer nou", "Barcelona", 08001,644216474, "Carolina");
-                Console.WriteLine("Direccion creada correctamente");
-                int pedido=pedidocen.Nuevo(usuario1, 1548632, (float)10.85, dir);
-                Console.WriteLine("Pedido creado correctamente");
-                lineapedidocen.Nuevo(pedido,10,(float)10.85, art1);
-                Console.WriteLine("Linea de pedido creada correctamente");
+                int dir = direccioncen.Nuevo ("carrer nou", "Barcelona", 08001, 644216474, "Carolina", usuario1);
+                Console.WriteLine ("Direccion creada correctamente");
+                int pedido = pedidocen.Nuevo (usuario1, (float)10.85, dir);
+                Console.WriteLine ("Pedido creado correctamente");
+                lineapedidocen.Nuevo (pedido, 10, (float)10.85, art1);
+                Console.WriteLine ("Linea de pedido creada correctamente");
+                fotocen.Nuevo (art1, "C: /Users/sanch/OneDrive - UNIVERSIDAD ALICANTE/Escritorio/3º Multimedia/Desarrollo de Aplicaciones Web/prácticas/practicaDaw/fotos/foto3.png", "foto");
+                Console.WriteLine ("Foto creada correctamente");
 
-                fotocen.Nuevo(art1, "C: /Users/sanch/OneDrive - UNIVERSIDAD ALICANTE/Escritorio/3º Multimedia/Desarrollo de Aplicaciones Web/prácticas/practicaDaw/fotos/foto3.png","foto");
+                pedidocen.Modificar (pedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum.enviado, new DateTime (2021, 6, 1));
+                Console.WriteLine ("Pedido modificado correctamente");
 
-                Console.WriteLine("Foto creada correctamente");
+                IList<ArticuloEN> articulos = articulocen.DamePorTalla(DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35);
+                foreach (ArticuloEN articulo in articulos)
+                {
+                    Console.WriteLine(articulo.Nombre);
+                }
                 /*PROTECTED REGION END*/
             }
         catch (Exception ex)

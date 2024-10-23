@@ -32,5 +32,8 @@ PedidoEN DameOID (int id
 
 
 System.Collections.Generic.IList<PedidoEN> DameALL (int first, int size);
+
+
+void AddCodigo (int p_Pedido_OID, string p_codigo_promocional_OID);
 }
 }

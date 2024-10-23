@@ -19,5 +19,18 @@ System.Collections.Generic.IList<DireccionEN> ReadAllDefault (int first, int siz
 
 
 int Nuevo (DireccionEN direccion);
+
+void Modificar (DireccionEN direccion);
+
+
+void Eliminar (int id
+               );
+
+
+DireccionEN DameOID (int id
+                     );
+
+
+System.Collections.Generic.IList<DireccionEN> DameAll (int first, int size);
 }
 }
