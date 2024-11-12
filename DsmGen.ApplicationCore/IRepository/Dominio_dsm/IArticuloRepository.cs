@@ -45,5 +45,17 @@ void NotificacionActivada (int p_Articulo_OID, System.Collections.Generic.IList<
 void NotificacionDesactivada (int p_Articulo_OID, System.Collections.Generic.IList<string> p_usuario_0_OIDs);
 
 System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorTalla (DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum ? p_talla);
+
+
+System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorPrecio (double? precioMin, double ? precioMax);
+
+
+System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorMarca (string p_marca);
+
+
+System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorColor (string p_color);
+
+
+System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorTipo (string p_nombre);
 }
 }

@@ -24,6 +24,9 @@
 					<property name="Gastos_envio" type="float"> 
 						<column name="gastos_envio"  not-null="true"/>
 					</property>
+					<property name="Total" type="double"> 
+						<column name="total"  not-null="true"/>
+					</property>
 			
 			
 			
@@ -69,6 +72,8 @@
 					      	</key>
 							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.NotificacionNH"/>
 					    </bag>
+					
+			
 					
 					
 					

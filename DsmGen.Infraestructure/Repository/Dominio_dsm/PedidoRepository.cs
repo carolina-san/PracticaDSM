@@ -113,6 +113,9 @@ public void ModifyDefault (PedidoEN pedido)
 
 
 
+
+                pedidoNH.Total = pedido.Total;
+
                 session.Update (pedidoNH);
                 SessionCommit ();
         }

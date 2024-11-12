@@ -124,6 +124,13 @@ private System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.C
 
 
 
+/**
+ *	Atributo color
+ */
+private string color;
+
+
+
 
 
 
@@ -229,6 +236,12 @@ public virtual System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Domini
 
 
 
+public virtual string Color {
+        get { return color; } set { color = value;  }
+}
+
+
+
 
 
 public ArticuloEN()
@@ -243,20 +256,20 @@ public ArticuloEN()
 
 
 
-public ArticuloEN(int id, string nombre, float precio, string descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum talla, string recomendaciones, bool check_verificado, string desc_verificado, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.FotoEN> foto, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN marca, int stock, bool en_stock, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ResenyaEN> resenya, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario_0, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.CarritoEN> carrito
+public ArticuloEN(int id, string nombre, float precio, string descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum talla, string recomendaciones, bool check_verificado, string desc_verificado, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.FotoEN> foto, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN marca, int stock, bool en_stock, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ResenyaEN> resenya, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario_0, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.CarritoEN> carrito, string color
                   )
 {
-        this.init (Id, nombre, precio, descripcion, talla, recomendaciones, check_verificado, desc_verificado, foto, lineaPedido, marca, stock, en_stock, resenya, usuario, usuario_0, carrito);
+        this.init (Id, nombre, precio, descripcion, talla, recomendaciones, check_verificado, desc_verificado, foto, lineaPedido, marca, stock, en_stock, resenya, usuario, usuario_0, carrito, color);
 }
 
 
 public ArticuloEN(ArticuloEN articulo)
 {
-        this.init (articulo.Id, articulo.Nombre, articulo.Precio, articulo.Descripcion, articulo.Talla, articulo.Recomendaciones, articulo.Check_verificado, articulo.Desc_verificado, articulo.Foto, articulo.LineaPedido, articulo.Marca, articulo.Stock, articulo.En_stock, articulo.Resenya, articulo.Usuario, articulo.Usuario_0, articulo.Carrito);
+        this.init (articulo.Id, articulo.Nombre, articulo.Precio, articulo.Descripcion, articulo.Talla, articulo.Recomendaciones, articulo.Check_verificado, articulo.Desc_verificado, articulo.Foto, articulo.LineaPedido, articulo.Marca, articulo.Stock, articulo.En_stock, articulo.Resenya, articulo.Usuario, articulo.Usuario_0, articulo.Carrito, articulo.Color);
 }
 
 private void init (int id
-                   , string nombre, float precio, string descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum talla, string recomendaciones, bool check_verificado, string desc_verificado, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.FotoEN> foto, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN marca, int stock, bool en_stock, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ResenyaEN> resenya, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario_0, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.CarritoEN> carrito)
+                   , string nombre, float precio, string descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum talla, string recomendaciones, bool check_verificado, string desc_verificado, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.FotoEN> foto, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN marca, int stock, bool en_stock, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ResenyaEN> resenya, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN> usuario_0, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.CarritoEN> carrito, string color)
 {
         this.Id = id;
 
@@ -292,6 +305,8 @@ private void init (int id
         this.Usuario_0 = usuario_0;
 
         this.Carrito = carrito;
+
+        this.Color = color;
 }
 
 public override bool Equals (object obj)

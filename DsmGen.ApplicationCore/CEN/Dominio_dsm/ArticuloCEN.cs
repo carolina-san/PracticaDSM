@@ -46,7 +46,7 @@ public System.Collections.Generic.IList<ArticuloEN> DameALL (int first, int size
         list = _IArticuloRepository.DameALL (first, size);
         return list;
 }
-public void Modificar (int p_Articulo_OID, string p_nombre, float p_precio, string p_descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum p_talla, string p_recomendaciones, bool p_check_verificado, string p_desc_verificado, int p_stock, bool p_en_stock)
+public void Modificar (int p_Articulo_OID, string p_nombre, float p_precio, string p_descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum p_talla, string p_recomendaciones, bool p_check_verificado, string p_desc_verificado, int p_stock, bool p_en_stock, string p_color)
 {
         ArticuloEN articuloEN = null;
 
@@ -62,6 +62,7 @@ public void Modificar (int p_Articulo_OID, string p_nombre, float p_precio, stri
         articuloEN.Desc_verificado = p_desc_verificado;
         articuloEN.Stock = p_stock;
         articuloEN.En_stock = p_en_stock;
+        articuloEN.Color = p_color;
         //Call to ArticuloRepository
 
         _IArticuloRepository.Modificar (articuloEN);
@@ -100,6 +101,22 @@ public void NotificacionDesactivada (int p_Articulo_OID, System.Collections.Gene
 public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorTalla (DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum ? p_talla)
 {
         return _IArticuloRepository.DamePorTalla (p_talla);
+}
+public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorPrecio (double? precioMin, double ? precioMax)
+{
+        return _IArticuloRepository.DamePorPrecio (precioMin, precioMax);
+}
+public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorMarca (string p_marca)
+{
+        return _IArticuloRepository.DamePorMarca (p_marca);
+}
+public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorColor (string p_color)
+{
+        return _IArticuloRepository.DamePorColor (p_color);
+}
+public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorTipo (string p_nombre)
+{
+        return _IArticuloRepository.DamePorTipo (p_nombre);
 }
 }
 }

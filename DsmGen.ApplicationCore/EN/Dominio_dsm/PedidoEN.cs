@@ -75,6 +75,13 @@ private System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.N
 
 
 
+/**
+ *	Atributo total
+ */
+private double total;
+
+
+
 
 
 
@@ -138,6 +145,12 @@ public virtual System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Domini
 
 
 
+public virtual double Total {
+        get { return total; } set { total = value;  }
+}
+
+
+
 
 
 public PedidoEN()
@@ -148,20 +161,20 @@ public PedidoEN()
 
 
 
-public PedidoEN(int id, DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum estado, Nullable<DateTime> fecha, Nullable<DateTime> entrega_est, float gastos_envio, DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN direccion, DsmGen.ApplicationCore.EN.Dominio_dsm.Codigo_promocionalEN codigo_promocional, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion
+public PedidoEN(int id, DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum estado, Nullable<DateTime> fecha, Nullable<DateTime> entrega_est, float gastos_envio, DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN direccion, DsmGen.ApplicationCore.EN.Dominio_dsm.Codigo_promocionalEN codigo_promocional, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion, double total
                 )
 {
-        this.init (Id, usuario, lineaPedido, estado, fecha, entrega_est, gastos_envio, direccion, codigo_promocional, notificacion);
+        this.init (Id, usuario, lineaPedido, estado, fecha, entrega_est, gastos_envio, direccion, codigo_promocional, notificacion, total);
 }
 
 
 public PedidoEN(PedidoEN pedido)
 {
-        this.init (pedido.Id, pedido.Usuario, pedido.LineaPedido, pedido.Estado, pedido.Fecha, pedido.Entrega_est, pedido.Gastos_envio, pedido.Direccion, pedido.Codigo_promocional, pedido.Notificacion);
+        this.init (pedido.Id, pedido.Usuario, pedido.LineaPedido, pedido.Estado, pedido.Fecha, pedido.Entrega_est, pedido.Gastos_envio, pedido.Direccion, pedido.Codigo_promocional, pedido.Notificacion, pedido.Total);
 }
 
 private void init (int id
-                   , DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum estado, Nullable<DateTime> fecha, Nullable<DateTime> entrega_est, float gastos_envio, DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN direccion, DsmGen.ApplicationCore.EN.Dominio_dsm.Codigo_promocionalEN codigo_promocional, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion)
+                   , DsmGen.ApplicationCore.EN.Dominio_dsm.UsuarioEN usuario, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.LineaPedidoEN> lineaPedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum estado, Nullable<DateTime> fecha, Nullable<DateTime> entrega_est, float gastos_envio, DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN direccion, DsmGen.ApplicationCore.EN.Dominio_dsm.Codigo_promocionalEN codigo_promocional, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion, double total)
 {
         this.Id = id;
 
@@ -183,6 +196,8 @@ private void init (int id
         this.Codigo_promocional = codigo_promocional;
 
         this.Notificacion = notificacion;
+
+        this.Total = total;
 }
 
 public override bool Equals (object obj)

@@ -17,11 +17,11 @@ public partial class Usuario_adminCEN
 {
 public string Nuevo (string p_email, string p_nombre, Nullable<DateTime> p_fechaNac, String p_pass)
 {
-            /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Usuario_admin_nuevo_customized) START*/
+        /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Usuario_admin_nuevo_customized) START*/
 
-            Usuario_adminEN usuario_adminEN = null;
+        Usuario_adminEN usuario_adminEN = null;
 
-            string oid;
+        string oid;
 
             //Initialized Usuario_adminEN
             usuario_adminEN = new Usuario_adminEN();
@@ -38,7 +38,8 @@ public string Nuevo (string p_email, string p_nombre, Nullable<DateTime> p_fecha
 
             oid = _IUsuario_adminRepository.Nuevo(usuario_adminEN);
             return oid;
+
             /*PROTECTED REGION END*/
         }
-}
+    }
 }

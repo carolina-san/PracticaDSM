@@ -130,6 +130,9 @@ public void ModifyDefault (ArticuloEN articulo)
 
 
 
+
+                articuloNH.Color = articulo.Color;
+
                 session.Update (articuloNH);
                 SessionCommit ();
         }
@@ -273,6 +276,9 @@ public void Modificar (ArticuloEN articulo)
 
 
                 articuloNH.En_stock = articulo.En_stock;
+
+
+                articuloNH.Color = articulo.Color;
 
                 session.Update (articuloNH);
                 SessionCommit ();
@@ -480,6 +486,127 @@ public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.Ar
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("ArticuloNHdamePorTallaHQL");
                 query.SetParameter ("p_talla", p_talla);
+
+                result = query.List<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN>();
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is DsmGen.ApplicationCore.Exceptions.ModelException)
+                        throw;
+                else throw new DsmGen.ApplicationCore.Exceptions.DataLayerException ("Error in ArticuloRepository.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+
+        return result;
+}
+public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorPrecio (double? precioMin, double ? precioMax)
+{
+        System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> result;
+        try
+        {
+                SessionInitializeTransaction ();
+                //String sql = @"FROM ArticuloNH self where FROM ArticuloNH as articulo where articulo.Precio>=:precioMin and articulo.Precio<=:precioMax;";
+                //IQuery query = session.CreateQuery(sql);
+                IQuery query = (IQuery)session.GetNamedQuery ("ArticuloNHdamePorPrecioHQL");
+                query.SetParameter ("precioMin", precioMin);
+                query.SetParameter ("precioMax", precioMax);
+
+                result = query.List<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN>();
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is DsmGen.ApplicationCore.Exceptions.ModelException)
+                        throw;
+                else throw new DsmGen.ApplicationCore.Exceptions.DataLayerException ("Error in ArticuloRepository.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+
+        return result;
+}
+public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorMarca (string p_marca)
+{
+        System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> result;
+        try
+        {
+                SessionInitializeTransaction ();
+                //String sql = @"FROM ArticuloNH self where FROM ArticuloNH as articulo where articulo.Marca like('%:p_marca%');";
+                //IQuery query = session.CreateQuery(sql);
+                IQuery query = (IQuery)session.GetNamedQuery ("ArticuloNHdamePorMarcaHQL");
+                query.SetParameter ("p_marca", p_marca);
+
+                result = query.List<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN>();
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is DsmGen.ApplicationCore.Exceptions.ModelException)
+                        throw;
+                else throw new DsmGen.ApplicationCore.Exceptions.DataLayerException ("Error in ArticuloRepository.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+
+        return result;
+}
+public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorColor (string p_color)
+{
+        System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> result;
+        try
+        {
+                SessionInitializeTransaction ();
+                //String sql = @"FROM ArticuloNH self where FROM ArticuloNH as articulo where articulo.Color like CONCAT('%', :p_color,'%');";
+                //IQuery query = session.CreateQuery(sql);
+                IQuery query = (IQuery)session.GetNamedQuery ("ArticuloNHdamePorColorHQL");
+                query.SetParameter ("p_color", p_color);
+
+                result = query.List<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN>();
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is DsmGen.ApplicationCore.Exceptions.ModelException)
+                        throw;
+                else throw new DsmGen.ApplicationCore.Exceptions.DataLayerException ("Error in ArticuloRepository.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+
+        return result;
+}
+public System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> DamePorTipo (string p_nombre)
+{
+        System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> result;
+        try
+        {
+                SessionInitializeTransaction ();
+                //String sql = @"FROM ArticuloNH self where FROM ArticuloNH as articulo where articulo.Nombre like CONCAT('%', :p_nombre,'%');";
+                //IQuery query = session.CreateQuery(sql);
+                IQuery query = (IQuery)session.GetNamedQuery ("ArticuloNHdamePorTipoHQL");
+                query.SetParameter ("p_nombre", p_nombre);
 
                 result = query.List<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN>();
                 SessionCommit ();

@@ -127,9 +127,9 @@ public static void InitializeData ()
 
                 string marca1 = marcacen.Nuevo ("nike");
                 Console.WriteLine ("Marca creada correctamente");
-                int art1 = articulocen.Nuevo ("Articulo1", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100);
-                int art2 = articulocen.Nuevo("Articulo2", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100);
-                int art3 = articulocen.Nuevo("Articulo3", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca1, 100);
+                int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "azul marino");
+                int art2 = articulocen.Nuevo ("botas altas", 30, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "verde oscuro");
+                int art3 = articulocen.Nuevo ("zapato casual", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca1, 100, "rosa palo");
                 Console.WriteLine ("Articulo creado correctamente");
                 articulocen.Dec_stock (art1, 10);
                 Console.WriteLine ("Stock decrementado correctamente");
@@ -145,19 +145,61 @@ public static void InitializeData ()
                 Console.WriteLine ("Direccion creada correctamente");
                 int pedido = pedidocen.Nuevo (usuario1, (float)10.85, dir);
                 Console.WriteLine ("Pedido creado correctamente");
-                lineapedidocen.Nuevo (pedido, 10, (float)10.85, art1);
-                Console.WriteLine ("Linea de pedido creada correctamente");
+
+                LineaPedidoCP lineapedidocp = new LineaPedidoCP(new SessionCPNHibernate());
+                lineapedidocp.Nuevo(pedido, 2, 10, art1);
+                Console.WriteLine ("Linea de pedido 1 creada correctamente");
+                lineapedidocp.Nuevo(pedido, 1, 30, art2);
+                Console.WriteLine("Linea de pedido 2 creada correctamente");
+                lineapedidocp.Nuevo(pedido, 3, 50, art3);
+                Console.WriteLine("Linea de pedido 3 creada correctamente");
+
+                PedidoEN pedidoEN = pedidocen.DameOID(pedido);
+                Console.WriteLine("Total pedido: " + pedidoEN.Total);
+
                 fotocen.Nuevo (art1, "C: /Users/sanch/OneDrive - UNIVERSIDAD ALICANTE/Escritorio/3º Multimedia/Desarrollo de Aplicaciones Web/prácticas/practicaDaw/fotos/foto3.png", "foto");
                 Console.WriteLine ("Foto creada correctamente");
 
                 pedidocen.Modificar (pedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum.enviado, new DateTime (2021, 6, 1));
                 Console.WriteLine ("Pedido modificado correctamente");
 
-                IList<ArticuloEN> articulos = articulocen.DamePorTalla(DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35);
-                foreach (ArticuloEN articulo in articulos)
+                IList<ArticuloEN> articulos = articulocen.DamePorTalla (DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35);
+                Console.WriteLine ("Articulos de la talla 35:");
+                foreach (ArticuloEN articulo in articulos) {
+                        Console.WriteLine (articulo.Nombre);
+                }
+
+                IList<ArticuloEN> articulos2 = articulocen.DamePorPrecio (10, 40);
+                Console.WriteLine ("Articulos entre 10 y 40€ :");
+                foreach (ArticuloEN articulo in articulos2) {
+                        Console.WriteLine (articulo.Nombre);
+                }
+                IList<ArticuloEN> articulos3 = articulocen.DamePorColor ("verde");
+                Console.WriteLine ("Articulos por color verde:");
+                foreach (ArticuloEN articulo in articulos3) {
+                        Console.WriteLine (articulo.Nombre);
+                }
+                IList<ArticuloEN> articulos4 = articulocen.DamePorTipo ("zapatilla");
+                Console.WriteLine ("Articulos de tipo zapatilla:");
+                foreach (ArticuloEN articulo in articulos4) {
+                        Console.WriteLine (articulo.Nombre);
+                }
+
+               
+
+                PedidoCP pedidoCP = new PedidoCP(new SessionCPNHibernate());
+                pedidoCP.EnviarPedido(pedido);
+                Console.WriteLine("Pedido enviado y artículos decrementados");
+
+                IList<ArticuloEN> stocks = articulocen.DameALL(0, -1);
+                Console.WriteLine("Stock de los articulos:");
+                foreach (ArticuloEN articulo in stocks)
                 {
                     Console.WriteLine(articulo.Nombre);
+                    Console.WriteLine(articulo.Stock);
                 }
+
+
                 /*PROTECTED REGION END*/
             }
         catch (Exception ex)

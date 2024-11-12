@@ -17,11 +17,11 @@ public partial class PedidoCEN
 {
 public int Nuevo (string p_usuario, float p_gastos_envio, int p_direccion)
 {
-            /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Pedido_nuevo_customized) START*/
+        /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Pedido_nuevo_customized) START*/
 
-            PedidoEN pedidoEN = null;
+        PedidoEN pedidoEN = null;
 
-            int oid;
+        int oid;
 
             //Initialized PedidoEN
             pedidoEN = new PedidoEN();
@@ -48,8 +48,7 @@ public int Nuevo (string p_usuario, float p_gastos_envio, int p_direccion)
             pedidoEN.Entrega_est = DateTime.Now.AddDays(7);
             oid = _IPedidoRepository.Nuevo(pedidoEN);
             return oid;
-
             /*PROTECTED REGION END*/
         }
-    }
+}
 }

@@ -17,9 +17,9 @@ public partial class PedidoCEN
 {
 public void Modificar (int p_Pedido_OID, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum p_estado, Nullable<DateTime> p_entrega_est)
 {
-            /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Pedido_modificar_customized) START*/
+        /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Pedido_modificar_customized) START*/
 
-            PedidoEN pedidoEN = null;
+        PedidoEN pedidoEN = null;
 
             //Initialized PedidoEN
             pedidoEN = new PedidoEN();
