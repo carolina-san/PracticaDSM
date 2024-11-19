@@ -75,9 +75,9 @@ private System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.L
 
 
 
-/**
- *	Atributo marca
- */
+        /**
+         *	Atributo marca
+         */
 private DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN marca;
 
 

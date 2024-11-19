@@ -42,8 +42,10 @@ public int Nuevo (string p_nombre, float p_precio, string p_descripcion, DsmGen.
 
             if (p_marca != null)
             {
-                articuloEN.Marca = new DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN();
-                articuloEN.Marca.Nombre = p_marca;
+                articuloEN.Marca = new DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN
+                {
+                    Nombre = p_marca
+                };
             }
             articuloEN.En_stock = true;
             articuloEN.Stock = p_stock;
@@ -53,10 +55,7 @@ public int Nuevo (string p_nombre, float p_precio, string p_descripcion, DsmGen.
             oid = _IArticuloRepository.Nuevo(articuloEN);
             return oid;
 
-            //Call to ArticuloRepository
 
-            oid = _IArticuloRepository.Nuevo (articuloEN);
-        return oid;
         /*PROTECTED REGION END*/
 }
 }
