@@ -4,6 +4,7 @@ using DsmGen.Infraestructure.Repository.Dominio_dsm;
 using Interfaz.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,31 @@ namespace Interfaz.Controllers
         // GET: ArticuloController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            SessionInitialize();
+            ArticuloRepository artRepository = new ArticuloRepository(session);
+            ArticuloCEN artCEN = new ArticuloCEN(artRepository);
+
+
+            ArticuloEN artEN = artCEN.DameOID(id);
+            ArticuloViewModel artView = new ArticuloAssembler().ConvertirENToViewModel(artEN);
+            SessionClose();
+            return View(artView);
         }
 
         // GET: ArticuloController/Create
         public ActionResult Create()
         {
+            MarcaRepository marcaRepository = new MarcaRepository();
+            MarcaCEN marcaCEN = new MarcaCEN(marcaRepository);
+
+            IList<MarcaEN> listaMarcas = marcaCEN.DameALL(0, -1);
+            IList<SelectListItem> marcaItems= new List<SelectListItem>();
+
+            foreach (MarcaEN marca in listaMarcas)
+            {
+                marcaItems.Add(new SelectListItem { Text = marca.Nombre ,Value=marca.Nombre});
+            }
+            ViewData["marcaItems"] = marcaItems;
             return View();
         }
 
@@ -57,17 +77,28 @@ namespace Interfaz.Controllers
 
         // GET: ArticuloController/Edit/5
         public ActionResult Edit(int id)
-        {
-            return View();
+        {   
+            SessionInitialize();
+            ArticuloRepository artRepository = new ArticuloRepository(session);
+            ArticuloCEN artCEN = new ArticuloCEN(artRepository);
+
+
+            ArticuloEN artEN = artCEN.DameOID(id);
+            ArticuloViewModel artView= new ArticuloAssembler().ConvertirENToViewModel(artEN);
+            SessionClose(); 
+            return View(artView);
         }
 
         // POST: ArticuloController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, ArticuloViewModel art)
         {
             try
             {
+                ArticuloRepository artRepository = new ArticuloRepository();
+                ArticuloCEN artCEN = new ArticuloCEN(artRepository);
+                artCEN.Modificar(id, art.Nombre, art.Precio, art.Descripcion, art.Talla, art.Recomendaciones, art.Check_verificado, art.Desc_verificado, art.Marca, art.Stock,true, art.Color);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -79,7 +110,10 @@ namespace Interfaz.Controllers
         // GET: ArticuloController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            ArticuloRepository artRepository = new ArticuloRepository();
+            ArticuloCEN artCEN = new ArticuloCEN(artRepository);
+            artCEN.Eliminar(id);
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: ArticuloController/Delete/5

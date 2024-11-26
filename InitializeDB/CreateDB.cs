@@ -126,6 +126,7 @@ public static void InitializeData ()
 
 
                 string marca1 = marcacen.Nuevo ("nike");
+                string marca2 = marcacen.Nuevo("adidas");
                 Console.WriteLine ("Marca creada correctamente");
                 int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "azul marino");
                 int art2 = articulocen.Nuevo ("botas altas", 30, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "verde oscuro");

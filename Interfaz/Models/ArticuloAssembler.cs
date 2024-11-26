@@ -18,7 +18,8 @@ namespace Interfaz.Models
             art.Recomendaciones = en.Recomendaciones;
             art.Check_verificado = en.Check_verificado;
             art.Color = en.Color;
-            art.Marca = en.Marca;
+           
+            art.NombreMarca = en.Marca.Nombre;
             art.Descripcion = en.Descripcion;
             art.Precio = en.Precio;
             art.Stock = en.Stock;

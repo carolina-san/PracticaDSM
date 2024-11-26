@@ -46,7 +46,7 @@ public System.Collections.Generic.IList<ArticuloEN> DameALL (int first, int size
         list = _IArticuloRepository.DameALL (first, size);
         return list;
 }
-public void Modificar (int p_Articulo_OID, string p_nombre, float p_precio, string p_descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum p_talla, string p_recomendaciones, bool p_check_verificado, string p_desc_verificado, int p_stock, bool p_en_stock, string p_color)
+public void Modificar (int p_Articulo_OID, string p_nombre, float p_precio, string p_descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum p_talla, string p_recomendaciones, bool p_check_verificado, string p_desc_verificado,MarcaEN marca, int p_stock, bool p_en_stock, string p_color)
 {
         ArticuloEN articuloEN = null;
 
@@ -60,6 +60,7 @@ public void Modificar (int p_Articulo_OID, string p_nombre, float p_precio, stri
         articuloEN.Recomendaciones = p_recomendaciones;
         articuloEN.Check_verificado = p_check_verificado;
         articuloEN.Desc_verificado = p_desc_verificado;
+        articuloEN.Marca = marca;
         articuloEN.Stock = p_stock;
         articuloEN.En_stock = p_en_stock;
         articuloEN.Color = p_color;

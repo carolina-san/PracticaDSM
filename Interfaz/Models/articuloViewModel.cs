@@ -36,6 +36,9 @@ namespace Interfaz.Models
         [RegularExpression("([0-9]+)", ErrorMessage = "Por favor introduce un número entero para el stock")]
         public int Stock { get; set; }
 
+        [Display(Prompt = "Introduce la marca del artículo", Description = "Marca del articulo", Name = "Marca")]
+        public string NombreMarca { get; set; }
+        
 
     }
 }
