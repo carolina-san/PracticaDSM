@@ -1,8 +1,10 @@
 ﻿using DsmGen.ApplicationCore.CEN.Dominio_dsm;
+using DsmGen.ApplicationCore.EN.Dominio_dsm;
 using DsmGen.Infraestructure.Repository.Dominio_dsm;
 using Interfaz.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Interfaz.Controllers
 {
@@ -28,6 +30,11 @@ namespace Interfaz.Controllers
             }
             else
             {
+                SessionInitialize();
+                UsuarioEN usuEN=usuCEN.DameOID(login.Email);
+                LoginUsuarioViewModel usuVM=new UsuarioAssembler().ConvertirENToViewModel(usuEN);
+                HttpContext.Session.Set<LoginUsuarioViewModel>("usuario", usuVM);
+                SessionClose();
                 return RedirectToAction("index", "home");
             }
             return View();
