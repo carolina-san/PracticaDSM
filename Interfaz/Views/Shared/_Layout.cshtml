@@ -4,7 +4,7 @@
 @using Microsoft.AspNetCore.Http
 
 @{
-    LoginUsuarioViewModel usuario = Context.Session.Get<LoginUsuarioViewModel>("usuario");
+    UsuarioViewModel usuario = Context.Session.Get<UsuarioViewModel>("usuario");
     string nombre = "";
     if (usuario != null)
     {

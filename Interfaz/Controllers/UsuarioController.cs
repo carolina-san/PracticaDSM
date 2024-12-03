@@ -1,14 +1,18 @@
 ﻿using DsmGen.ApplicationCore.CEN.Dominio_dsm;
 using DsmGen.ApplicationCore.EN.Dominio_dsm;
 using DsmGen.Infraestructure.Repository.Dominio_dsm;
+using Interfaz.Assemblers;
 using Interfaz.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Interfaz.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController : BasicController
     {
         // GET: UsuarioController/Login
         public ActionResult Login()
@@ -32,12 +36,11 @@ namespace Interfaz.Controllers
             {
                 SessionInitialize();
                 UsuarioEN usuEN=usuCEN.DameOID(login.Email);
-                LoginUsuarioViewModel usuVM=new UsuarioAssembler().ConvertirENToViewModel(usuEN);
-                HttpContext.Session.Set<LoginUsuarioViewModel>("usuario", usuVM);
+                UsuarioViewModel usuVM=new UsuarioAssembler().ConvertirENToViewModel(usuEN);
+                HttpContext.Session.Set<UsuarioViewModel>("usuario", usuVM);
                 SessionClose();
                 return RedirectToAction("index", "home");
             }
-            return View();
         }
 
         public ActionResult Index()

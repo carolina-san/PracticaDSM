@@ -1,6 +1,7 @@
 ﻿using DsmGen.ApplicationCore.CEN.Dominio_dsm;
 using DsmGen.ApplicationCore.EN.Dominio_dsm;
 using DsmGen.Infraestructure.Repository.Dominio_dsm;
+using Interfaz.Assemblers;
 using Interfaz.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

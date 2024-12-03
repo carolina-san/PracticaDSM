@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Interfaz.Models
 {
@@ -17,6 +18,14 @@ namespace Interfaz.Models
 
             public string Password { get; set; }
 
+        }
+
+        public class UsuarioViewModel
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public string Nombre { get; set; }
+            public Nullable<DateTime> FechaNac { get; set; }
         }
     
 }
