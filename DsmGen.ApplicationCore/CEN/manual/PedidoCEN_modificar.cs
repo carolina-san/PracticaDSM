@@ -37,5 +37,10 @@ public void Modificar (int p_Pedido_OID, DsmGen.ApplicationCore.Enumerated.Domin
 
             /*PROTECTED REGION END*/
         }
-}
+
+        public void Nuevo(global::Interfaz.Models.LoginUsuarioViewModel user, double v1, int v2)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
