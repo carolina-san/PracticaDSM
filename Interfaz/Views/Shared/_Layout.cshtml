@@ -8,7 +8,7 @@
     string nombre = "";
     if (usuario != null)
     {
-        nombre = usuario.Email;
+        nombre = usuario.Nombre;
     }
 }
 
@@ -22,7 +22,7 @@
     @if (usuario==null)
     {
         <script type="text/javascript">
-            var url="@Url.Action("Login", "Usuario");
+            var url="@Url.Action("Login", "Usuario")";
             location.href = url;
         </script>
     }

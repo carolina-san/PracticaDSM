@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using DsmGen.ApplicationCore.Enumerated.Dominio_dsm;
 using DsmGen.ApplicationCore.EN.Dominio_dsm;
+using Microsoft.AspNetCore.Http;
 
 namespace Interfaz.Models
 
@@ -38,7 +39,10 @@ namespace Interfaz.Models
 
         [Display(Prompt = "Introduce la marca del artículo", Description = "Marca del articulo", Name = "Marca")]
         public string NombreMarca { get; set; }
+
+        [Display(Prompt ="Imagen", Description ="Imagen del artículo", Name ="Imagen")]        
         
+        public IFormFile Fichero { get; set; }
 
     }
 }
