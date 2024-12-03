@@ -3,17 +3,26 @@ using DsmGen.ApplicationCore.EN.Dominio_dsm;
 using DsmGen.Infraestructure.Repository.Dominio_dsm;
 using Interfaz.Assemblers;
 using Interfaz.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Interfaz.Controllers
 {
     public class ArticuloController : BasicController
     {
+        private readonly IWebHostEnvironment _webHost;
+
+        public ArticuloController(IWebHostEnvironment webHost)
+        {
+            _webHost = webHost;
+        }
         // GET: ArticuloController
         public ActionResult Index()
         {
@@ -61,13 +70,30 @@ namespace Interfaz.Controllers
         // POST: ArticuloController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ArticuloViewModel art)
+        public async Task<ActionResult> CreateAsync(ArticuloViewModel art)
         {
+            string fileName = "", path = "";
+            if(art.Fichero!=null && art.Fichero.Length > 0)
+            {
+                fileName=Path.GetFileName(art.Fichero.FileName).Trim();
+                string directory = _webHost.WebRootPath + "/Images";
+                path = Path.Combine((directory), fileName);
+
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                using (var stream = System.IO.File.Create(path))
+                {
+                    await art.Fichero.CopyToAsync(stream);
+                }
+            }
             try
             {
+                fileName = "/Images/" + fileName;
                 ArticuloRepository artRepo = new ArticuloRepository();
                 ArticuloCEN artCEN = new ArticuloCEN(artRepo);
-                artCEN.Nuevo(art.Nombre, art.Precio,art.Descripcion,art.Talla, art.Recomendaciones,art.Check_verificado,art.Desc_verificado,art.Marca.Nombre, art.Stock, art.Color);
+                artCEN.Nuevo(art.Nombre, art.Precio,art.Descripcion,art.Talla, art.Recomendaciones,art.Check_verificado,art.Desc_verificado,art.Marca.Nombre, art.Stock, art.Color, fileName);
                 return RedirectToAction(nameof(Index));
             }
             catch
