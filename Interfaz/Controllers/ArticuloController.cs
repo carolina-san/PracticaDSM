@@ -93,7 +93,8 @@ namespace Interfaz.Controllers
                 fileName = "/Images/" + fileName;
                 ArticuloRepository artRepo = new ArticuloRepository();
                 ArticuloCEN artCEN = new ArticuloCEN(artRepo);
-                artCEN.Nuevo(art.Nombre, art.Precio,art.Descripcion,art.Talla, art.Recomendaciones,art.Check_verificado,art.Desc_verificado,art.Marca.Nombre, art.Stock, art.Color, fileName);
+                artCEN.Nuevo(art.Nombre, art.Precio,art.Descripcion,art.Talla, art.Recomendaciones,
+                    art.Check_verificado,art.Desc_verificado,art.Marca.Nombre, art.Stock, art.Color/*, fileName*/);
                 return RedirectToAction(nameof(Index));
             }
             catch
