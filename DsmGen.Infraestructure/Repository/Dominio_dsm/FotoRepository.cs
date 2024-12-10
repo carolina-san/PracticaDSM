@@ -134,8 +134,7 @@ public int Nuevo (FotoEN foto)
                         fotoNH
                         .Articulo = (DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN)session.Load (typeof(DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN), foto.Articulo.Id);
 
-                        fotoNH.Articulo.Foto
-                        .Add (fotoNH);
+                       
                 }
 
                 session.Save (fotoNH);

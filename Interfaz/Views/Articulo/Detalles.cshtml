@@ -1,0 +1,37 @@
+﻿@model Interfaz.Models.ArticuloViewModel
+
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>@Model.Nombre</h2>
+    <div class="row">
+        <div class="col-md-4">
+            @if (!string.IsNullOrEmpty(Model.Imagen))
+            {
+                <img src="@Model.Imagen" alt="@Model.Nombre" class="img-fluid" />
+            }
+            else
+            {
+                <span>Sin imagen disponible</span>
+            }
+        </div>
+        <div class="col-md-8">
+            <p><strong>Descripción:</strong> @Model.Descripcion</p>
+            <p><strong>Precio:</strong> @Model.Precio €</p>
+           
+            <p><strong>Talla:</strong> @Model.Talla</p>
+            <p><strong>Recomendaciones:</strong> @Model.Recomendaciones</p>
+            <p><strong>Marca:</strong> @Model.Marca</p>
+            <p><strong>Verificado:</strong> @(Model.Check_verificado  ? "Sí" : "No")</p>
+
+            <p><strong>Descripción Verificado:</strong> @Model.Desc_verificado</p>
+
+            <!-- Botón para añadir al carrito o alguna otra acción -->
+            <a href="#" class="btn btn-primary">Añadir al Carrito</a>
+        </div>
+    </div>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Volver</a>
+</div>

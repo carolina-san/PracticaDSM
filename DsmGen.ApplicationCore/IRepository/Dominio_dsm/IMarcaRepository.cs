@@ -8,7 +8,7 @@ namespace DsmGen.ApplicationCore.IRepository.Dominio_dsm
 public partial interface IMarcaRepository
 {
 void setSessionCP (GenericSessionCP session);
-
+MarcaEN BuscarPorNombre(string nombre);
 MarcaEN ReadOIDDefault (string nombre
                         );
 
@@ -34,4 +34,5 @@ void Seguir (string p_Marca_OID, System.Collections.Generic.IList<string> p_usua
 
 void NoSeguir (string p_Marca_OID, System.Collections.Generic.IList<string> p_usuario_OIDs);
 }
+
 }

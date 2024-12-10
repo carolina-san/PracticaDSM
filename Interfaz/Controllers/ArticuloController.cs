@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -45,6 +46,23 @@ namespace Interfaz.Controllers
 
 
             ArticuloEN artEN = artCEN.DameOID(id);
+
+
+            ArticuloViewModel artView = new ArticuloAssembler().ConvertirENToViewModel(artEN);
+            SessionClose();
+            return View(artView);
+        }
+        // GET: ArticuloController/Detalles/5
+        public ActionResult Detalles(int id)
+        {
+            SessionInitialize();
+            ArticuloRepository artRepository = new ArticuloRepository(session);
+            ArticuloCEN artCEN = new ArticuloCEN(artRepository);
+
+
+            ArticuloEN artEN = artCEN.DameOID(id);
+
+
             ArticuloViewModel artView = new ArticuloAssembler().ConvertirENToViewModel(artEN);
             SessionClose();
             return View(artView);
@@ -73,9 +91,10 @@ namespace Interfaz.Controllers
         public async Task<ActionResult> CreateAsync(ArticuloViewModel art)
         {
             string fileName = "", path = "";
-            if(art.Fichero!=null && art.Fichero.Length > 0)
+            if(art.Foto!=null && art.Foto.Length > 0)
             {
-                fileName=Path.GetFileName(art.Fichero.FileName).Trim();
+                Console.WriteLine("Fichero no nulo");
+                fileName =Path.GetFileName(art.Foto.FileName).Trim();
                 string directory = _webHost.WebRootPath + "/Images";
                 path = Path.Combine((directory), fileName);
 
@@ -85,7 +104,7 @@ namespace Interfaz.Controllers
                 }
                 using (var stream = System.IO.File.Create(path))
                 {
-                    await art.Fichero.CopyToAsync(stream);
+                    await art.Foto.CopyToAsync(stream);
                 }
             }
             try
@@ -94,7 +113,8 @@ namespace Interfaz.Controllers
                 ArticuloRepository artRepo = new ArticuloRepository();
                 ArticuloCEN artCEN = new ArticuloCEN(artRepo);
                 artCEN.Nuevo(art.Nombre, art.Precio,art.Descripcion,art.Talla, art.Recomendaciones,
-                    art.Check_verificado,art.Desc_verificado,art.Marca.Nombre, art.Stock, art.Color/*, fileName*/);
+                    art.Check_verificado,art.Desc_verificado,art.Marca, art.Stock, art.Color, fileName);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

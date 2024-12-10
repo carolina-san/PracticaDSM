@@ -127,10 +127,11 @@ public static void InitializeData ()
 
                 string marca1 = marcacen.Nuevo ("nike");
                 string marca2 = marcacen.Nuevo("adidas");
+                string marca3 = marcacen.Nuevo("new balance");
                 Console.WriteLine ("Marca creada correctamente");
-                int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "azul marino");
-                int art2 = articulocen.Nuevo ("botas altas", 30, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "verde oscuro");
-                int art3 = articulocen.Nuevo ("zapato casual", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca1, 100, "rosa palo");
+                int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "azul marino","foto1.jpg");
+                int art2 = articulocen.Nuevo ("botas altas", 30, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "verde oscuro", "foto1.jpg");
+                int art3 = articulocen.Nuevo ("zapato casual", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca1, 100, "rosa palo", "foto1.jpg");
                 Console.WriteLine ("Articulo creado correctamente");
                 articulocen.Dec_stock (art1, 10);
                 Console.WriteLine ("Stock decrementado correctamente");

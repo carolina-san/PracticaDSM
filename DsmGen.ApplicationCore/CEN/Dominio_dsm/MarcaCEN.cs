@@ -62,8 +62,17 @@ public void Eliminar (string nombre
 {
         _IMarcaRepository.Eliminar (nombre);
 }
+        public MarcaEN DameOID(string nombre
+                       )
+        {
+            MarcaEN marcaEN = null;
 
-public System.Collections.Generic.IList<MarcaEN> DameALL (int first, int size)
+            marcaEN = _IMarcaRepository.ReadOIDDefault(nombre);
+            return marcaEN;
+        }
+
+
+        public System.Collections.Generic.IList<MarcaEN> DameALL (int first, int size)
 {
         System.Collections.Generic.IList<MarcaEN> list = null;
 

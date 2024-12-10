@@ -28,7 +28,8 @@ namespace Interfaz.Models
         public float Precio { get; set; }
         public Boolean Check_verificado { get; set; }
         public string Recomendaciones { get; set; }
-        public MarcaEN Marca { get; set; }
+        [Display(Prompt = "Introduce la marca del artículo", Description = "Marca del articulo", Name = "Marca")]
+        public string Marca { get; set; }
         public string Desc_verificado { get; set; }
         public string Color { get; set; }
         [Display(Prompt = "Introduce el stock del artículo", Description = "Stock del articulo", Name = "Stock")]
@@ -36,13 +37,11 @@ namespace Interfaz.Models
         [Range(minimum: 0, maximum: 10000, ErrorMessage = "El stock debe ser mayor que 0 y menor que 10000")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Por favor introduce un número entero para el stock")]
         public int Stock { get; set; }
+        [ScaffoldColumn(false)]
+        public string Imagen { get; set; }
 
-        [Display(Prompt = "Introduce la marca del artículo", Description = "Marca del articulo", Name = "Marca")]
-        public string NombreMarca { get; set; }
-
-        [Display(Prompt ="Imagen", Description ="Imagen del artículo", Name ="Imagen")]        
-        
-        public IFormFile Fichero { get; set; }
+        [Display(Prompt = "Introduce la imagen para el artículo", Description ="Imagen del artículo", Name = "Imagen")]        
+        public IFormFile Foto { get; set; }
 
     }
 }

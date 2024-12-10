@@ -33,6 +33,12 @@
 					<property name="Desc_verificado" type="string"> 
 						<column name="desc_verificado"  not-null="true"/>
 					</property>
+					<property name="Marca" type="string">
+						<column name="marca"  not-null="true"/>
+					</property>
+					<property name="Foto" type="string">
+						<column name="foto"  not-null="true"/>
+					</property>
 					<property name="Stock" type="integer"> 
 						<column name="stock"  not-null="true"/>
 					</property>
@@ -53,15 +59,7 @@
 			
 			
 		  			
-						<bag name="Foto" cascade="delete">
-							<key>
-							
-								
-								<column name="FK_idArticulo_idArticulo"/>
-					      	</key>
-							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.FotoNH"/>
-					    </bag>
-					
+						
 			
 		  			
 						<bag name="LineaPedido" >
@@ -73,12 +71,6 @@
 							<one-to-many class="DsmGen.Infraestructure.EN.Dominio_dsm.LineaPedidoNH"/>
 					    </bag>
 					
-			
-		  			
-						<many-to-one name="Marca" class="DsmGen.Infraestructure.EN.Dominio_dsm.MarcaNH" >	
-								<column name="FK_nombreMarca_idMarca"/> 
-						</many-to-one>
-											 					
 			
 			
 			

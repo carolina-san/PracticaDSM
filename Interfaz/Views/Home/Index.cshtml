@@ -1,32 +1,36 @@
 ﻿@model IEnumerable<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN>
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-                <th>@Html.DisplayNameFor(model => model.Precio)</th>
-                <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
-                <th>@Html.DisplayNameFor(model => model.Stock)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Precio)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Stock)</td>
-                </tr>
-            }
-        </tbody>
-
-        </table>
-
-
+    <h1 class="display-4">Bienvenido a la Tienda de Zapatillas</h1>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-img-top text-center">
+                        @if (!string.IsNullOrEmpty(item.Foto))
+                        {
+                            <img src="@item.Foto" alt="@item.Nombre" class="img-fluid" style="max-height: 150px;" />
+                        }
+                        else
+                        {
+                            <span>Sin imagen</span>
+                        }
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Nombre</h5>
+                        <p class="card-text fw-bold">Precio: @item.Precio €</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="@Url.Action("Detalles", "Articulo", new { id = item.Id })" class="btn btn-primary btn-sm">Ver Detalles</a>
+                        <a href="#" class="btn btn-success btn-sm">Añadir al Carrito</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

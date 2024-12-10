@@ -15,7 +15,7 @@ namespace DsmGen.ApplicationCore.CEN.Dominio_dsm
 {
 public partial class ArticuloCEN
 {
-public int Nuevo (string p_nombre, float p_precio, string p_descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum p_talla, string p_recomendaciones, bool p_check_verificado, string p_desc_verificado, string p_marca, int p_stock, string p_color)
+public int Nuevo (string p_nombre, float p_precio, string p_descripcion, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum p_talla, string p_recomendaciones, bool p_check_verificado, string p_desc_verificado, string p_marca, int p_stock, string p_color,string foto)
 {
         /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Articulo_nuevo_customized) START*/
 
@@ -40,16 +40,15 @@ public int Nuevo (string p_nombre, float p_precio, string p_descripcion, DsmGen.
             articuloEN.Desc_verificado = p_desc_verificado;
             articuloEN.Color = p_color;
 
-            if (p_marca != null)
-            {
-                articuloEN.Marca = new DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN
-                {
-                    Nombre = p_marca
-                };
-            }
+           
+            articuloEN.Marca = p_marca;
             articuloEN.En_stock = true;
             articuloEN.Stock = p_stock;
-
+            if(foto != null)
+            {
+                articuloEN.Foto = foto;
+            }
+           
             //Call to ArticuloRepository
 
             oid = _IArticuloRepository.Nuevo(articuloEN);

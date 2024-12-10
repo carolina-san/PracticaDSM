@@ -215,14 +215,7 @@ public int Nuevo (ArticuloEN articulo)
         try
         {
                 SessionInitializeTransaction ();
-                if (articulo.Marca != null) {
-                        // Argumento OID y no colección.
-                        articuloNH
-                        .Marca = (DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN)session.Load (typeof(DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN), articulo.Marca.Nombre);
-
-                        articuloNH.Marca.Articulo
-                        .Add (articuloNH);
-                }
+               
 
                 session.Save (articuloNH);
                 SessionCommit ();

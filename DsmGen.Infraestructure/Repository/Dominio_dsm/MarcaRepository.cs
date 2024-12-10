@@ -37,9 +37,31 @@ public void setSessionCP (GenericSessionCP session)
         sessionInside = false;
         this.session = (ISession)session.CurrentSession;
 }
+        public MarcaEN BuscarPorNombre(string nombre)
+        {
+            MarcaEN marcaEN = null;
 
+            try
+            {
+                SessionInitializeTransaction();
+                marcaEN = session.CreateCriteria<MarcaNH>()
+                                 .Add(Restrictions.Eq("Nombre", nombre))
+                                 .UniqueResult<MarcaNH>();
+                SessionCommit();
+            }
+            catch (Exception ex)
+            {
+                SessionRollBack();
+                throw new DsmGen.ApplicationCore.Exceptions.DataLayerException("Error en BuscarPorNombre.", ex);
+            }
+            finally
+            {
+                SessionClose();
+            }
 
-public MarcaEN ReadOIDDefault (string nombre
+            return marcaEN;
+        }
+        public MarcaEN ReadOIDDefault (string nombre
                                )
 {
         MarcaEN marcaEN = null;

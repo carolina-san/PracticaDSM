@@ -19,11 +19,12 @@ namespace Interfaz.Assemblers
             art.Recomendaciones = en.Recomendaciones;
             art.Check_verificado = en.Check_verificado;
             art.Color = en.Color;
-
-            art.NombreMarca = en.Marca.Nombre;
+            art.Talla = en.Talla;
+            art.Marca = en.Marca;
             art.Descripcion = en.Descripcion;
             art.Precio = en.Precio;
             art.Stock = en.Stock;
+            art.Imagen = en.Foto;
             return art;
         }
 
