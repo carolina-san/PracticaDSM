@@ -84,7 +84,7 @@ namespace Interfaz.Controllers
             ViewData["marcaItems"] = marcaItems;
             return View();
         }
-
+        
         // POST: ArticuloController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -177,6 +177,16 @@ namespace Interfaz.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpGet]
+        public ActionResult Carrito()
+        {
+            // Obtener el carrito desde la sesión o crear uno nuevo
+            CarritoViewModel carrito = HttpContext.Session.GetObject<CarritoViewModel>("CarritoView") ?? new CarritoViewModel();
+
+            // Pasar el carrito a la vista
+            return View(carrito);
         }
     }
 }

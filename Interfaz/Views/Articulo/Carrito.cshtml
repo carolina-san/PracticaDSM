@@ -1,0 +1,48 @@
+﻿@model Interfaz.Models.CarritoViewModel
+@{
+    ViewData["Title"] = "Carrito";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Carrito de Compras</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Articulos != null && Model.Articulos.Any())
+            {
+                @foreach (ArticuloViewModel articulo in Model.Articulos)
+                {
+                    <tr>
+                        <td>
+                            @if (!string.IsNullOrEmpty(articulo.Imagen))
+                            {
+                                <img src="@articulo.Imagen" alt="@articulo.Nombre" style="max-height: 100px;" />
+                            }
+                            else
+                            {
+                                <span>Sin imagen</span>
+                            }
+                        </td>
+                        <td>@articulo.Nombre</td>
+                        <td>@articulo.Precio €</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="3">No hay artículos en el carrito.</td></tr>
+            }
+
+        </tbody>
+    </table>
+
+    <h3>Total: @Model.Total €</h3>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Seguir Comprando</a>
+</div>

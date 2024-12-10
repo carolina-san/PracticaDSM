@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace Interfaz
@@ -8,12 +9,22 @@ namespace Interfaz
     {
         public static void Set<T>(this ISession session, string key, T value)
         {
-            session.SetString(key, JsonSerializer.Serialize(value));
+            session.SetString(key, System.Text.Json.JsonSerializer.Serialize(value));
         }
         public static T Get<T>(this ISession session, string key)
         {
             var value=session.GetString(key);
-            return value==null?default:JsonSerializer.Deserialize<T>(value);
+            return value==null?default:System.Text.Json.JsonSerializer.Deserialize<T>(value);
+        }
+        public static void SetObject(this ISession session, string key, object value)
+        {
+            session.SetString(key, JsonConvert.SerializeObject(value));
+        }
+
+        public static T GetObject<T>(this ISession session, string key)
+        {
+            var value = session.GetString(key);
+            return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
     }
 }
