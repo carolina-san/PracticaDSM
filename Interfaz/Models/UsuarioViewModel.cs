@@ -22,10 +22,20 @@ namespace Interfaz.Models
 
         public class UsuarioViewModel
         {
-            public string Email { get; set; }
-            public string Password { get; set; }
+               [Required(ErrorMessage = "El nombre es obligatorio")]
             public string Nombre { get; set; }
-            public Nullable<DateTime> FechaNac { get; set; }
-        }
+
+            [Required(ErrorMessage = "El correo es obligatorio")]
+            [EmailAddress(ErrorMessage = "Formato de correo inválido")]
+            public string Email { get; set; }
+
+            [Required(ErrorMessage = "La contraseña es obligatoria")]
+            [MinLength(4, ErrorMessage = "La contraseña debe tener al menos 4 caracteres")]
+            public string Password { get; set; }
+
+            [Required(ErrorMessage = "La fecha de nacimiento es obligatoria")]
+            [DataType(DataType.Date, ErrorMessage = "Formato de fecha inválido")]
+            public DateTime FechaNac { get; set; }
+    }
     
 }

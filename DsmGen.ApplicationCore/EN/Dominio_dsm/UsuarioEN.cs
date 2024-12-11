@@ -22,7 +22,7 @@ private string nombre;
 /**
  *	Atributo fechaNac
  */
-private Nullable<DateTime> fechaNac;
+private DateTime fechaNac;
 
 
 
@@ -104,7 +104,7 @@ public virtual string Nombre {
 
 
 
-public virtual Nullable<DateTime> FechaNac {
+public virtual DateTime FechaNac {
         get { return fechaNac; } set { fechaNac = value;  }
 }
 
@@ -179,7 +179,7 @@ public UsuarioEN()
 
 
 
-public UsuarioEN(string email, string nombre, Nullable<DateTime> fechaNac, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.PedidoEN> pedido, String pass, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ResenyaEN> resenya, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN> direccion, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN> marca, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo_0, DsmGen.ApplicationCore.EN.Dominio_dsm.CarritoEN carrito
+public UsuarioEN(string email, string nombre, DateTime fechaNac, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.PedidoEN> pedido, String pass, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ResenyaEN> resenya, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN> direccion, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN> marca, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo_0, DsmGen.ApplicationCore.EN.Dominio_dsm.CarritoEN carrito
                  )
 {
         this.init (Email, nombre, fechaNac, pedido, pass, resenya, direccion, notificacion, articulo, marca, articulo_0, carrito);
@@ -192,7 +192,7 @@ public UsuarioEN(UsuarioEN usuario)
 }
 
 private void init (string email
-                   , string nombre, Nullable<DateTime> fechaNac, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.PedidoEN> pedido, String pass, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ResenyaEN> resenya, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN> direccion, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN> marca, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo_0, DsmGen.ApplicationCore.EN.Dominio_dsm.CarritoEN carrito)
+                   , string nombre, DateTime fechaNac, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.PedidoEN> pedido, String pass, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ResenyaEN> resenya, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.DireccionEN> direccion, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.NotificacionEN> notificacion, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.MarcaEN> marca, System.Collections.Generic.IList<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN> articulo_0, DsmGen.ApplicationCore.EN.Dominio_dsm.CarritoEN carrito)
 {
         this.Email = email;
 

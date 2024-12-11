@@ -31,7 +31,7 @@ public IUsuarioRepository get_IUsuarioRepository ()
         return this._IUsuarioRepository;
 }
 
-public string Nuevo (string p_email, string p_nombre, Nullable<DateTime> p_fechaNac, String p_pass)
+public string Nuevo (string p_email, string p_nombre, DateTime p_fechaNac, String p_pass)
 {
         UsuarioEN usuarioEN = null;
         string oid;
@@ -52,7 +52,7 @@ public string Nuevo (string p_email, string p_nombre, Nullable<DateTime> p_fecha
         return oid;
 }
 
-public void Modificar (string p_Usuario_OID, string p_nombre, Nullable<DateTime> p_fechaNac, String p_pass)
+public void Modificar (string p_Usuario_OID, string p_nombre, DateTime p_fechaNac, String p_pass)
 {
         UsuarioEN usuarioEN = null;
 

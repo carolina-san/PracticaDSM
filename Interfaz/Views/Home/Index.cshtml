@@ -2,16 +2,33 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    var marca = Context.Request.Query["tipo"];
 }
 
+
 <div class="text-center">
-    <h1 class="display-4">Bienvenido a la Tienda de Zapatillas</h1>
+    <!-- Barra de búsqueda -->
+    <div class="row mb-4">
+        <div class="col-md-6 offset-md-3">
+            <form method="get" action="@Url.Action("Index", "Home")">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="tipo" placeholder="Buscar por nombre" value="@Context.Request.Query["tipo"]" />
+                    <button class="btn btn-primary" type="submit">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <h1 class="display-4">Destacados</h1>
     <div class="row">
         @foreach (var item in Model)
         {
             <div class="col-md-3 mb-5">
                 <div class="card h-100">
                     <div class="card-img-top text-center">
+                        <a href="@Url.Action("Detalles", "Articulo", new { id = item.Id })" >
                         @if (!string.IsNullOrEmpty(item.Foto))
                         {
                             <img src="@item.Foto" alt="@item.Nombre" class="img-fluid" style="max-height: 150px;" />
@@ -20,14 +37,18 @@
                         {
                             <span>Sin imagen</span>
                         }
+                        </a>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">@item.Nombre</h5>
                         <p class="card-text fw-bold">Precio: @item.Precio €</p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="@Url.Action("Detalles", "Articulo", new { id = item.Id })" class="btn btn-primary btn-sm">Ver Detalles</a>
-                        <a href="#" class="btn btn-success btn-sm">Añadir al Carrito</a>
+
+                        <a href="#" class="btn btn-success btn-sm">
+                            <i class="bi bi-heart-fill me-2"></i> <!-- Corazón con espacio a la derecha -->
+                            Favorito
+                        </a>
                     </div>
                 </div>
             </div>

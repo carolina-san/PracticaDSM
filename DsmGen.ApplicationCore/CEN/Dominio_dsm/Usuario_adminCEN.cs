@@ -30,7 +30,7 @@ public IUsuario_adminRepository get_IUsuario_adminRepository ()
         return this._IUsuario_adminRepository;
 }
 
-public void Modificar (string p_Usuario_admin_OID, string p_nombre, Nullable<DateTime> p_fechaNac, String p_pass, string p_nombreSocio)
+public void Modificar (string p_Usuario_admin_OID, string p_nombre, DateTime p_fechaNac, String p_pass, string p_nombreSocio)
 {
         Usuario_adminEN usuario_adminEN = null;
 

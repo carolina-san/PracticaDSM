@@ -129,9 +129,9 @@ public static void InitializeData ()
                 string marca2 = marcacen.Nuevo("adidas");
                 string marca3 = marcacen.Nuevo("new balance");
                 Console.WriteLine ("Marca creada correctamente");
-                int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "azul marino","foto1.jpg");
-                int art2 = articulocen.Nuevo ("botas altas", 30, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "verde oscuro", "foto1.jpg");
-                int art3 = articulocen.Nuevo ("zapato casual", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca1, 100, "rosa palo", "foto1.jpg");
+                int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "azul marino","/Images/airforce.png");
+                int art2 = articulocen.Nuevo ("botas altas", 30, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca2, 100, "verde oscuro", "/Images/botasAltas.png");
+                int art3 = articulocen.Nuevo ("zapato casual", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca3, 100, "rosa palo", "/Images/zapatoCasual.png");
                 Console.WriteLine ("Articulo creado correctamente");
                 articulocen.Dec_stock (art1, 10);
                 Console.WriteLine ("Stock decrementado correctamente");
@@ -186,8 +186,14 @@ public static void InitializeData ()
                 foreach (ArticuloEN articulo in articulos4) {
                         Console.WriteLine (articulo.Nombre);
                 }
+                IList<ArticuloEN> articulos5 = articulocen.DamePorMarca("nike");
+                Console.WriteLine("Articulos de marca nike:");
+                foreach (ArticuloEN articulo in articulos5)
+                {
+                    Console.WriteLine(articulo.Nombre);
+                }
 
-               
+
 
                 PedidoCP pedidoCP = new PedidoCP(new SessionCPNHibernate());
                 pedidoCP.EnviarPedido(pedido);

@@ -15,7 +15,7 @@ namespace DsmGen.ApplicationCore.CEN.Dominio_dsm
 {
 public partial class Usuario_adminCEN
 {
-public string Nuevo (string p_email, string p_nombre, Nullable<DateTime> p_fechaNac, String p_pass)
+public string Nuevo (string p_email, string p_nombre, DateTime p_fechaNac, String p_pass)
 {
         /*PROTECTED REGION ID(DsmGen.ApplicationCore.CEN.Dominio_dsm_Usuario_admin_nuevo_customized) START*/
 

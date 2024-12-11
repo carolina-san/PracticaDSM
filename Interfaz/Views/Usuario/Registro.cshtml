@@ -1,0 +1,40 @@
+﻿@model Interfaz.Models.UsuarioViewModel
+
+@{
+    ViewData["Title"] = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Registro</h1>
+
+<h4>Crea una nueva cuenta</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="Nombre">Nombre</label>
+                <input type="text" id="Nombre" name="Nombre" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="Email">Correo</label>
+                <input type="email" id="Email" name="Email" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="Password">Contraseña</label>
+                <input type="password" id="Password" name="Password" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="FechaNac">Fecha de Nacimiento</label>
+                <input type="date" id="FechaNac" name="FechaNac" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </form>
+    </div>
+</div>
+<div><p>¿Ya tienes cuenta? <a href="@Url.Action("Login", "Usuario")">Inicia sesión aquí</a></p></div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

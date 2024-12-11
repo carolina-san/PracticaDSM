@@ -27,6 +27,13 @@ namespace Interfaz.Controllers
         // GET: ArticuloController
         public ActionResult Index()
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario==null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             SessionInitialize();
             ArticuloRepository artRepository = new ArticuloRepository(session);
             ArticuloCEN artCEN = new ArticuloCEN(artRepository);
@@ -40,6 +47,13 @@ namespace Interfaz.Controllers
         // GET: ArticuloController/Details/5
         public ActionResult Details(int id)
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             SessionInitialize();
             ArticuloRepository artRepository = new ArticuloRepository(session);
             ArticuloCEN artCEN = new ArticuloCEN(artRepository);
@@ -71,6 +85,13 @@ namespace Interfaz.Controllers
         // GET: ArticuloController/Create
         public ActionResult Create()
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             MarcaRepository marcaRepository = new MarcaRepository();
             MarcaCEN marcaCEN = new MarcaCEN(marcaRepository);
 
@@ -90,6 +111,13 @@ namespace Interfaz.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateAsync(ArticuloViewModel art)
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             string fileName = "", path = "";
             if(art.Foto!=null && art.Foto.Length > 0)
             {
@@ -125,7 +153,14 @@ namespace Interfaz.Controllers
 
         // GET: ArticuloController/Edit/5
         public ActionResult Edit(int id)
-        {   
+        {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             SessionInitialize();
             ArticuloRepository artRepository = new ArticuloRepository(session);
             ArticuloCEN artCEN = new ArticuloCEN(artRepository);
@@ -142,6 +177,13 @@ namespace Interfaz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, ArticuloViewModel art)
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             try
             {
                 ArticuloRepository artRepository = new ArticuloRepository();
@@ -158,6 +200,13 @@ namespace Interfaz.Controllers
         // GET: ArticuloController/Delete/5
         public ActionResult Delete(int id)
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             ArticuloRepository artRepository = new ArticuloRepository();
             ArticuloCEN artCEN = new ArticuloCEN(artRepository);
             artCEN.Eliminar(id);
@@ -169,6 +218,13 @@ namespace Interfaz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             try
             {
                 return RedirectToAction(nameof(Index));
@@ -182,11 +238,20 @@ namespace Interfaz.Controllers
         [HttpGet]
         public ActionResult Carrito()
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             // Obtener el carrito desde la sesión o crear uno nuevo
             CarritoViewModel carrito = HttpContext.Session.GetObject<CarritoViewModel>("CarritoView") ?? new CarritoViewModel();
 
             // Pasar el carrito a la vista
             return View(carrito);
         }
+
+
     }
 }
