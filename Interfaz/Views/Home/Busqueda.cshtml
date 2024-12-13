@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN>
+
+@using DsmGen.ApplicationCore.Enumerated.Dominio_dsm
+
+
+
+@{
+        ViewData["Title"] = "Busqueda";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    var nombre = Context.Request.Query["nombre"];
+    var color = Context.Request.Query["color"];
+    var marca = Context.Request.Query["marca"];
+    var precioMin = Context.Request.Query["precioMin"];
+    var precioMax = Context.Request.Query["precioMax"];
+    var talla = Context.Request.Query["talla"];
+    var tipo = Context.Request.Query["tipo"];
+    IEnumerable<SelectListItem> marcaItems = (IEnumerable<SelectListItem>)ViewData["marcaItems"];
+}
+
+<div class="text-center">
+    <!-- Barra de búsqueda -->
+    <div class="row mb-4">
+        <div class="col-md-6 offset-md-3">
+            <form method="get" action="@Url.Action("Busqueda", "Home")" enctype="multipart/form-data">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="nombre" placeholder="Buscar por nombre" value="@nombre" />
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="color" placeholder="Buscar por color" value="@color" />
+                </div>
+                <div class="form-group">
+                    <label for="marca" class="control-label"></label>
+                    <select class="form-control" for="marca" name="marca" asp-items="marcaItems" value="@marca">
+                        <option value="">Seleccionar marca</option>
+                       @*  @foreach (var marca2 in marcaItems)
+                        {
+                            <option value="@marca2">@marca2</option>
+                        } *@
+                    </select>
+                    
+                        
+                </div>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" name="precioMin" placeholder="Precio mínimo" value="@precioMin" />
+                    <input type="number" class="form-control" name="precioMax" placeholder="Precio máximo" value="@precioMax" />
+                </div>
+                <div class="form-group">
+                   
+                    <select name="talla" class="form-control">
+                        <option value="">Seleccionar talla</option>
+                        @foreach (var talla2 in Enum.GetValues(typeof(Talla_artEnum)).Cast<Talla_artEnum>())
+                        {
+                            <option value="@talla2" >@talla2</option>
+                        }
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <h1 class="display-4">Resultados de búsqueda</h1>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 mb-5">
+                <div class="card h-100">
+                    <div class="card-img-top text-center">
+                        <a href="@Url.Action("Detalles", "Articulo", new { id = item.Id })" >
+                            @if (!string.IsNullOrEmpty(item.Foto))
+                            {
+                                <img src="@item.Foto" alt="@item.Nombre" class="img-fluid" style="max-height: 150px;" />
+                            }
+                            else
+                            {
+                                <span>Sin imagen</span>
+                            }
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Nombre</h5>
+                        <p class="card-text fw-bold">Precio: @item.Precio €</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="#" class="btn btn-success btn-sm">
+                            <i class="bi bi-heart-fill me-2"></i> Favorito
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

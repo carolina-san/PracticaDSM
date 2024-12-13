@@ -155,10 +155,42 @@ namespace Interfaz.Controllers
         }
 
         // GET: UsuarioController/Perfil/5
-        public ActionResult Perfil()
+        public IActionResult Perfil()
         {
-            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+            UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            // Obtener los artículos favoritos del usuario (suponiendo que ya existe un método para esto)
+            IList<ArticuloViewModel> favoritos = obtenerFavoritosPorUsuario(usuario.Email);
+            usuario.Favoritos = favoritos;
             return View(usuario);
+        }
+
+        public IList<ArticuloViewModel> obtenerFavoritosPorUsuario(string email)
+        {
+            SessionInitialize();
+            UsuarioRepository usuRepo = new UsuarioRepository();
+            ArticuloAssembler ArticuloAssembler = new ArticuloAssembler();
+            UsuarioCEN usuCEN = new UsuarioCEN(usuRepo);
+            UsuarioEN usuarioEN = usuCEN.DameOID(email);
+            ArticuloRepository articuloRepository = new ArticuloRepository();
+            ArticuloCEN articuloCEN = new ArticuloCEN(articuloRepository);
+            IList<ArticuloEN> favoritos = articuloCEN.DameALL(0,-1);
+            IList<ArticuloViewModel> favoritosUsuario = new List<ArticuloViewModel>();
+            foreach (ArticuloEN art in favoritos)
+            {
+                if (art.Usuario.Contains(usuarioEN))
+                {
+                    ArticuloViewModel art1 = ArticuloAssembler.ConvertirENToViewModel(art);
+                    favoritosUsuario.Add(art1);
+                }
+            }
+            SessionClose();
+            return favoritosUsuario;
         }
     }
 }

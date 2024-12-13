@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Interfaz.Models
@@ -36,6 +38,7 @@ namespace Interfaz.Models
             [Required(ErrorMessage = "La fecha de nacimiento es obligatoria")]
             [DataType(DataType.Date, ErrorMessage = "Formato de fecha inválido")]
             public DateTime FechaNac { get; set; }
+            public IList<ArticuloViewModel> Favoritos { get; set; }
     }
     
 }

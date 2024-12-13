@@ -30,7 +30,7 @@
             <p><strong>Descripción Verificado:</strong> @Model.Desc_verificado</p>
 
             <!-- Botón para añadir al carrito o alguna otra acción -->
-           <a href="@Url.Action("Carrito", "Articulo", new { id = Model.Id })" class="btn btn-success btn-sm">Añadir al Carrito</a>
+           <a href="@Url.Action("Añadir", "Carrito", new { id = Model.Id })" class="btn btn-success btn-sm">Añadir al Carrito</a>
 
 
         </div>

@@ -44,11 +44,12 @@
                         <p class="card-text fw-bold">Precio: @item.Precio €</p>
                     </div>
                     <div class="card-footer text-center">
-
-                        <a href="#" class="btn btn-success btn-sm">
-                            <i class="bi bi-heart-fill me-2"></i> <!-- Corazón con espacio a la derecha -->
-                            Favorito
-                        </a>
+                        <form method="post" action="@Url.Action("Favorito", "Home")">
+                            <input type="hidden" name="p_Articulo_OID" value="@item.Id" />
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <i class="bi bi-heart-fill me-2"></i> Favorito
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -142,7 +142,7 @@
 		  <query name="ArticuloNHReadAllHQL">from ArticuloNH</query>
 		  <query name="ArticuloNHdamePorTallaHQL"><![CDATA[FROM ArticuloNH as articulo WHERE articulo.Talla= :p_talla;]]></query>
 		  <query name="ArticuloNHdamePorPrecioHQL"><![CDATA[FROM ArticuloNH as articulo where articulo.Precio>=:precioMin and articulo.Precio<=:precioMax;]]></query>
-		  <query name="ArticuloNHdamePorMarcaHQL"><![CDATA[FROM ArticuloNH as articulo where articulo.Marca like('%:p_marca%');]]></query>
+		  <query name="ArticuloNHdamePorMarcaHQL"><![CDATA[FROM ArticuloNH as articulo where articulo.Marca like CONCAT('%', :p_marca,'%');]]></query>
 		  <query name="ArticuloNHdamePorColorHQL"><![CDATA[FROM ArticuloNH as articulo where articulo.Color like CONCAT('%', :p_color,'%');]]></query>
 		  <query name="ArticuloNHdamePorTipoHQL"><![CDATA[FROM ArticuloNH as articulo where articulo.Nombre like CONCAT('%', :p_nombre,'%');]]></query>
 		</hibernate-mapping>

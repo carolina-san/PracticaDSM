@@ -12,7 +12,8 @@ namespace Interfaz.Models
 {
     public class CarritoViewModel
     {
+        public int Id { get; set; }
         public List<ArticuloViewModel> Articulos { get; set; } = new List<ArticuloViewModel>(); // Lista de artículos añadidos al carrito.
-        public decimal Total { get; set; } // Total acumulado del carrito.
+        public decimal Subtotal { get; set; } // Total acumulado del carrito.
     }
 }

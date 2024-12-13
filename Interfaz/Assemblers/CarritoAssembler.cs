@@ -26,8 +26,8 @@ namespace Interfaz.Assemblers
             {
                 carrito.Articulos = new List<ArticuloViewModel>(); // Lista vacía
             }
-
-            carrito.Total = (decimal)en.Subtotal; // Asegurarse de que el subtotal se asigne correctamente
+            carrito.Id = en.Id;
+            carrito.Subtotal = (decimal)en.Subtotal; // Asegurarse de que el subtotal se asigne correctamente
 
             return carrito;
         }

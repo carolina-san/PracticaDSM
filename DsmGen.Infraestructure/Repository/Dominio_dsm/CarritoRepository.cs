@@ -200,6 +200,8 @@ public void AddArticulo (int p_Carrito_OID, System.Collections.Generic.IList<int
                         articuloENAux.Carrito.Add (carritoEN);
 
                         carritoEN.Articulo.Add (articuloENAux);
+                        carritoEN.Subtotal += articuloENAux.Precio;
+                        
                 }
 
 

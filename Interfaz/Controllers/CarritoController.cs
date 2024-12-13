@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Interfaz.Controllers;
 using Interfaz;
+using DsmGen.ApplicationCore.CP.Dominio_dsm;
 
 
 public class CarritoController : BasicController
@@ -23,9 +24,10 @@ public class CarritoController : BasicController
     [HttpGet]
     public ActionResult Añadir(int id)
     {
+
         // Inicializa la sesión
         SessionInitialize();
-
+        var usuario= HttpContext.Session.Get<UsuarioViewModel>("usuario");
         // Crear el repositorio y CEN
         ArticuloRepository artRepository = new ArticuloRepository(session);
         ArticuloCEN artCEN = new ArticuloCEN(artRepository);
@@ -34,30 +36,30 @@ public class CarritoController : BasicController
         ArticuloEN artEN = artCEN.DameOID(id);
         ArticuloViewModel artView = new ArticuloAssembler().ConvertirENToViewModel(artEN);
 
-      
+        IList<int> arts = new List<int>();
+        arts.Add(id);
         CarritoViewModel carritoView = HttpContext.Session.GetObject<CarritoViewModel>("CarritoView");
+        int idCarrito = HttpContext.Session.Get<int>("idCarrito");
+        // Crear el repositorio y CEN
+        CarritoRepository carritoRepository = new CarritoRepository(session);
+        CarritoCEN carritoCEN = new CarritoCEN(carritoRepository);
         // Verificar que el artículo no sea nulo
         if (carritoView != null)
         {
-            carritoView.Articulos.Add(artView); // Suponiendo que articuloEN es un ArticuloEN válido
-            // Guardar el carrito en la sesión
+            carritoCEN.AddArticulo(idCarrito, arts);
             HttpContext.Session.SetObject("CarritoView", carritoView);
-            // Redirigir a la vista del carrito
         }
         else
         {
-            // Crear el repositorio y CEN
-            CarritoRepository carritoRepository = new CarritoRepository(session);
-            CarritoCEN carritoCEN = new CarritoCEN(carritoRepository);
-
-            // Obtener el artículo por ID
-            CarritoEN carritoEN = carritoCEN.ReadOID(id);
+            idCarrito = carritoCEN.Nuevo(usuario.Email,0);
+            CarritoEN carritoEN = carritoCEN.ReadOID(idCarrito);
+            carritoCEN.AddArticulo(idCarrito, arts);
             carritoView = new CarritoAssembler().ConvertirENToViewModel(carritoEN);
-            carritoView.Articulos.Add(artView); // Suponiendo que articuloEN es un ArticuloEN válido
+            HttpContext.Session.Set<int>("idCarrito", idCarrito);
             HttpContext.Session.SetObject("CarritoView", carritoView);
 
         }
-        // Cerrar la sesión de base de datos
+
         SessionClose();
         return RedirectToAction("Carrito", "Articulo");
 
@@ -67,6 +69,7 @@ public class CarritoController : BasicController
 
     public ActionResult Index()
     {
+        
         // Obtener el carrito desde la sesión, asegurándote de que sea un objeto de tipo CarritoEN
         CarritoViewModel carritoView = HttpContext.Session.GetObject<CarritoViewModel>("CarritoView");
 
@@ -75,7 +78,6 @@ public class CarritoController : BasicController
             // Si el carrito no existe en la sesión, redirige a la página de inicio o muestra un mensaje adecuado
             return RedirectToAction("Index", "Home");
         }
-
 
         // Pasar el carrito a la vista
         return View(carritoView);

@@ -129,9 +129,9 @@ public static void InitializeData ()
                 string marca2 = marcacen.Nuevo("adidas");
                 string marca3 = marcacen.Nuevo("new balance");
                 Console.WriteLine ("Marca creada correctamente");
-                int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "azul marino","/Images/airforce.png");
+                int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "blanco","/Images/airforce.png");
                 int art2 = articulocen.Nuevo ("botas altas", 30, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca2, 100, "verde oscuro", "/Images/botasAltas.png");
-                int art3 = articulocen.Nuevo ("zapato casual", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca3, 100, "rosa palo", "/Images/zapatoCasual.png");
+                int art3 = articulocen.Nuevo ("zapato casual", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca3, 100, "blanco", "/Images/zapatoCasual.png");
                 Console.WriteLine ("Articulo creado correctamente");
                 articulocen.Dec_stock (art1, 10);
                 Console.WriteLine ("Stock decrementado correctamente");
@@ -206,6 +206,20 @@ public static void InitializeData ()
                     Console.WriteLine(articulo.Nombre);
                     Console.WriteLine(articulo.Stock);
                 }
+
+                int carrito = carritocen.Nuevo(usuario1,0);
+                Console.WriteLine("Carrito creado correctamente");
+                IList<ArticuloEN> artsCesta= articulocen.DameALL(0, -1);
+                IList<int> ids = new List<int>();
+                foreach (var art in artsCesta)
+                {   
+                       ids.Add(art.Id);
+                }
+                carritocen.AddArticulo(carrito, ids);
+                Console.WriteLine("Articulos añadidos al carrito correctamente");
+                CarritoEN creado=carritocen.ReadOID(carrito);
+                Console.WriteLine("Carrito recuperado correctamente" + creado.Id);
+                Console.WriteLine("subtotal:"+ creado.Subtotal);
 
 
                 /*PROTECTED REGION END*/
