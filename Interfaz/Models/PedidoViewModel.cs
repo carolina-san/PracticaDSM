@@ -1,6 +1,12 @@
-﻿using DsmGen.ApplicationCore.Enumerated.Dominio_dsm;
+﻿
+using DsmGen.ApplicationCore.Enumerated.Dominio_dsm;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DsmGen.ApplicationCore.EN.Dominio_dsm;
+using Microsoft.AspNetCore.Http;
 
 namespace Interfaz.Models
 {
@@ -20,7 +26,7 @@ namespace Interfaz.Models
 
         [Display(Prompt = "Introduce la fecha de entrega estimada", Description = "Fecha de entrega estimada", Name = "Entrega estimada")]
         [Required(ErrorMessage = "Debe indicar la fecha de entrega estimada")]
-        [DataType(DataType.Date, ErrorMessage="El tipo de dato debe ser una fecha")]
+        [DataType(DataType.Date, ErrorMessage = "El tipo de dato debe ser una fecha")]
         public DateTime Entrega_est { get; set; }
 
         [Display(Prompt = "Introduce el precio total", Description = "Precio total del pedido", Name = "Precio total")]
@@ -28,7 +34,7 @@ namespace Interfaz.Models
         [DataType(DataType.Currency, ErrorMessage = "El tipo de dato debe ser un numero")]
         [Range(minimum: 0, maximum: 10000, ErrorMessage = "El precio debe ser mayor que 0 y menor que 10000")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Por favor introduce un número entero para el precio")]
-        public double Total{ get; set; }
+        public double Total { get; set; }
 
         [Display(Prompt = "Introduce el gasto de envio", Description = "Gasto de envio de pedido", Name = "Gastos envio")]
         [Required(ErrorMessage = "Debe indicar el gasato de envio")]

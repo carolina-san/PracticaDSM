@@ -251,7 +251,34 @@ namespace Interfaz.Controllers
             // Pasar el carrito a la vista
             return View(carrito);
         }
+        [HttpPost]
+        public IActionResult RevisarPedido()
+        {
+            // Obtener los artículos del carrito
+            CarritoViewModel carrito = HttpContext.Session.GetObject<CarritoViewModel>("CarritoView");
 
+            if (carrito == null || !carrito.Articulos.Any())
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            // Crear el modelo para la vista
+            var modelo = new CarritoViewModel
+            {
+                Articulos = carrito.Articulos,
+                Subtotal = carrito.Subtotal,
+            };
+            var opcionesEnvio = new List<string>
+        {
+            "Envío estándar",
+            "Envío rápido"
+        };
+            // Aquí pasamos las opciones de envío a la vista, que luego podrán ser seleccionadas
+            ViewBag.OpcionesEnvio = opcionesEnvio;
+
+            return View(modelo);
+        }
 
     }
 }

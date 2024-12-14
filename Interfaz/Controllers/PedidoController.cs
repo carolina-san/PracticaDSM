@@ -5,8 +5,11 @@ using Interfaz.Assemblers;
 using Interfaz.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Interfaz.Controllers
 {
@@ -41,15 +44,24 @@ namespace Interfaz.Controllers
             return View();
         }
 
+       
         // POST: PedidoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PedidoViewModel pedido)
+        public async Task<ActionResult> CreateAsync(PedidoViewModel pedido)
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
+            
             try
             {
-                PedidoRepository artPedido = new PedidoRepository();
-                PedidoCEN pedidoCEN = new PedidoCEN(artPedido);
+                
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -57,6 +69,7 @@ namespace Interfaz.Controllers
                 return View();
             }
         }
+
 
         // GET: PedidoController/Edit/5
         public ActionResult Edit(int id)

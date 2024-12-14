@@ -25,5 +25,6 @@ CarritoEN ReadOID (int id
 int Nuevo (CarritoEN carrito);
 
 void AddArticulo (int p_Carrito_OID, System.Collections.Generic.IList<int> p_articulo_OIDs);
-}
+        void EliminarArticulo(int p_Carrito_OID, System.Collections.Generic.IList<int> p_articulo_OIDs);
+    }
 }

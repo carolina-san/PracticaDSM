@@ -68,5 +68,11 @@ public void AddArticulo (int p_Carrito_OID, System.Collections.Generic.IList<int
 
         _ICarritoRepository.AddArticulo (p_Carrito_OID, p_articulo_OIDs);
 }
-}
+        public void EliminarArticulo(int p_Carrito_OID, System.Collections.Generic.IList<int> p_articulo_OIDs)
+        {
+            //Call to CarritoRepository
+
+            _ICarritoRepository.EliminarArticulo(p_Carrito_OID, p_articulo_OIDs);
+        }
+    }
 }

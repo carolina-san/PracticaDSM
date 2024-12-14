@@ -222,5 +222,48 @@ public void AddArticulo (int p_Carrito_OID, System.Collections.Generic.IList<int
                 SessionClose ();
         }
 }
-}
+        public void EliminarArticulo(int p_Carrito_OID, System.Collections.Generic.IList<int> p_articulo_OIDs)
+        {
+            DsmGen.ApplicationCore.EN.Dominio_dsm.CarritoEN carritoEN = null;
+            try
+            {
+                SessionInitializeTransaction();
+                carritoEN = (CarritoEN)session.Load(typeof(CarritoNH), p_Carrito_OID);
+                DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN articuloENAux = null;
+                if (carritoEN.Articulo == null)
+                {
+                    carritoEN.Articulo = new System.Collections.Generic.List<DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN>();
+                }
+
+                foreach (int item in p_articulo_OIDs)
+                {
+                    articuloENAux = new DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN();
+                    articuloENAux = (DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN)session.Load(typeof(DsmGen.Infraestructure.EN.Dominio_dsm.ArticuloNH), item);
+                    articuloENAux.Carrito.Remove(carritoEN);
+
+                    carritoEN.Articulo.Remove(articuloENAux);
+                    carritoEN.Subtotal -= articuloENAux.Precio;
+
+                }
+
+
+                session.Update(carritoEN);
+                SessionCommit();
+            }
+
+            catch (Exception ex)
+            {
+                SessionRollBack();
+                if (ex is DsmGen.ApplicationCore.Exceptions.ModelException)
+                    throw;
+                else throw new DsmGen.ApplicationCore.Exceptions.DataLayerException("Error in CarritoRepository.", ex);
+            }
+
+
+            finally
+            {
+                SessionClose();
+            }
+        }
+    }
 }

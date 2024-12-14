@@ -12,6 +12,7 @@
                 <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Precio</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -32,17 +33,30 @@
                         </td>
                         <td>@articulo.Nombre</td>
                         <td>@articulo.Precio €</td>
+                        <td>
+
+                            <a href="@Url.Action("Eliminar", "Carrito", new { id = articulo.Id })" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</a>
+                        </td>
                     </tr>
                 }
             }
             else
             {
-                <tr><td colspan="3">No hay artículos en el carrito.</td></tr>
+                <tr><td colspan="4">No hay artículos en el carrito.</td></tr>
             }
-
         </tbody>
     </table>
 
     <h3>Total: @Model.Subtotal €</h3>
-    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Seguir Comprando</a>
+
+    <div class="d-flex justify-content-between">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Seguir Comprando</a>
+
+        @if (Model.Articulos != null && Model.Articulos.Any())
+        {
+            <form method="post" action="@Url.Action("RevisarPedido", "Articulo")">
+                <button type="submit" class="btn btn-success">Pasar por Caja</button>
+            </form>
+        }
+    </div>
 </div>

@@ -173,24 +173,78 @@ namespace Interfaz.Controllers
         public IList<ArticuloViewModel> obtenerFavoritosPorUsuario(string email)
         {
             SessionInitialize();
-            UsuarioRepository usuRepo = new UsuarioRepository();
-            ArticuloAssembler ArticuloAssembler = new ArticuloAssembler();
-            UsuarioCEN usuCEN = new UsuarioCEN(usuRepo);
-            UsuarioEN usuarioEN = usuCEN.DameOID(email);
-            ArticuloRepository articuloRepository = new ArticuloRepository();
-            ArticuloCEN articuloCEN = new ArticuloCEN(articuloRepository);
-            IList<ArticuloEN> favoritos = articuloCEN.DameALL(0,-1);
-            IList<ArticuloViewModel> favoritosUsuario = new List<ArticuloViewModel>();
-            foreach (ArticuloEN art in favoritos)
+            try
             {
-                if (art.Usuario.Contains(usuarioEN))
+                UsuarioRepository usuRepo = new UsuarioRepository();
+                ArticuloAssembler ArticuloAssembler = new ArticuloAssembler();
+                UsuarioCEN usuCEN = new UsuarioCEN(usuRepo);
+                UsuarioEN usuarioEN = usuCEN.DameOID(email);
+
+                ArticuloRepository articuloRepository = new ArticuloRepository(session);
+                ArticuloCEN articuloCEN = new ArticuloCEN(articuloRepository);
+                IList<ArticuloEN> favoritos = articuloCEN.DameALL(0, -1);
+
+                IList<ArticuloViewModel> favoritosUsuario = new List<ArticuloViewModel>();
+                foreach (ArticuloEN art in favoritos)
                 {
-                    ArticuloViewModel art1 = ArticuloAssembler.ConvertirENToViewModel(art);
-                    favoritosUsuario.Add(art1);
+                    // Accedemos a la colección 'Usuario' mientras la sesión sigue activa
+                    if (art.Usuario.Contains(usuarioEN))
+                    {
+                        ArticuloViewModel art1 = ArticuloAssembler.ConvertirENToViewModel(art);
+                        favoritosUsuario.Add(art1);
+                    }
                 }
+
+                return favoritosUsuario;
             }
-            SessionClose();
-            return favoritosUsuario;
+            finally
+            {
+                SessionClose();
+            }
         }
+        [HttpPost]
+        public ActionResult EliminarFavorito(int idArticulo)
+        {
+            if (idArticulo <= 0)
+            {
+                // Manejo de errores: ID no válido
+                return RedirectToAction("Error", "Home");
+            }
+
+            // Lógica para eliminar de favoritos
+            SessionInitialize();
+
+            try
+            {
+                var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+
+                if (usuario == null)
+                {
+                    // Redirigir al login si el usuario no está autenticado
+                    return RedirectToAction("Login", "Usuario");
+                }
+
+                // Operaciones relacionadas con el artículo
+                IList<string> p_usuario_OIDs = new List<string> { usuario.Email };
+
+                ArticuloRepository artRepository = new ArticuloRepository();
+                ArticuloCEN artCEN = new ArticuloCEN(artRepository);
+
+                artCEN.NotFavorito(idArticulo, p_usuario_OIDs);
+
+                // Redirigir al perfil o a la página anterior
+                return RedirectToAction("Perfil", "Usuario");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+            finally
+            {
+                SessionClose();
+            }
+        }
+
     }
 }

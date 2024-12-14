@@ -131,29 +131,48 @@ namespace Interfaz.Controllers
         }
 
         [HttpPost]
-        public IActionResult Favorito(int p_Articulo_OID)
+        public ActionResult Favorito(int idArticulo)
         {
-            SessionInitialize();
-            // Recuperar el usuario desde la sesión
-            var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
-
-            if (usuario == null)
+            if (idArticulo <= 0)
             {
-                // Si el usuario no está logueado, redirigir a la página de login o mostrar un mensaje
-                return RedirectToAction("Login", "Usuario");
+                // Manejo de errores: ID no válido
+                return RedirectToAction("Error", "Home");
             }
 
-            // Crear la lista de usuarios que tendrá el artículo en favoritos
-            IList<string> p_usuario_OIDs = new List<string> { usuario.Email };
-            ArticuloRepository artRepository = new ArticuloRepository(session);
-            ArticuloCEN artCEN = new ArticuloCEN(artRepository);
+            // Lógica de favorito
+            SessionInitialize();
 
-            artCEN.Favorito(p_Articulo_OID, p_usuario_OIDs);
+            try
+            {
+                var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
 
-            // Redirigir al usuario al index o la página de detalles del artículo, según sea necesario
-            SessionClose();
-            return RedirectToAction("Index", "Home");
+                if (usuario == null)
+                {
+                    return RedirectToAction("Login", "Usuario");
+                }
+
+                // Operaciones relacionadas con el artículo
+                IList<string> p_usuario_OIDs = new List<string> { usuario.Email };
+
+                ArticuloRepository artRepository = new ArticuloRepository();
+                ArticuloCEN artCEN = new ArticuloCEN(artRepository);
+
+                artCEN.Favorito(idArticulo, p_usuario_OIDs);
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+            finally
+            {
+                SessionClose();
+            }
         }
+
+
         [HttpPost]
         public IActionResult NotFavorito(int p_Articulo_OID)
         {

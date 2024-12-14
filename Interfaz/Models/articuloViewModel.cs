@@ -42,6 +42,6 @@ namespace Interfaz.Models
 
         [Display(Prompt = "Introduce la imagen para el artículo", Description ="Imagen del artículo", Name = "Imagen")]        
         public IFormFile Foto { get; set; }
-
+        public bool Favorito { get; set; }
     }
 }

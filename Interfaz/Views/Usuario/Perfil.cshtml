@@ -22,7 +22,6 @@
         <a href="@Url.Action("Editar", "Usuario")" class="btn btn-primary">Editar Perfil</a>
         <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Volver</a>
     </div>
-
     <h2 class="mt-5">Artículos Favoritos</h2>
     @if (Model.Favoritos != null && Model.Favoritos.Any())
     {
@@ -35,7 +34,7 @@
                             <a href="@Url.Action("Detalles", "Articulo", new { id = item.Id })">
                                 @if (!string.IsNullOrEmpty(item.Imagen))
                                 {
-                                    <img src="@item.Foto" alt="@item.Nombre" class="img-fluid" style="max-height: 150px;" />
+                                    <img src="@item.Imagen" alt="@item.Nombre" class="img-fluid" style="max-height: 150px;" />
                                 }
                                 else
                                 {
@@ -47,6 +46,15 @@
                             <h5 class="card-title">@item.Nombre</h5>
                             <p class="card-text fw-bold">Precio: @item.Precio €</p>
                         </div>
+                        <div class="card-footer text-center">
+                            <!-- Formulario para eliminar de favoritos -->
+                            <form method="post" action="@Url.Action("EliminarFavorito", "Usuario")">
+                                <input type="hidden" name="idArticulo" value="@item.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Eliminar de Favoritos
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             }
@@ -56,4 +64,5 @@
     {
         <p>No tienes artículos favoritos.</p>
     }
+
 </div>

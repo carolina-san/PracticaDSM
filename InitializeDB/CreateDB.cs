@@ -220,11 +220,16 @@ public static void InitializeData ()
                 CarritoEN creado=carritocen.ReadOID(carrito);
                 Console.WriteLine("Carrito recuperado correctamente" + creado.Id);
                 Console.WriteLine("subtotal:"+ creado.Subtotal);
+                carritocen.EliminarArticulo(carrito, ids);
+                Console.WriteLine("Articulos eliminados del carrito correctamente");
+                CarritoEN eliminado = carritocen.ReadOID(carrito);
+                Console.WriteLine("Carrito recuperado correctamente" + eliminado.Id);
+                Console.WriteLine("subtotal:" + eliminado.Subtotal);
 
 
                 /*PROTECTED REGION END*/
             }
-        catch (Exception ex)
+            catch (Exception ex)
         {
                 System.Console.WriteLine (ex.InnerException);
                 throw;
