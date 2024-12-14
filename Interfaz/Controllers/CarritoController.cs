@@ -27,7 +27,7 @@ public class CarritoController : BasicController
 
         // Inicializa la sesión
         SessionInitialize();
-        var usuario= HttpContext.Session.Get<UsuarioViewModel>("usuario");
+        var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
         // Crear el repositorio y CEN
         ArticuloRepository artRepository = new ArticuloRepository(session);
         ArticuloCEN artCEN = new ArticuloCEN(artRepository);
@@ -41,7 +41,7 @@ public class CarritoController : BasicController
         CarritoViewModel carritoView = HttpContext.Session.GetObject<CarritoViewModel>("CarritoView");
         int idCarrito = HttpContext.Session.Get<int>("idCarrito");
         // Crear el repositorio y CEN
-        CarritoRepository carritoRepository = new CarritoRepository(session);
+        CarritoRepository carritoRepository = new CarritoRepository(); // quitarle el session a este repository para que no esté dentro de la sessión de aquí, y haga commit, sino no funciona el AddArticulo.
         CarritoCEN carritoCEN = new CarritoCEN(carritoRepository);
         // Verificar que el artículo no sea nulo
         if (carritoView != null)
@@ -51,9 +51,12 @@ public class CarritoController : BasicController
         }
         else
         {
-            idCarrito = carritoCEN.Nuevo(usuario.Email,0);
-            CarritoEN carritoEN = carritoCEN.ReadOID(idCarrito);
+            idCarrito = carritoCEN.Nuevo(usuario.Email, 0);
             carritoCEN.AddArticulo(idCarrito, arts);
+
+            CarritoRepository carritoRepositoryAssem = new CarritoRepository(session); // este  respository le ponemos el session para que funcione correctamente el assembler.
+            CarritoEN carritoEN = carritoRepositoryAssem.ReadOIDDefault(idCarrito);
+
             carritoView = new CarritoAssembler().ConvertirENToViewModel(carritoEN);
             HttpContext.Session.Set<int>("idCarrito", idCarrito);
             HttpContext.Session.SetObject("CarritoView", carritoView);
@@ -64,6 +67,8 @@ public class CarritoController : BasicController
         return RedirectToAction("Carrito", "Articulo");
 
     }
+
+
 
 
 
