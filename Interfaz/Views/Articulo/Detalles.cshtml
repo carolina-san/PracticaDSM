@@ -1,5 +1,5 @@
 ﻿@model Interfaz.Models.ArticuloViewModel
-
+@using DsmGen.ApplicationCore.Enumerated.Dominio_dsm
 @{
     ViewData["Title"] = "Detalles";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,15 +22,20 @@
             <p><strong>Descripción:</strong> @Model.Descripcion</p>
             <p><strong>Precio:</strong> @Model.Precio €</p>
            
-            <p><strong>Talla:</strong> @Model.Talla</p>
-            <p><strong>Recomendaciones:</strong> @Model.Recomendaciones</p>
-            <p><strong>Marca:</strong> @Model.Marca</p>
-            <p><strong>Verificado:</strong> @(Model.Check_verificado  ? "Sí" : "No")</p>
-
-            <p><strong>Descripción Verificado:</strong> @Model.Desc_verificado</p>
-
+            <form asp-action="Añadir" asp-controller="Carrito" method="post">
+                <div class="form-group">
+                    <label for="talla">Seleccionar Talla:</label>
+                    <select asp-for="Talla" asp-items="Html.GetEnumSelectList<Talla_artEnum>()" class="form-control"></select>
+                </div>
+                <p><strong>Recomendaciones:</strong> @Model.Recomendaciones</p>
+                <p><strong>Marca:</strong> @Model.Marca</p>
+                <p><strong>Verificado:</strong> @(Model.Check_verificado ? "Sí" : "No")</p>
+                <p><strong>Descripción Verificado:</strong> @Model.Desc_verificado</p>
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button type="submit" class="btn btn-success btn-sm">Añadir al Carrito</button>
+            </form>
+           
             <!-- Botón para añadir al carrito o alguna otra acción -->
-           <a href="@Url.Action("Añadir", "Carrito", new { id = Model.Id })" class="btn btn-success btn-sm">Añadir al Carrito</a>
 
 
         </div>

@@ -16,25 +16,27 @@ using Interfaz.Controllers;
 using Interfaz;
 using DsmGen.ApplicationCore.CP.Dominio_dsm;
 using DsmGen.Infraestructure.EN.Dominio_dsm;
+using DsmGen.ApplicationCore.Enumerated.Dominio_dsm;
 
 
 public class CarritoController : BasicController
 {
     private static CarritoViewModel _carrito = new CarritoViewModel();
     // En la acción Añadir
-    [HttpGet]
-    public ActionResult Añadir(int id)
+    [HttpPost]
+    public ActionResult Añadir(int id, Talla_artEnum talla)
     {
 
         // Inicializa la sesión
         SessionInitialize();
         var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
         // Crear el repositorio y CEN
-        ArticuloRepository artRepository = new ArticuloRepository(session);
+        ArticuloRepository artRepository = new ArticuloRepository();
         ArticuloCEN artCEN = new ArticuloCEN(artRepository);
 
         // Obtener el artículo por ID
         ArticuloEN artEN = artCEN.DameOID(id);
+        artCEN.Modificar(artEN.Id, artEN.Nombre, artEN.Precio, artEN.Descripcion, talla, artEN.Recomendaciones, artEN.Check_verificado, artEN.Desc_verificado, artEN.Marca, artEN.Stock, artEN.En_stock, artEN.Color);
         ArticuloViewModel artView = new ArticuloAssembler().ConvertirENToViewModel(artEN);
 
         IList<int> arts = new List<int>();

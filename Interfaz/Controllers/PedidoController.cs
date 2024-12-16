@@ -120,7 +120,7 @@ namespace Interfaz.Controllers
             SessionInitialize();
             // Obtener el usuario actual (esto puede variar según cómo manejas la autenticación)
             var usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
-            UsuarioRepository usuRepo = new UsuarioRepository(session);
+            UsuarioRepository usuRepo = new UsuarioRepository();
             UsuarioCEN usuCEN = new UsuarioCEN(usuRepo);
             UsuarioEN usuEN = usuCEN.DameOID(usuario.Email);
             // Crear la dirección
@@ -133,7 +133,7 @@ namespace Interfaz.Controllers
                 NombreCompleto=Nombre
             };
 
-            DireccionRepository dirRep = new DireccionRepository(session);
+            DireccionRepository dirRep = new DireccionRepository();
             DireccionCEN dirCEN = new DireccionCEN(dirRep);
             int idDireccion = dirCEN.Nuevo(Calle, Provincia, CodigoPostal, Telf, Nombre, usuario.Email);
 
@@ -142,7 +142,7 @@ namespace Interfaz.Controllers
             var carrito = HttpContext.Session.GetObject<CarritoViewModel>("CarritoView");
             decimal subtotal = carrito.Subtotal;
 
-            PedidoRepository pedidoRepository = new PedidoRepository(session);
+            PedidoRepository pedidoRepository = new PedidoRepository();
             PedidoCEN pedidoCEN = new PedidoCEN(pedidoRepository);
             int idPedido = pedidoCEN.Nuevo(usuario.Email, (float)gastosEnvio, idDireccion);
             var cantidadesProcesadas = new Dictionary<int, int>();
