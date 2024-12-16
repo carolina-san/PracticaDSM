@@ -44,6 +44,6 @@ namespace Interfaz.Models
 
         public double Gastos_envio { get; set; }
 
-
+        public string Usuario { get; set; }
     }
 }

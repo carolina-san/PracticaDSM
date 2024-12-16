@@ -272,7 +272,7 @@ namespace Interfaz.Controllers
             var opcionesEnvio = new List<string>
         {
             "Envío estándar",
-            "Envío rápido"
+            "Envío rápido (+4.99€)"
         };
             // Aquí pasamos las opciones de envío a la vista, que luego podrán ser seleccionadas
             ViewBag.OpcionesEnvio = opcionesEnvio;

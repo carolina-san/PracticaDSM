@@ -15,6 +15,7 @@ namespace Interfaz.Assemblers
             pedidoViewModel.Entrega_est = (System.DateTime)pedido.Entrega_est;
             pedidoViewModel.Gastos_envio = pedido.Gastos_envio;
             pedidoViewModel.Total = pedido.Total;
+            pedidoViewModel.Usuario = pedido.Usuario.Email;
             return pedidoViewModel;
 
         }

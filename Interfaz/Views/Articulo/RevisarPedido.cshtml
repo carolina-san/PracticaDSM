@@ -6,65 +6,91 @@
 }
 
 <div class="container">
-    <h2>Revisa tu Pedido</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var articulo in Model.Articulos)
-            {
-                <tr>
-                    <td>
-                        @if (!string.IsNullOrEmpty(articulo.Imagen))
-                        {
-                            <img src="@articulo.Imagen" alt="@articulo.Nombre" style="max-height: 100px;" />
-                        }
-                        else
-                        {
-                            <span>Sin imagen</span>
-                        }
-                    </td>
-                    <td>@articulo.Nombre</td>
-                    <td>
-                        <form method="post" action="@Url.Action("ActualizarCantidad", "Carrito")">
-                            <input type="number" name="cantidad" value="@articulo" min="1" class="form-control" style="width: 60px;" />
-                            <input type="hidden" name="id" value="@articulo.Id" />
-                            <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
-                        </form>
-                    </td>
-                    <td>@articulo.Precio €</td>
-                    <td>
-                        <a href="@Url.Action("Eliminar", "Carrito", new { id = articulo.Id })" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <h3>Total: @Model.Subtotal €</h3>
-
-    <h4>Opciones de Envío</h4>
-    <form method="post" action="@Url.Action("ConfirmarPedido", "Carrito")">
-        <div class="form-group">
-            <label for="TipoEnvio">Elige el tipo de envío</label>
-            <select id="TipoEnvio" name="TipoEnvio" class="form-control">
-                @foreach (var opcion in ViewBag.OpcionesEnvio as List<String>)
-                {
-                    <option value="@opcion">@opcion</option>
-                }
-            </select>
+    <h2 class="mb-4">Revisa tu Pedido</h2>
+    <div class="row">
+        <!-- Resumen del Pedido -->
+        <div class="col-md-6">
+            <h3>Resumen del Pedido</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var articulo in Model.Articulos)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(articulo.Imagen))
+                                {
+                                    <img src="@articulo.Imagen" alt="@articulo.Nombre" style="max-height: 100px;" />
+                                }
+                                else
+                                {
+                                    <span>Sin imagen</span>
+                                }
+                            </td>
+                            <td>@articulo.Nombre</td>
+                            <td>
+                                <span>Cantidad: 1</span>
+                            </td>
+                            <td>@articulo.Precio €</td>
+                            <td>
+                                <a href="@Url.Action("Eliminar", "Carrito", new { id = articulo.Id })" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <h3>Total: @Model.Subtotal €</h3>
         </div>
 
-        <div class="d-flex justify-content-between">
-            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Seguir Comprando</a>
-            <button type="submit" class="btn btn-success">Confirmar Pedido</button>
+        <!-- Formulario de Dirección -->
+        <div class="col-md-6">
+            <h3>Dirección de Envío</h3>
+            <form method="post" action="@Url.Action("ConfirmarPedido", "Pedido")">
+                <div class="form-group">
+                    <label for="TipoEnvio">Elige el tipo de envío</label>
+                    <select id="TipoEnvio" name="TipoEnvio" class="form-control">
+                        @foreach (var opcion in ViewBag.OpcionesEnvio as List<String>)
+                        {
+                            <option value="@opcion">@opcion</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Calle">Calle</label>
+                    <input type="text" id="Calle" name="Calle" class="form-control" placeholder="Calle, número, piso, etc." required />
+                </div>
+                <div class="form-group">
+                    <label for="Provincia">Provincia</label>
+                    <input type="text" id="Provincia" name="Provincia" class="form-control" placeholder="Provincia" required />
+                </div>
+                <div class="form-group">
+                    <label for="CodigoPostal">Código Postal</label>
+                    <input type="number" id="CodigoPostal" name="CodigoPostal" class="form-control" placeholder="Código Postal" required />
+                </div>
+                <div class="form-group">
+                    <label for="Telf">Teléfono</label>
+                    <input type="number" id="Telf" name="Telf" class="form-control" placeholder="Teléfono" required />
+                </div>
+                <div class="form-group">
+                    <label for="Nombre">Nombre Completo</label>
+                    <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="Nombre" required />
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Seguir Comprando</a>
+                    <button type="submit" class="btn btn-success">Confirmar Pedido</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
