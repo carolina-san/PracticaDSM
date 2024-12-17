@@ -12,6 +12,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DsmGen.ApplicationCore.CP.Dominio_dsm;
+using DsmGen.Infraestructure.EN.Dominio_dsm;
+using NHibernate.Criterion;
 namespace Interfaz.Controllers
 {
     public class PedidoController : BasicController
@@ -137,15 +139,16 @@ namespace Interfaz.Controllers
             DireccionCEN dirCEN = new DireccionCEN(dirRep);
             int idDireccion = dirCEN.Nuevo(Calle, Provincia, CodigoPostal, Telf, Nombre, usuario.Email);
 
-            decimal gastosEnvio = TipoEnvio == "Rapido" ? 4.99m : 0m;
+            decimal gastosEnvio = TipoEnvio == "Envío rápido (+4.99€)" ? 4.99m : 0m;
 
             var carrito = HttpContext.Session.GetObject<CarritoViewModel>("CarritoView");
-            decimal subtotal = carrito.Subtotal;
+            carrito.Subtotal += gastosEnvio;
 
             PedidoRepository pedidoRepository = new PedidoRepository();
             PedidoCEN pedidoCEN = new PedidoCEN(pedidoRepository);
             int idPedido = pedidoCEN.Nuevo(usuario.Email, (float)gastosEnvio, idDireccion);
-            var cantidadesProcesadas = new Dictionary<int, int>();
+            PedidoEN pedido=pedidoCEN.DameOID(idPedido);
+            PedidoViewModel pedidoView = new PedidoAssembler().convertirENtoViewModel(pedido);
 
             LineaPedidoCP lineaPedidoCEN = new LineaPedidoCP(new SessionCPNHibernate());
 
@@ -158,9 +161,47 @@ namespace Interfaz.Controllers
                     );
                 
             }
-
+            HttpContext.Session.Set<PedidoViewModel>("pedido", pedidoView);
             SessionClose();
-            return RedirectToAction("Index","Pedido");
+            return RedirectToAction("Pago","Pedido");
+        }
+        [HttpGet]
+        public ActionResult Pago()
+        {
+            var pedido = HttpContext.Session.Get<PedidoViewModel>("pedido");
+        
+            PedidoRepository pedidoRepository = new PedidoRepository();
+            PedidoCEN pedidoCEN = new PedidoCEN(pedidoRepository);
+            PedidoEN pedidoEN = pedidoCEN.DameOID(pedido.Id);
+            LineaPedidoRepository linped = new LineaPedidoRepository();
+            LineaPedidoCEN lineaPedidoCEN = new LineaPedidoCEN(linped);
+            IList<LineaPedidoEN> lineas = lineaPedidoCEN.DameALL(0,-1);
+            var lineasPedido = lineas.Where(p => p.Pedido == pedidoEN).ToList();
+            var viewModel = new PedidoViewModel
+            {
+                Articulos = lineasPedido.Select(linea => new ArticuloViewModel
+                {
+                    Id = linea.Articulo.Id,
+                    Nombre = linea.Articulo.Nombre,
+                    Imagen = linea.Articulo.Foto,
+                    Precio = linea.Articulo.Precio
+                }).ToList(),
+                Total = lineasPedido.Sum(linea => linea.Articulo.Precio * linea.Cantidad)
+            };
+
+            return View(viewModel);
+        }
+        [HttpGet]
+        public ActionResult MisPedidos()
+        {
+            var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+            PedidoRepository pedRep = new PedidoRepository();
+            PedidoCEN pedCEN = new PedidoCEN(pedRep);
+            IList<PedidoEN> pedidos = pedCEN.DameALL(0, -1);
+            var pedidosUsuario = pedidos.Where(p => p.Usuario.Email == usuario.Email).ToList();
+            IList<PedidoViewModel> pedidosView = new PedidoAssembler().convertirListENToViewModel(pedidosUsuario);
+            // Pasar los pedidos filtrados a la vista
+            return View(pedidosView);
         }
     }
 }

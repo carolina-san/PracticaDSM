@@ -28,8 +28,8 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" name="color" placeholder="Buscar por color" value="@color" />
                 </div>
-                <div class="form-group">
-                    <label for="marca" class="control-label"></label>
+                <div class="form-group mb-3">
+                    
                     <select class="form-control" for="marca" name="marca" asp-items="marcaItems" value="@marca">
                         <option value="">Seleccionar marca</option>
                        @*  @foreach (var marca2 in marcaItems)
@@ -44,7 +44,7 @@
                     <input type="number" class="form-control" name="precioMin" placeholder="Precio mínimo" value="@precioMin" />
                     <input type="number" class="form-control" name="precioMax" placeholder="Precio máximo" value="@precioMax" />
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                    
                     <select name="talla" class="form-control">
                         <option value="">Seleccionar talla</option>
@@ -84,7 +84,7 @@
                         <p class="card-text fw-bold">Precio: @item.Precio €</p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="#" class="btn btn-success btn-sm">
+                        <a href="#" class="btn btn-fav btn-sm">
                             <i class="bi bi-heart-fill me-2"></i> Favorito
                         </a>
                     </div>

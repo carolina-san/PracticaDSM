@@ -25,6 +25,7 @@ namespace Interfaz.Assemblers
             art.Precio = en.Precio;
             art.Stock = en.Stock;
             art.Imagen = en.Foto;
+            art.Resenyas = new ResenyaAssembler().convertirListENToViewModel(en.Resenya);
             return art;
         }
 

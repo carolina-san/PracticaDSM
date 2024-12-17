@@ -43,7 +43,7 @@ namespace Interfaz.Models
         [RegularExpression("([0-9]+)", ErrorMessage = "Por favor introduce un número entero para el envio")]
 
         public double Gastos_envio { get; set; }
-
+        public List<ArticuloViewModel> Articulos { get; set; } = new List<ArticuloViewModel>();
         public string Usuario { get; set; }
     }
 }

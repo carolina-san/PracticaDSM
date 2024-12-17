@@ -113,7 +113,7 @@ public static void InitializeData ()
 
                 /*PROTECTED REGION ID(initializeDataMethod) ENABLED START*/
 
-                usuariocen.Nuevo ("juan@gmail.com", "Juan", new DateTime (1990, 1, 1), "1234");
+                string usu= usuariocen.Nuevo ("juan@gmail.com", "Juan", new DateTime (1990, 1, 1), "1234");
                 Console.WriteLine ("Usuario Juan creado");
 
                 if (usuariocen.Login ("juan@gmail.com", "1234") != null) {
@@ -132,16 +132,18 @@ public static void InitializeData ()
                 int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "blanco","/Images/airforce.png");
                 int art2 = articulocen.Nuevo ("botas altas", 30, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca2, 100, "verde oscuro", "/Images/botasAltas.png");
                 int art3 = articulocen.Nuevo ("zapato casual", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca3, 100, "blanco", "/Images/zapatoCasual.png");
+                resenyacen.Nueva(5, "Muy buen producto", new DateTime(2021, 1, 1), usu, art1);
+
                 Console.WriteLine ("Articulo creado correctamente");
                 articulocen.Dec_stock (art1, 10);
                 Console.WriteLine ("Stock decrementado correctamente");
                 articulocen.Mas_stock (art1, 10);
                 Console.WriteLine ("Stock incrementado correctamente");
 
-                string usuario1 = usuario_admincen.Nuevo ("juan2@gmail.com", "Juan", new DateTime (1990, 1, 1), "1234");
+                string usuario1 = usuario_admincen.Nuevo ("admin@admin.com", "Administrador", new DateTime (1990, 1, 1), "admin");
                 Console.WriteLine ("Usuario Admin Juan creado");
 
-                usuariocen.CambiarPass (usuario1, "1234", "12345");
+                usuariocen.CambiarPass (usu, "1234", "12345");
                 Console.WriteLine ("Password cambiada correctamente");
                 int dir = direccioncen.Nuevo ("carrer nou", "Barcelona", 08001, 644216474, "Carolina", usuario1);
                 Console.WriteLine ("Direccion creada correctamente");

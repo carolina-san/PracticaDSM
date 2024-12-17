@@ -8,12 +8,12 @@ namespace Interfaz.Models
     
         public class LoginUsuarioViewModel
         {
-            [Display(Prompt = "Introduce el email del usuario", Description = "Email usuario", Name = "EmailUsuario")]
+            [Display(Prompt = "Introduce el email del usuario", Description = "Email usuario", Name = "Email")]
             [Required(ErrorMessage = "El email del Usuario es obligatorio")]
 
             public string Email { get; set; }
 
-            [Display(Prompt = "Introduce el password del usuario", Description = "Password usuario", Name = "Password")]
+            [Display(Prompt = "Introduce el password del usuario", Description = "Password usuario", Name = "Contraseña")]
             [Required(ErrorMessage ="El Password del Usuario es obligatorio")]
             [DataType(DataType.Password)]
 

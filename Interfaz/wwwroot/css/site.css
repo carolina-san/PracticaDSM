@@ -1,71 +1,323 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿/* General */
+html{
+    min-height:100%;
+    position:relative;
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+}
+:root {
+    --beige: #f5f5eb; /* Color claro beige */
+    --azulClaro: #98e1eb; /* Color azul claro */
+    --verdeClaro: #169094; /* Color verde azulado */
+    --verdeOscuro: #004041; /* Color verde oscuro */
+}
+body {
+    background-color: var(--beige);
+    color: #004041;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 60px; /* Margen inferior para el footer */
+    height:100%;
 }
 
-/* Provide sufficient contrast against white background */
+/* Links */
 a {
-  color: #0366d6;
+    color: #169094;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+    a:hover {
+        color: #004041;
+    }
+
+/* Botones */
+.btn {
+    border-radius: 30px; /* Bordes redondeados */
+    padding: 10px 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.btn-fav{
+    background-color:var(--azulClaro);
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    background-color: #98e1eb;
+    border-color: #169094;
+    color: #004041;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    .btn-primary:hover {
+        background-color: #169094;
+        border-color: #004041;
+        transform: scale(1.05);
+    }
+
+/* Barra de búsqueda */
+.input-group .form-control {
+    border-radius: 30px; /* Bordes redondeados solo en los extremos */
+    border-color: #98e1eb;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
+.input-group .btn-primary {
+    border-radius:30px  ; /* Bordes redondeados solo en los extremos */
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.btn-buscar {
+    max-height: 38px;
+    display: flex;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+    border-radius: 0 30px 30px 0;
+    background-color: #98e1eb;
+    border-color: #169094;
+    color: #004041;
 }
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+/* Navbar */
+.navbar {
+    background-color: #98e1eb;
+    border-color: #169094;
+    color: #004041;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+/* Tarjetas */
+.card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra moderna */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra más marcada */
+    }
+
+.card-header, .card-footer {
+    background-color: #169094;
+    color: #f5f5eb;
 }
+
+.card-body {
+    background-color: white;
+}
+
+/* Footer */
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    line-height: 60px; /* Centrado vertical */
+    background-color: #004041;
+    color: #f5f5eb;
+    text-align: center;
 }
+
+/* Títulos */
+h1.display-4 {
+    color: #169094;
+    margin-bottom: 30px;
+    font-weight: 400;
+    font-size:xx-large;
+}
+
+/* General navbar styles */
+.navbar {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    background-color: var(--verdeOscuro); 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    color: var(--beige); /* Primary color for the brand */
+    font-weight: 600;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    &:hover
+{
+    color: var(--verdeClaro);
+}
+}
+.navbar-toggler:hover {
+    color: var(--verdeClaro);
+}
+.navbar-toggler-icon {
+    filter: invert(30%);
+    color: var(--verdeClaro);
+}
+
+/* Navigation links */
+.nav-link {
+    color: var(--beige); /* Secondary text color */
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+
+    .nav-link:hover {
+        color: var(--verdeClaro); /* Primary color on hover */
+        text-decoration: none;
+    }
+
+/* Active link styling */
+.navbar-nav .nav-link.active {
+    color: var(--beige);
+    font-weight: 600;
+}
+
+/* Profile and cart icons */
+.nav-link i {
+    color: var(--beige); /* Icon color */
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+    .nav-link i:hover {
+        color: var(--verdeClaro); /* Darker shade on hover */
+        transform: scale(1.1);
+    }
+
+/* Navbar text (welcome message) */
+.navbar-text {
+    font-weight: bold;
+    color: var(--beige);
+    margin-left: 1rem;
+}
+
+/* Footer styles */
+footer.footer {
+    background-color:var(--verdeClaro);
+    border-top: 1px solid #e9ecef;
+    color:var(--verdeOscuro);
+    >div>a
+{
+    color: var(--beige);
+    text-decoration: none;
+}
+}
+.privacy{
+    color:var(--beige);
+    text-decoration:none;
+}
+    footer.footer a {
+        color: #007bff;
+    }
+
+        footer.footer a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+
+form .form-group label {
+    font-weight: bold;
+    color: var(--verdeClaro);
+}
+
+form .form-group select {
+    background-color: white;
+    border-color: var(--azulClaro);
+    border-radius:30px;
+}
+
+    form .form-group select:focus {
+        border-color: var(--verdeClaro);
+        box-shadow: 0 0 0 0.25rem rgba(22, 144, 148, 0.25);
+    }
+
+.btn-detalles{
+    background-color: var(--verdeClaro);
+    border-color: var(--verdeClaro);
+    color: var(--beige);
+    margin-top:1em;
+}
+
+    .btn-detalles:hover {
+        background-color: var(--verdeOscuro);
+        border-color: var(--verdeOscuro);
+    }
+
+.list-group-item {
+    background-color: var(--beige);
+    border: none;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+    .list-group-item strong {
+        color: var(--verdeClaro);
+    }
+
+.bi-star-fill {
+    color: #ffb400;
+}
+
+.bi-star {
+    color: #ddd;
+}
+.comentarios {
+    background-color:white;
+    padding-bottom:.2em;
+    margin:.5em;
+
+}
+
+.eliminar{
+   
+    padding:.6em;
+}
+/* Estilo para el formulario */
+.formulario-envio {
+    background-color: #f8f9fa; /* Color de fondo claro */
+    padding: 20px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para darle profundidad */
+    margin-top: 20px; /* Espacio superior para separar del contenido anterior */
+}
+
+    .formulario-envio .form-group {
+        margin-bottom: 1.2rem; /* Espaciado entre los campos del formulario */
+    }
+
+    .formulario-envio h3 {
+        margin-bottom: 20px; /* Espaciado para el título */
+    }
+    .btn-1{
+        max-width:200px;
+    }
+
+    .thead{
+        background-color:var(--verdeOscuro);
+        >tr>th{
+                  color:var(--beige);
+           }
+    }
+
+.payment-btn {
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .payment-btn:hover {
+        opacity: 0.8;
+    }
+
+    .payment-btn i {
+        font-size: 18px;
+    }
+
+    .payment-btn.active-btn {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    /* Estilos para los íconos */
+    .payment-btn i {
+        margin-right: 8px;
+    }

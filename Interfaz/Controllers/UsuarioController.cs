@@ -37,6 +37,12 @@ namespace Interfaz.Controllers
             {
                 SessionInitialize();
                 UsuarioEN usuEN=usuCEN.DameOID(login.Email);
+                Usuario_adminRepository usuAdminRepo = new Usuario_adminRepository();
+                Usuario_adminCEN usuAdminCEN = new Usuario_adminCEN(usuAdminRepo);
+                if (usuEN.Email == "admin@admin.com")
+                {
+                    HttpContext.Session.Set<int> ("admin", 1);
+                }
                 UsuarioViewModel usuVM=new UsuarioAssembler().ConvertirENToViewModel(usuEN);
                 HttpContext.Session.Set<UsuarioViewModel>("usuario", usuVM);
 

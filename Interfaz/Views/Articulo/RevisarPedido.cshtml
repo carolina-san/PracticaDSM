@@ -6,29 +6,29 @@
 }
 
 <div class="container">
-    <h2 class="mb-4">Revisa tu Pedido</h2>
+    <h2 class="mb-4 ">Resumen del Pedido</h2>
     <div class="row">
         <!-- Resumen del Pedido -->
-        <div class="col-md-6">
-            <h3>Resumen del Pedido</h3>
-            <table class="table table-bordered">
-                <thead>
+        <div class="col-md-7 mb-4 ">
+            <div class="d-flex flex-column justify-content-between h-75">
+            <table class="table table-hover table-striped table-bordered table-sm">
+                <thead class="thead text-center">
                     <tr>
                         <th>Imagen</th>
                         <th>Nombre</th>
-                        <th>Cantidad</th>
+                       
                         <th>Precio</th>
-                        <th>Acciones</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-center">
                     @foreach (var articulo in Model.Articulos)
                     {
                         <tr>
                             <td>
                                 @if (!string.IsNullOrEmpty(articulo.Imagen))
                                 {
-                                    <img src="@articulo.Imagen" alt="@articulo.Nombre" style="max-height: 100px;" />
+                                    <img src="@articulo.Imagen" alt="@articulo.Nombre" class="img-fluid" style="max-height: 60px;" />
                                 }
                                 else
                                 {
@@ -36,26 +36,27 @@
                                 }
                             </td>
                             <td>@articulo.Nombre</td>
-                            <td>
-                                <span>Cantidad: 1</span>
-                            </td>
+                            
                             <td>@articulo.Precio €</td>
                             <td>
-                                <a href="@Url.Action("Eliminar", "Carrito", new { id = articulo.Id })" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Eliminar
+                                <a href="@Url.Action("Eliminar", "Carrito", new { id = articulo.Id })" class="btn btn-danger btn-sm eliminar">
+                                    <i class="bi bi-trash"></i>
                                 </a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-            <h3>Total: @Model.Subtotal €</h3>
+            <h4>Total: @Model.Subtotal €</h4>
+                <a href="@Url.Action("Index", "Home")" class="btn btn-primary btn-sm btn-1">Seguir Comprando</a>
+            </div>
+            
         </div>
 
         <!-- Formulario de Dirección -->
-        <div class="col-md-6">
+        <div class="col-md-5">
             <h3>Dirección de Envío</h3>
-            <form method="post" action="@Url.Action("ConfirmarPedido", "Pedido")">
+            <form method="post" action="@Url.Action("ConfirmarPedido", "Pedido")" class="formulario-envio">
                 <div class="form-group">
                     <label for="TipoEnvio">Elige el tipo de envío</label>
                     <select id="TipoEnvio" name="TipoEnvio" class="form-control">
@@ -66,29 +67,28 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="Calle">Calle</label>
+                  
                     <input type="text" id="Calle" name="Calle" class="form-control" placeholder="Calle, número, piso, etc." required />
                 </div>
                 <div class="form-group">
-                    <label for="Provincia">Provincia</label>
+                    
                     <input type="text" id="Provincia" name="Provincia" class="form-control" placeholder="Provincia" required />
                 </div>
                 <div class="form-group">
-                    <label for="CodigoPostal">Código Postal</label>
+               
                     <input type="number" id="CodigoPostal" name="CodigoPostal" class="form-control" placeholder="Código Postal" required />
                 </div>
                 <div class="form-group">
-                    <label for="Telf">Teléfono</label>
+                    
                     <input type="number" id="Telf" name="Telf" class="form-control" placeholder="Teléfono" required />
                 </div>
                 <div class="form-group">
-                    <label for="Nombre">Nombre Completo</label>
-                    <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="Nombre" required />
+                  
+                    <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="Nombre Completo" required />
                 </div>
 
-                <div class="d-flex justify-content-between mt-3">
-                    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Seguir Comprando</a>
-                    <button type="submit" class="btn btn-success">Confirmar Pedido</button>
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="submit" class="btn btn-primary">Ir al pago</button>
                 </div>
             </form>
         </div>

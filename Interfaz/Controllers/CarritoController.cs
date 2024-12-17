@@ -31,7 +31,7 @@ public class CarritoController : BasicController
         SessionInitialize();
         var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
         // Crear el repositorio y CEN
-        ArticuloRepository artRepository = new ArticuloRepository();
+        ArticuloRepository artRepository = new ArticuloRepository(session);
         ArticuloCEN artCEN = new ArticuloCEN(artRepository);
 
         // Obtener el artículo por ID

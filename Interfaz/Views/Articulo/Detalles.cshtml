@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <h2>@Model.Nombre</h2>
+<div class="container mt-5">
+    
     <div class="row">
         <div class="col-md-4">
             @if (!string.IsNullOrEmpty(Model.Imagen))
@@ -17,28 +17,85 @@
             {
                 <span>Sin imagen disponible</span>
             }
+            <form method="post" action="@Url.Action("Favorito", "Home")">
+                <input type="hidden" name="idArticulo" value="@Model.Id" />
+                <button type="submit" class="btn btn-sm  btn-detalles">
+                    <i class="bi bi-heart-fill me-2"></i> Favorito
+                </button>
+            </form>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 ">
+            <div class="d-flex align-items-center justify-content-between mb-5">
+                <h2 class="mr-3">@Model.Nombre</h2>
+                <h3><strong> @Model.Precio €</strong></h3>
+            </div>
+            
             <p><strong>Descripción:</strong> @Model.Descripcion</p>
-            <p><strong>Precio:</strong> @Model.Precio €</p>
+            
            
             <form asp-action="Añadir" asp-controller="Carrito" method="post">
+                
+               
+                <p><strong>Marca:</strong> @Model.Marca</p>
+                <p> @(Model.Check_verificado ? "✔" : "✘") <strong>Verificado</strong></p>
+
+                <p><strong>Descripción Verificado:</strong> @Model.Desc_verificado</p>
+                <p> @Model.Recomendaciones</p>
                 <div class="form-group">
                     <label for="talla">Seleccionar Talla:</label>
                     <select asp-for="Talla" asp-items="Html.GetEnumSelectList<Talla_artEnum>()" class="form-control"></select>
                 </div>
-                <p><strong>Recomendaciones:</strong> @Model.Recomendaciones</p>
-                <p><strong>Marca:</strong> @Model.Marca</p>
-                <p><strong>Verificado:</strong> @(Model.Check_verificado ? "Sí" : "No")</p>
-                <p><strong>Descripción Verificado:</strong> @Model.Desc_verificado</p>
-                <input type="hidden" name="id" value="@Model.Id" />
-                <button type="submit" class="btn btn-success btn-sm">Añadir al Carrito</button>
+             
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-sm btn-detalles">Añadir al Carrito</button>
+
+                
             </form>
+            <br/>
+            
            
             <!-- Botón para añadir al carrito o alguna otra acción -->
 
 
         </div>
     </div>
-    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Volver</a>
+    <h3>Comentarios</h3>
+    <div>
+        @if (Model.Resenyas != null )
+        {
+            <ul class="list-group">
+                @foreach (var comentario in Model.Resenyas)
+                {
+                    <li class="list-group-item comentarios">
+                        <div>
+                            <strong>@comentario.Usuario:</strong>
+                            <span>
+                                <!-- Generar estrellas -->
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= comentario.Estrellas)
+                                    {
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-star"></i>
+                                    }
+                                }
+                            </span>
+                        </div>
+                        <p>@comentario.Comentario</p>
+                    </li>
+                   
+                }
+           
+            </ul>
+        }
+        else
+        {
+            <p>No hay comentarios aún.</p>
+        }
+    </div>
+
+   
 </div>

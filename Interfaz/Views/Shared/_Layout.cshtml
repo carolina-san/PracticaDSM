@@ -5,11 +5,13 @@
 
 @{
     UsuarioViewModel usuario = Context.Session.Get<UsuarioViewModel>("usuario");
+    int admin=Context.Session.Get<int>("admin");
     string nombre = "";
     if (usuario != null)
     {
         nombre = usuario.Nombre;
     }
+   
 }
 
 <head>
@@ -19,7 +21,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   @*   @if (usuario==null)
     {
         <script type="text/javascript">
@@ -30,7 +32,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UrbanStep</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -43,20 +45,24 @@
                         <!-- Barra privada -->
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Articulo" asp-action="Index">Artículos</a>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Busqueda">Búsqueda</a>
                             </li>
+                            @if(admin==1){
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Articulo" asp-action="Index">Artículos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " asp-area="" asp-controller="Pedido" asp-action="Index">Pedidos</a>
+                                </li>
+                            }
+                          
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Pedido" asp-action="Index">Pedidos</a>
+                                <a class="nav-link " asp-area="" asp-controller="Usuario" asp-action="Logout">Cerrar Sesión</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Logout">Cerrar Sesión</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Busqueda">Busqueda</a>
-                            </li>
+                           
                         </ul>
                         <span class="navbar-text">
                             Bienvenido, @nombre
@@ -67,17 +73,18 @@
                         <!-- Barra pública -->
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Login">Iniciar Sesión</a>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Busqueda">Búsqueda</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Registro">Registrarse</a>
+                                <a class="nav-link" asp-area="" asp-controller="Usuario" asp-action="Login">Iniciar Sesión</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Busqueda">Busqueda</a>
+                                <a class="nav-link " asp-area="" asp-controller="Usuario" asp-action="Registro">Registrarse</a>
                             </li>
+                           
 
                         </ul>
 
@@ -105,9 +112,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer ">
         <div class="container">
-            &copy; 2024 - Todos los derechos reservados - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Todos los derechos reservados - <a class="privacy" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

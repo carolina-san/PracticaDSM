@@ -12,8 +12,8 @@
         <div class="col-md-6 offset-md-3">
             <form method="get" action="@Url.Action("Index", "Home")">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="tipo" placeholder="Buscar por nombre" value="@Context.Request.Query["tipo"]" />
-                    <button class="btn btn-primary" type="submit">
+                    <input type="text" class="form-control " name="tipo" placeholder="Buscar por nombre" value="@Context.Request.Query["tipo"]" />
+                    <button class="btn  btn-buscar" type="submit">
                         <i class="bi bi-search"></i> Buscar
                     </button>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="card-footer text-center">
                         <form method="post" action="@Url.Action("Favorito", "Home")">
                             <input type="hidden" name="idArticulo" value="@item.Id" />
-                            <button type="submit" class="btn btn-success btn-sm">
+                            <button type="submit" class="btn btn-sm btn-fav">
                                 <i class="bi bi-heart-fill me-2"></i> Favorito
                             </button>
                         </form>

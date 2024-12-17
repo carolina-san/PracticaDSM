@@ -5,59 +5,56 @@
 }
 
 <div class="container">
-    <h2>Carrito de Compras</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Articulos != null && Model.Articulos.Any())
+    <h1 class="display-4 text-center mb-4">Carrito de Compras</h1>
+    <div class="row">
+        @if (Model.Articulos != null && Model.Articulos.Any())
+        {
+            @foreach (ArticuloViewModel articulo in Model.Articulos)
             {
-                @foreach (ArticuloViewModel articulo in Model.Articulos)
-                {
-                    <tr>
-                        <td>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-img-top text-center">
                             @if (!string.IsNullOrEmpty(articulo.Imagen))
                             {
-                                <img src="@articulo.Imagen" alt="@articulo.Nombre" style="max-height: 100px;" />
+                                <img src="@articulo.Imagen" alt="@articulo.Nombre" class="img-fluid" style="max-height: 150px;" />
                             }
                             else
                             {
                                 <span>Sin imagen</span>
                             }
-                        </td>
-                        <td>@articulo.Nombre</td>
-                        <td>@articulo.Precio €</td>
-                        <td>@articulo.Talla </td>
-                        <td>
-
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@articulo.Nombre</h5>
+                            <p class="card-text fw-bold">Precio: @articulo.Precio €</p>
+                            <p class="card-text">Talla: @articulo.Talla</p>
+                        </div>
+                        <div class="card-footer text-center">
                             <a href="@Url.Action("Eliminar", "Carrito", new { id = articulo.Id })" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</a>
-                        </td>
-                    </tr>
-                }
+                        </div>
+                    </div>
+                </div>
             }
-            else
-            {
-                <tr><td colspan="4">No hay artículos en el carrito.</td></tr>
-            }
-        </tbody>
-    </table>
-
-    <h3>Total: @Model.Subtotal €</h3>
-
-    <div class="d-flex justify-content-between">
-        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Seguir Comprando</a>
-
-        @if (Model.Articulos != null && Model.Articulos.Any())
-        {
-            <form method="post" action="@Url.Action("RevisarPedido", "Articulo")">
-                <button type="submit" class="btn btn-success">Pasar por Caja</button>
-            </form>
         }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-warning text-center" role="alert">
+                    No hay artículos en el carrito.
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <h3>Total: @Model.Subtotal €</h3>
+        <div class="d-flex justify-content-between align-items-center ">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary me-2 mr-3">Seguir Comprando</a>
+            @if (Model.Articulos != null && Model.Articulos.Any())
+            {
+                <form method="post" action="@Url.Action("RevisarPedido", "Articulo")">
+                    <button type="submit" class="btn btn-primary">Pasar por Caja</button>
+                </form>
+            }
+        </div>
     </div>
 </div>

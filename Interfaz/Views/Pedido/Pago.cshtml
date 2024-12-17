@@ -1,0 +1,129 @@
+﻿@model Interfaz.Models.PedidoViewModel
+@using DsmGen.ApplicationCore.Enumerated.Dominio_dsm
+@{
+    ViewData["Title"] = "Pago";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="mb-4">Seleccione un método de pago</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="btn-group-vertical d-flex" role="group" id="payment-method-group">
+                     <!-- Contrareembolso -->
+                    <input type="radio" class="btn-check" id="Contrareembolso" name="MetodoPago" value="Contrareembolso" autocomplete="off" style="display: none;" />
+                    <label class="btn flex-fill mb-2" for="Contrareembolso" style="border: 1px solid #28a745; background-color: #28a745; color: white;">
+                        <i class="bi bi-cash" style="margin-right: 8px;"></i> Contrareembolso
+                    </label>
+
+                    <!-- Tarjeta -->
+                    <input type="radio" class="btn-check" id="Tarjeta" name="MetodoPago" value="Tarjeta" autocomplete="off" style="display: none;" />
+                    <label class="btn flex-fill mb-2" for="Tarjeta" style="border: 1px solid #1A1F71; background-color: #1A1F71; color: white;">
+                        <i class="bi bi-credit-card" style="margin-right: 8px;"></i> Tarjeta
+                    </label>
+
+                    <!-- PayPal -->
+                    <input type="radio" class="btn-check" id="PayPal" name="MetodoPago" value="PayPal" autocomplete="off" style="display: none;" />
+                    <label class="btn flex-fill" for="PayPal" style="border: 1px solid #003087; background-color: #003087; color: white;">
+                        <i class="bi bi-paypal" style="margin-right: 8px;"></i> PayPal
+                    </label>
+                </div>
+            </div>
+
+            <script>
+                // Seleccionar el grupo y añadir evento de escucha
+                const paymentMethodGroup = document.getElementById("payment-method-group");
+                const labels = paymentMethodGroup.querySelectorAll("label");
+
+                labels.forEach(label => {
+                    label.addEventListener("click", () => {
+                        // Quitar el estilo activo de todos los botones
+                        labels.forEach(l => {
+                            l.style.backgroundColor = "";
+                            l.style.color = l.style.borderColor;
+                        });
+
+                        // Aplicar el estilo activo al botón seleccionado
+                        label.style.backgroundColor = label.style.borderColor;
+                        label.style.color = "white";
+                    });
+                });
+            </script>
+        </div>
+        <div class="col-md-6">
+            <!-- Contenedor dinámico para mostrar el formulario según el método de pago -->
+            <div id="payment-method" class="mt-4">
+                <!-- Este contenido se actualizará dinámicamente -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const paymentMethodContainer = document.getElementById("payment-method");
+
+        function updatePaymentForm(selectedMethod) {
+            let content = "";
+
+            if (selectedMethod === "Contrareembolso") {
+                content = `
+                    <p>El pedido se pagará al recibirlo. Puede continuar</p>
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="@Url.Action("MisPedidos", "Pedido")" class="btn btn-primary">Confirmar Pedido</a>
+                    </div>
+                `;
+            } else if (selectedMethod === "Tarjeta") {
+                content = `
+                    <form class="formulario-envio">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre Completo</label>
+                            <input type="text" id="name" class="form-control" placeholder="Nombre Completo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardNumber" class="form-label">Número de Tarjeta</label>
+                            <input type="text" id="cardNumber" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expiryDate" class="form-label">Fecha de Caducidad</label>
+                            <input type="month" id="expiryDate" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" id="cvv" class="form-control" placeholder="XXX" required>
+                        </div>
+                    </form>
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="@Url.Action("MisPedidos", "Pedido")" class="btn btn-primary">Confirmar Pedido</a>
+                    </div>
+                `;
+            } else if (selectedMethod === "PayPal") {
+                content = `
+                    <form class="formulario-envio">
+                        <div class="mb-3">
+                            <label for="paypalEmail" class="form-label">Correo Electrónico de PayPal</label>
+                            <input type="email" id="paypalEmail" class="form-control" placeholder="correo@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="paypalPassword" class="form-label">Contraseña de PayPal</label>
+                            <input type="password" id="paypalPassword" class="form-control" placeholder="****" required>
+                        </div>
+                    </form>
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="@Url.Action("MisPedidos", "Pedido")" class="btn btn-primary">Confirmar Pedido</a>
+                    </div>
+                `;
+            }
+
+            paymentMethodContainer.innerHTML = content;
+        }
+
+        document.querySelectorAll("input[name='MetodoPago']").forEach(radio => {
+            radio.addEventListener("change", function () {
+                updatePaymentForm(this.value);
+            });
+        });
+    });
+</script>
