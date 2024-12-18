@@ -12,24 +12,25 @@
         <div class="col-md-6">
             <div class="form-group">
                 <div class="btn-group-vertical d-flex" role="group" id="payment-method-group">
-                     <!-- Contrareembolso -->
-                    <input type="radio" class="btn-check" id="Contrareembolso" name="MetodoPago" value="Contrareembolso" autocomplete="off" style="display: none;" />
-                    <label class="btn flex-fill mb-2" for="Contrareembolso" style="border: 1px solid #28a745; background-color: #28a745; color: white;">
+                    <!-- Contrareembolso -->
+                    <input type="radio" class="btn-check" id="Contrareembolso" name="MetodoPago" value="Contrareembolso" autocomplete="off" style="display:none;" checked />
+                    <label class=" payment-btn mb-2" for="Contrareembolso" style="border: 1px solid #28a745; background-color: #28a745; color: white;">
                         <i class="bi bi-cash" style="margin-right: 8px;"></i> Contrareembolso
                     </label>
 
                     <!-- Tarjeta -->
-                    <input type="radio" class="btn-check" id="Tarjeta" name="MetodoPago" value="Tarjeta" autocomplete="off" style="display: none;" />
-                    <label class="btn flex-fill mb-2" for="Tarjeta" style="border: 1px solid #1A1F71; background-color: #1A1F71; color: white;">
+                    <input type="radio" class="btn-check" id="Tarjeta" name="MetodoPago" value="Tarjeta" style="display:none;" autocomplete="off" />
+                    <label class=" payment-btn mb-2" for="Tarjeta" style="border: 1px solid #1A1F71; background-color: transparent; color: #1A1F71;">
                         <i class="bi bi-credit-card" style="margin-right: 8px;"></i> Tarjeta
                     </label>
 
                     <!-- PayPal -->
-                    <input type="radio" class="btn-check" id="PayPal" name="MetodoPago" value="PayPal" autocomplete="off" style="display: none;" />
-                    <label class="btn flex-fill" for="PayPal" style="border: 1px solid #003087; background-color: #003087; color: white;">
+                    <input type="radio" class="btn-check" id="PayPal" name="MetodoPago" value="PayPal" style="display:none;"  autocomplete="off" />
+                    <label class=" payment-btn" for="PayPal" style="border: 1px solid #003087; background-color: transparent; color: #003087;">
                         <i class="bi bi-paypal" style="margin-right: 8px;"></i> PayPal
                     </label>
                 </div>
+
             </div>
 
             <script>
@@ -64,7 +65,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const paymentMethodContainer = document.getElementById("payment-method");
-
+        updatePaymentForm("Contrareembolso");
         function updatePaymentForm(selectedMethod) {
             let content = "";
 

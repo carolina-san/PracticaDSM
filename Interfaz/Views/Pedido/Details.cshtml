@@ -1,0 +1,51 @@
+﻿@model PedidoViewModel
+
+<h1 class="h4 text-center">Detalles del Pedido</h1>
+
+<div class="row mb-4">
+    <div class="col-md-8 offset-md-2">
+        <div class="card mb-3">
+            <div class="card-header p-2">
+                <h3 class="h5 mb-0">Pedido #@Model.Id</h3>
+            </div>
+            <div class="card-body p-2">
+                <p class="mb-1"><strong>Estado:</strong> @Model.Estado</p>
+                <p class="mb-1"><strong>Fecha:</strong> @(Model.Fecha?.ToString("dd/MM/yyyy") ?? "Fecha no disponible")</p>
+                <p class="mb-1"><strong>Entrega Estimada:</strong> @(Model.Entrega_est?.ToString("dd/MM/yyyy") ?? "Fecha no disponible")</p>
+
+
+                <p class="mb-1"><strong>Gastos de Envío:</strong> @Model.Gastos_envio.ToString("C")</p>
+                <p class="mb-1"><strong>Total:</strong> @(Model.Total+Model.Gastos_envio)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="h5 text-center mt-3">Artículos</h2>
+
+<div class="row">
+    @foreach (var articulo in Model.Articulos)
+    {
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card h-100">
+                <div class="card-img-top text-center">
+                    <a href="@Url.Action("Detalles", "Articulo", new { id = articulo.Id })">
+                        @if (!string.IsNullOrEmpty(articulo.Imagen))
+                        {
+                            <img src="@articulo.Imagen" class="img-fluid" alt="@articulo.Nombre" style="max-height: 150px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <span>Sin imagen</span>
+                        }
+                    </a>
+                </div>
+                <div class="card-body p-2">
+                    <h5 class="card-title mb-1">@articulo.Nombre</h5>
+                    <p class="card-text mb-1" style="font-size: 0.85rem;">Precio: @articulo.Precio.ToString("C")</p>
+                    <p class="card-text mb-0" style="font-size: 0.85rem;">Subtotal: @articulo.Precio.ToString("C")</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

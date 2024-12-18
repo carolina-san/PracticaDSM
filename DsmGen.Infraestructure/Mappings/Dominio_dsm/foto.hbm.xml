@@ -21,10 +21,7 @@
 			
 			
 		  			
-						<many-to-one name="Articulo" class="DsmGen.Infraestructure.EN.Dominio_dsm.ArticuloNH" >	
-								<column name="FK_idArticulo_idArticulo"/> 
-						</many-to-one>
-											 					
+									
 			
 			
 			

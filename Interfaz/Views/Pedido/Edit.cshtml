@@ -1,0 +1,45 @@
+﻿@model Interfaz.Models.PedidoViewModel
+@using DsmGen.ApplicationCore.Enumerated.Dominio_dsm
+@{
+    ViewData["Title"] = "Editar Pedido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mb-4">Editar Pedido</h1>
+
+<h4>Introduce los nuevos datos del pedido</h4>
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Edit" class="formulario-envio form-nuevo" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Estado del pedido -->
+                <div class="form-group">
+                    <label asp-for="Estado" class="control-label"></label>
+                    <select asp-for="Estado" asp-items="Html.GetEnumSelectList<EstadoPedidoEnum>()" class="form-control"></select>
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+
+                <!-- Fecha de entrega estimada -->
+                <div class="form-group">
+                    <label asp-for="Entrega_est" class="control-label"></label>
+                    <input asp-for="Entrega_est" class="form-control" />
+                    <span asp-validation-for="Entrega_est" class="text-danger"></span>
+                </div>
+
+                <!-- Botón para guardar los cambios -->
+                <div class="form-group">
+                    <input type="submit" value="Guardar cambios" class="btn btn-primary btn-block" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

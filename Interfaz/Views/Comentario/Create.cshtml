@@ -1,0 +1,48 @@
+﻿@model Interfaz.Models.ComentarioViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Comentario</h1>
+
+<h4>Añade tu comentario</h4>
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Create" class="formulario-envio form-nuevo" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Estrellas" class="control-label"></label>
+                    <input asp-for="Estrellas" type="number" class="form-control" min="1" max="5" value="1"/>
+                    <span asp-validation-for="Estrellas" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Comentario" class="control-label"></label>
+                    <input asp-for="Comentario" class="form-control" />
+                    <span asp-validation-for="Comentario" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="Articulo" type="hidden"  value="@Model.Articulo" class="form-control" readonly />
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="Fecha" type="hidden" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" readonly />
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="Usuario" type="hidden" value="@Model.Usuario" class="form-control" readonly />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

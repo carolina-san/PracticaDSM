@@ -5,10 +5,7 @@ namespace DsmGen.ApplicationCore.EN.Dominio_dsm
 {
 public partial class FotoEN
 {
-/**
- *	Atributo articulo
- */
-private DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN articulo;
+
 
 
 
@@ -36,9 +33,7 @@ private string alt;
 
 
 
-public virtual DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN Articulo {
-        get { return articulo; } set { articulo = value;  }
-}
+
 
 
 
@@ -68,25 +63,25 @@ public FotoEN()
 
 
 
-public FotoEN(int id, DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN articulo, string archivo, string alt
+public FotoEN(int id, string archivo, string alt
               )
 {
-        this.init (Id, articulo, archivo, alt);
+        this.init (Id, archivo, alt);
 }
 
 
 public FotoEN(FotoEN foto)
 {
-        this.init (foto.Id, foto.Articulo, foto.Archivo, foto.Alt);
+        this.init (foto.Id,  foto.Archivo, foto.Alt);
 }
 
 private void init (int id
-                   , DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN articulo, string archivo, string alt)
+                   , string archivo, string alt)
 {
         this.Id = id;
 
 
-        this.Articulo = articulo;
+   
 
         this.Archivo = archivo;
 

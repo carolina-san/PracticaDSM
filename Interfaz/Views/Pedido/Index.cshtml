@@ -1,60 +1,39 @@
 ﻿@model IEnumerable<Interfaz.Models.PedidoViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pedidos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Pedidos</h1>
+<h1 class="mb-4">Pedidos</h1>
 
-<p>
-    <a asp-action="Create">Crear nuevo pedido</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Entrega_est)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gastos_envio)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Entrega_est)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gastos_envio)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Detalles", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Borrar", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+@if (!Model.Any())
+{
+    <p>No hay pedidos disponibles.</p>
 }
-    </tbody>
-</table>
+else
+{
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mt-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-black-50">Estado: @Html.DisplayFor(modelItem => item.Estado)</h5>
+                        <p class="card-text">
+                            <strong>Fecha:</strong> @Html.DisplayFor(modelItem => item.Fecha)<br>
+                            <strong>Entrega estimada:</strong> @Html.DisplayFor(modelItem => item.Entrega_est)<br>
+                            <strong>Total:</strong> @((item.Total + item.Gastos_envio).ToString("C"))<br>
+                            <strong>Gastos de envío:</strong> @Html.DisplayFor(modelItem => item.Gastos_envio)<br>
+                        </p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        @Html.ActionLink("Ver Detalles", "Details", "Pedido", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                        @Html.ActionLink("Editar", "Edit", "Pedido", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                        @Html.ActionLink("Eliminar", "Delete2", "Pedido", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('¿Estás seguro de que deseas eliminar este pedido?');" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

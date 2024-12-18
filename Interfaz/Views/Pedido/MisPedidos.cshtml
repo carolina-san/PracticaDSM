@@ -5,57 +5,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Mis Pedidos</h1>
+<h1 class="mb-4">Mis Pedidos</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Entrega_est)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gastos_envio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Entrega_est)
-            </td>
-            <td>
-                    @((item.Total + item.Gastos_envio).ToString("C"))
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gastos_envio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario)
-            </td>
-            <td>
-                
-            </td>
-        </tr>
+@if (!Model.Any())
+{
+    <p>No hay pedidos de este usuario.</p>
 }
-    </tbody>
-</table>
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-black-50">Estado: @Html.DisplayFor(modelItem => item.Estado)</h5>
+                        <p class="card-text">
+                            <strong>Fecha:</strong> @Html.DisplayFor(modelItem => item.Fecha)<br>
+                            <strong>Entrega estimada:</strong> @Html.DisplayFor(modelItem => item.Entrega_est)<br>
+                            <strong>Total:</strong> @((item.Total + item.Gastos_envio).ToString("C"))<br>
+                            <strong>Gastos de envío:</strong> @Html.DisplayFor(modelItem => item.Gastos_envio)<br>
+                        </p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        @Html.ActionLink("Ver Detalles", "Details", "Pedido", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                        @Html.ActionLink("Cancelar Pedido", "Delete", "Pedido", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+

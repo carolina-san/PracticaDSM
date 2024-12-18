@@ -115,7 +115,7 @@ public static void InitializeData ()
 
                 string usu= usuariocen.Nuevo ("juan@gmail.com", "Juan", new DateTime (1990, 1, 1), "1234");
                 Console.WriteLine ("Usuario Juan creado");
-
+                string usu2 = usuariocen.Nuevo("pedro@gmail.com", "Pedro", new DateTime(2003, 10, 18), "1234");
                 if (usuariocen.Login ("juan@gmail.com", "1234") != null) {
                         Console.WriteLine ("Usuario Juan logueado");
                 }
@@ -125,14 +125,41 @@ public static void InitializeData ()
 
 
 
-                string marca1 = marcacen.Nuevo ("nike");
-                string marca2 = marcacen.Nuevo("adidas");
-                string marca3 = marcacen.Nuevo("new balance");
+                string marca1 = marcacen.Nuevo ("Nike");
+                string marca2 = marcacen.Nuevo("Adidas");
+                string marca3 = marcacen.Nuevo("New Balance");
                 Console.WriteLine ("Marca creada correctamente");
-                int art1 = articulocen.Nuevo ("zapatilla Air Force", 20, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca1, 100, "blanco","/Images/airforce.png");
-                int art2 = articulocen.Nuevo ("botas altas", 30, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35, "No hay recomendaciones", true, "verificado", marca2, 100, "verde oscuro", "/Images/botasAltas.png");
-                int art3 = articulocen.Nuevo ("zapato casual", 50, "Descripcion1", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_37, "No hay recomendaciones", true, "verificado", marca3, 100, "blanco", "/Images/zapatoCasual.png");
-                resenyacen.Nueva(5, "Muy buen producto", new DateTime(2021, 1, 1), usu, art1);
+                
+                int art2= articulocen.Nuevo("Nike Dunk Low", (float)119.95,
+                    "Nike Dunk Low Panda ", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35,
+                    "El artículo talla pequeño", true, "Verificado por la marca", marca1, 100, "Negro", "/Images/nike-dunk.jpg");
+                int art3 = articulocen.Nuevo("Nike Deportivas", (float)59.95,
+                    "Nike Deportivas Rosas", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35,
+                    "El artículo talla grande", true, "Verificado por la marca", marca1, 100, "Rosa", "/Images/zapatilla-deportivo.jpg");
+                int art4 = articulocen.Nuevo("Nike Court", (float)99.95,
+                    "Nike Court Blanco y negro ", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35,
+                    "El artículo talla normal", true, "Verificado por la marca", marca1, 100, "Blanco", "/Images/zapatillas-nike-court.jpg");
+                int art5 = articulocen.Nuevo("New Balance 530", (float)114.95,
+                    "New Balance del modelo 530", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35,
+                    "El artículo talla normal", true, "Verificado por la marca", marca1, 100, "Beige", "/Images/newbalance-530.png");
+                int art6 = articulocen.Nuevo("New Balance 550", (float)129.95,
+                    "New Balance del modelo 550 ", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35,
+                    "El artículo talla pequeño", true, "Verificado por la marca", marca1, 100, "Gris", "/Images/nb3.jpg");
+                int art7 = articulocen.Nuevo("New Balance Deportivas", (float)99.95,
+                    "New Balance modelo deportivo clásico ", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35,
+                    "El artículo talla normal", true, "Verificado por la marca", marca1, 100, "Blanco", "/Images/zapatillas-new-balance.jpg");
+                int art8 = articulocen.Nuevo("Adidas Superstar", (float)99.95,
+                    "Adidas modelo Superstar con rojo y negro", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35,
+                    "El artículo talla normal", true, "Verificado por la marca", marca1, 100, "Blanco", "/Images/zapatillas-adidas1.jpg");
+                int art1 = articulocen.Nuevo("Adidas Deportivas", (float)79.95,
+                    "Adidas modelo deportivo clásico ", DsmGen.ApplicationCore.Enumerated.Dominio_dsm.Talla_artEnum.Talla_35,
+                    "El artículo talla grande", true, "Verificado por la marca", marca1, 100, "Negro", "/Images/adidas2.png");
+               
+                resenyacen.Nueva(5, "Muy buen producto", new DateTime(2022, 4, 6), usu, art1);
+                resenyacen.Nueva(4, "El artículo cumple su función", new DateTime(2021, 5, 11), usu, art2);
+                resenyacen.Nueva(4, "Decentes", new DateTime(2023, 11, 19), usu2, art2);
+                resenyacen.Nueva(1, "No me gustan", new DateTime(2021, 10, 28), usu2, art5);
+                resenyacen.Nueva(4, "Un poco caras", new DateTime(2024, 1, 16), usu, art5);
 
                 Console.WriteLine ("Articulo creado correctamente");
                 articulocen.Dec_stock (art1, 10);
@@ -161,8 +188,6 @@ public static void InitializeData ()
                 PedidoEN pedidoEN = pedidocen.DameOID(pedido);
                 Console.WriteLine("Total pedido: " + pedidoEN.Total);
 
-                fotocen.Nuevo (art1, "C: /Users/sanch/OneDrive - UNIVERSIDAD ALICANTE/Escritorio/3º Multimedia/Desarrollo de Aplicaciones Web/prácticas/practicaDaw/fotos/foto3.png", "foto");
-                Console.WriteLine ("Foto creada correctamente");
 
                 pedidocen.Modificar (pedido, DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum.enviado, new DateTime (2021, 6, 1));
                 Console.WriteLine ("Pedido modificado correctamente");

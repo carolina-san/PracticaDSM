@@ -5,80 +5,64 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<div class="container mt-5">
+    <h1>Detalles del Producto</h1>
 
-<div>
-    <h4>ArticuloViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Talla)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Talla)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Precio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Precio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Check_verificado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Check_verificado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Recomendaciones)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Recomendaciones)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Desc_verificado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Desc_verificado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Marca)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Marca)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
-         @* @if(Model!=null&&Model.Foto!=null){ *@
-            <dd class="col-sm-10">
-                <img src="@Html.DisplayFor(model=>model.Imagen)" height="150" width="150" />
-            </dd>
-        @* } *@
-    </dl>
+    <div class="row">
+        <!-- Columna de la imagen -->
+        <div class="col-md-4">
+            @if (!string.IsNullOrEmpty(Model.Imagen))
+            {
+                <img src="@Model.Imagen" alt="@Model.Nombre" class="img-fluid mb-4" />
+            }
+            else
+            {
+                <span>Sin imagen disponible</span>
+            }
+
+           
+        </div>
+
+        <!-- Columna de los detalles del producto -->
+        <div class="col-md-8">
+            <h3>@Model.Nombre</h3>
+            <p class="lead">@Model.Descripcion</p>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-4">Talla</dt>
+                <dd class="col-sm-8">@Model.Talla</dd>
+
+                <dt class="col-sm-4">Precio</dt>
+                <dd class="col-sm-8">@Model.Precio €</dd>
+
+                <dt class="col-sm-4">Verificado</dt>
+                <dd class="col-sm-8">
+                    @(Model.Check_verificado ? "✔ Verificado" : "✘ No Verificado")
+                </dd>
+
+                <dt class="col-sm-4">Recomendaciones</dt>
+                <dd class="col-sm-8">@Model.Recomendaciones</dd>
+
+                <dt class="col-sm-4">Descripción del Verificado</dt>
+                <dd class="col-sm-8">@Model.Desc_verificado</dd>
+
+                <dt class="col-sm-4">Color</dt>
+                <dd class="col-sm-8">@Model.Color</dd>
+
+                <dt class="col-sm-4">Marca</dt>
+                <dd class="col-sm-8">@Model.Marca</dd>
+
+                <dt class="col-sm-4">Stock</dt>
+                <dd class="col-sm-8">@Model.Stock</dd>
+            </dl>
+
+           
+        </div>
+    </div>
+    <div class="">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" })
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.Id  }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+

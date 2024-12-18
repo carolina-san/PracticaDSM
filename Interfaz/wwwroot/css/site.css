@@ -145,8 +145,9 @@ h1.display-4 {
 }
 .navbar-toggler-icon {
     filter: invert(30%);
-    color: var(--verdeClaro);
+    color:var(--beige);
 }
+
 
 /* Navigation links */
 .nav-link {
@@ -295,11 +296,12 @@ form .form-group select {
     }
 
 .payment-btn {
-    padding: 15px;
+    padding: 8px;
     text-align: center;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 5px 5px 5px 5px;
     cursor: pointer;
+    width:300px;
     transition: all 0.3s ease;
 }
 
@@ -320,4 +322,11 @@ form .form-group select {
     /* Estilos para los íconos */
     .payment-btn i {
         margin-right: 8px;
+    }
+
+    .form-nuevo{
+     
+        margin:0 auto;
+
+
     }

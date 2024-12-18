@@ -30,7 +30,7 @@ public IFotoRepository get_IFotoRepository ()
         return this._IFotoRepository;
 }
 
-public int Nuevo (int p_articulo, string p_archivo, string p_alt)
+public int Nuevo (string p_archivo, string p_alt)
 {
         FotoEN fotoEN = null;
         int oid;
@@ -38,12 +38,7 @@ public int Nuevo (int p_articulo, string p_archivo, string p_alt)
         //Initialized FotoEN
         fotoEN = new FotoEN ();
 
-        if (p_articulo != -1) {
-                // El argumento p_articulo -> Property articulo es oid = false
-                // Lista de oids id
-                fotoEN.Articulo = new DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN ();
-                fotoEN.Articulo.Id = p_articulo;
-        }
+       
 
         fotoEN.Archivo = p_archivo;
 

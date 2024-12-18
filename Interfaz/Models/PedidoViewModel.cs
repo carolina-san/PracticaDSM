@@ -22,12 +22,12 @@ namespace Interfaz.Models
         [Display(Prompt = "Introduce la fecha", Description = "Fecha del pedido", Name = "Fecha")]
         [Required(ErrorMessage = "Debe indicar la fecha")]
         [DataType(DataType.Date, ErrorMessage = "El tipo de dato debe ser una fecha")]
-        public DateTime Fecha { get; set; }
+        public Nullable<DateTime> Fecha { get; set; }
 
         [Display(Prompt = "Introduce la fecha de entrega estimada", Description = "Fecha de entrega estimada", Name = "Entrega estimada")]
         [Required(ErrorMessage = "Debe indicar la fecha de entrega estimada")]
         [DataType(DataType.Date, ErrorMessage = "El tipo de dato debe ser una fecha")]
-        public DateTime Entrega_est { get; set; }
+        public Nullable<DateTime> Entrega_est { get; set; }
 
         [Display(Prompt = "Introduce el precio total", Description = "Precio total del pedido", Name = "Precio total")]
         [Required(ErrorMessage = "Debe indicar el precio total")]

@@ -12,6 +12,7 @@
             @if (!string.IsNullOrEmpty(Model.Imagen))
             {
                 <img src="@Model.Imagen" alt="@Model.Nombre" class="img-fluid" />
+
             }
             else
             {
@@ -61,7 +62,7 @@
     </div>
     <h3>Comentarios</h3>
     <div>
-        @if (Model.Resenyas != null )
+        @if (Model.Resenyas != null && Model.Resenyas.Count!=0 )
         {
             <ul class="list-group">
                 @foreach (var comentario in Model.Resenyas)
@@ -95,6 +96,8 @@
         {
             <p>No hay comentarios aún.</p>
         }
+       
+        @Html.ActionLink("Añadir comentario", "Create","Comentario", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm mt-3" })
     </div>
 
    

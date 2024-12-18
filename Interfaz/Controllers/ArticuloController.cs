@@ -27,12 +27,15 @@ namespace Interfaz.Controllers
         // GET: ArticuloController
         public ActionResult Index()
         {
-            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
-
-            if (usuario==null)
+            var usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+            if (usuario == null)
             {
                 // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
                 return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
             }
             SessionInitialize();
             ArticuloRepository artRepository = new ArticuloRepository(session);
@@ -48,11 +51,14 @@ namespace Interfaz.Controllers
         public ActionResult Details(int id)
         {
             UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
-
             if (usuario == null)
             {
                 // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
                 return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
             }
             SessionInitialize();
             ArticuloRepository artRepository = new ArticuloRepository(session);
@@ -86,11 +92,14 @@ namespace Interfaz.Controllers
         public ActionResult Create()
         {
             UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
-
             if (usuario == null)
             {
                 // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
                 return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
             }
             MarcaRepository marcaRepository = new MarcaRepository();
             MarcaCEN marcaCEN = new MarcaCEN(marcaRepository);
@@ -112,11 +121,14 @@ namespace Interfaz.Controllers
         public async Task<ActionResult> CreateAsync(ArticuloViewModel art)
         {
             UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
-
             if (usuario == null)
             {
                 // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
                 return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
             }
             string fileName = "", path = "";
             if(art.Foto!=null && art.Foto.Length > 0)
@@ -155,11 +167,14 @@ namespace Interfaz.Controllers
         public ActionResult Edit(int id)
         {
             UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
-
             if (usuario == null)
             {
                 // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
                 return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
             }
             SessionInitialize();
             ArticuloRepository artRepository = new ArticuloRepository(session);
@@ -178,11 +193,14 @@ namespace Interfaz.Controllers
         public ActionResult Edit(int id, ArticuloViewModel art)
         {
             UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
-
             if (usuario == null)
             {
                 // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
                 return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
             }
             try
             {
@@ -201,11 +219,14 @@ namespace Interfaz.Controllers
         public ActionResult Delete(int id)
         {
             UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
-
             if (usuario == null)
             {
                 // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
                 return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
             }
             ArticuloRepository artRepository = new ArticuloRepository();
             ArticuloCEN artCEN = new ArticuloCEN(artRepository);
@@ -219,11 +240,14 @@ namespace Interfaz.Controllers
         public ActionResult Delete(int id, IFormCollection collection)
         {
             UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
-
             if (usuario == null)
             {
                 // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
                 return RedirectToAction("Login", "Usuario");
+            }
+            if ( usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
             }
             try
             {
@@ -256,7 +280,13 @@ namespace Interfaz.Controllers
         {
             // Obtener los artículos del carrito
             CarritoViewModel carrito = HttpContext.Session.GetObject<CarritoViewModel>("CarritoView");
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
 
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             if (carrito == null || !carrito.Articulos.Any())
             {
                 return RedirectToAction("Index", "Home");

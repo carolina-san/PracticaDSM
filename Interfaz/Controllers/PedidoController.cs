@@ -22,7 +22,16 @@ namespace Interfaz.Controllers
         public ActionResult Index()
         {
             SessionInitialize();
-
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             PedidoRepository pedidoRepository = new PedidoRepository();
             PedidoCEN pedido = new PedidoCEN(pedidoRepository);
             
@@ -38,7 +47,43 @@ namespace Interfaz.Controllers
         // GET: PedidoController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            SessionInitialize();
+            var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
+            PedidoRepository pedidoRepository = new PedidoRepository();
+            PedidoCEN pedido = new PedidoCEN(pedidoRepository);
+
+            PedidoEN pedidoEN = pedido.DameOID(id);
+            LineaPedidoRepository linpedRep = new LineaPedidoRepository(session);
+            LineaPedidoCEN linea = new LineaPedidoCEN(linpedRep);
+           
+
+            PedidoViewModel pedidoView = new PedidoAssembler().convertirENtoViewModel(pedidoEN);
+            IList<LineaPedidoEN> lineasPedido = linea.DameALL(0, -1).Where(lp => lp.Pedido.Id == id).ToList();
+
+            // Crear el modelo de vista del pedido
+            PedidoViewModel pedidoViewModel = new PedidoViewModel
+            {
+                Id = pedidoEN.Id,
+                Estado = pedidoEN.Estado,
+                Fecha = pedidoEN.Fecha,
+                Entrega_est = pedidoEN.Entrega_est,
+                Gastos_envio = pedidoEN.Gastos_envio,
+                Total = lineasPedido.Sum(lp => lp.Articulo.Precio * lp.Cantidad) + pedidoEN.Gastos_envio,
+                Articulos = lineasPedido.Select(lp => new ArticuloViewModel
+                {
+                    Id = lp.Articulo.Id,
+                    Nombre = lp.Articulo.Nombre,
+                    Imagen = lp.Articulo.Foto,
+                    Precio = lp.Articulo.Precio,
+                }).ToList()
+            };
+            SessionClose();
+            return View(pedidoViewModel);
         }
 
         // GET: PedidoController/Create
@@ -77,16 +122,52 @@ namespace Interfaz.Controllers
         // GET: PedidoController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            SessionInitialize();
+            PedidoRepository pedRepository = new PedidoRepository(session);
+            PedidoCEN pedCEN = new PedidoCEN(pedRepository);
+
+
+            PedidoEN pedEN = pedCEN.DameOID(id);
+            PedidoViewModel pedView = new PedidoAssembler().convertirENtoViewModel(pedEN);
+            SessionClose();
+            return View(pedView);
         }
 
         // POST: PedidoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, PedidoViewModel ped)
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             try
             {
+                PedidoRepository pedRepository = new PedidoRepository();
+                PedidoCEN pedCEN = new PedidoCEN(pedRepository);
+                PedidoCP pedCP = new PedidoCP(new SessionCPNHibernate());
+                if (ped.Estado==DsmGen.ApplicationCore.Enumerated.Dominio_dsm.EstadoPedidoEnum.enviado)
+                {
+                    pedCP.EnviarPedido(id);
+                }
+                pedCEN.Modificar(id, ped.Estado, ped.Entrega_est);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -98,9 +179,34 @@ namespace Interfaz.Controllers
         // GET: PedidoController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
+            PedidoRepository pedRep = new PedidoRepository();
+            PedidoCEN pedCen = new PedidoCEN(pedRep);
+            pedCen.Eliminar(id);
+            return RedirectToAction(nameof(MisPedidos));
         }
-
+        public ActionResult Delete2(int id)
+        {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
+            if (usuario.Email != "admin@admin.com")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            PedidoRepository pedRep = new PedidoRepository();
+            PedidoCEN pedCen = new PedidoCEN(pedRep);
+            pedCen.Eliminar(id);
+            return RedirectToAction(nameof(Index));
+        }
         // POST: PedidoController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -122,6 +228,11 @@ namespace Interfaz.Controllers
             SessionInitialize();
             // Obtener el usuario actual (esto puede variar según cómo manejas la autenticación)
             var usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             UsuarioRepository usuRepo = new UsuarioRepository();
             UsuarioCEN usuCEN = new UsuarioCEN(usuRepo);
             UsuarioEN usuEN = usuCEN.DameOID(usuario.Email);
@@ -137,6 +248,7 @@ namespace Interfaz.Controllers
 
             DireccionRepository dirRep = new DireccionRepository();
             DireccionCEN dirCEN = new DireccionCEN(dirRep);
+
             int idDireccion = dirCEN.Nuevo(Calle, Provincia, CodigoPostal, Telf, Nombre, usuario.Email);
 
             decimal gastosEnvio = TipoEnvio == "Envío rápido (+4.99€)" ? 4.99m : 0m;
@@ -169,7 +281,12 @@ namespace Interfaz.Controllers
         public ActionResult Pago()
         {
             var pedido = HttpContext.Session.Get<PedidoViewModel>("pedido");
-        
+            var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             PedidoRepository pedidoRepository = new PedidoRepository();
             PedidoCEN pedidoCEN = new PedidoCEN(pedidoRepository);
             PedidoEN pedidoEN = pedidoCEN.DameOID(pedido.Id);
@@ -195,6 +312,11 @@ namespace Interfaz.Controllers
         public ActionResult MisPedidos()
         {
             var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             PedidoRepository pedRep = new PedidoRepository();
             PedidoCEN pedCEN = new PedidoCEN(pedRep);
             IList<PedidoEN> pedidos = pedCEN.DameALL(0, -1);

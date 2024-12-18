@@ -129,13 +129,7 @@ public int Nuevo (FotoEN foto)
         try
         {
                 SessionInitializeTransaction ();
-                if (foto.Articulo != null) {
-                        // Argumento OID y no colección.
-                        fotoNH
-                        .Articulo = (DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN)session.Load (typeof(DsmGen.ApplicationCore.EN.Dominio_dsm.ArticuloEN), foto.Articulo.Id);
-
-                       
-                }
+               
 
                 session.Save (fotoNH);
                 SessionCommit ();

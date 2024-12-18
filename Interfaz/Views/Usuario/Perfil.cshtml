@@ -12,57 +12,59 @@
             <p><strong>Nombre:</strong> @Model.Nombre</p>
             <p><strong>Correo Electrónico:</strong> @Model.Email</p>
             <p><strong>Fecha de Nacimiento:</strong> @Model.FechaNac.ToString("dd/MM/yyyy")</p>
+            <div class="mt-4">
+                <a href="@Url.Action("Edit", "Usuario")" class="btn btn-primary">Editar Perfil</a>
+                <a href="@Url.Action("MisPedidos", "Pedido")" class="btn btn-primary">Mis Pedidos</a>
+            </div>
         </div>
         <div class="col-md-6">
-            <a href="@Url.Action("MisPedidos", "Pedido")" class="btn btn-primary">Mis Pedidos</a>
+            <h3 >Artículos Favoritos</h3>
+            @if (Model.Favoritos != null && Model.Favoritos.Any())
+            {
+                <div class="row">
+                    @foreach (var item in Model.Favoritos)
+                    {
+                        <div class="col-md-5 mb-5">
+                            <div class="card h-100 w-100">
+                                <div class="card-img-top text-center">
+                                    <a href="@Url.Action("Detalles", "Articulo", new { id = item.Id })">
+                                        @if (!string.IsNullOrEmpty(item.Imagen))
+                                        {
+                                            <img src="@item.Imagen" alt="@item.Nombre" class="img-fluid" style="max-height: 150px;" />
+                                        }
+                                        else
+                                        {
+                                            <span>Sin imagen</span>
+                                        }
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Nombre</h5>
+                                    <p class="card-text fw-bold">Precio: @item.Precio €</p>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <!-- Formulario para eliminar de favoritos -->
+                                    <form method="post" action="@Url.Action("EliminarFavorito", "Usuario")">
+                                        <input type="hidden" name="idArticulo" value="@item.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="bi bi-trash"></i> Eliminar de Favoritos
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No tienes artículos favoritos.</p>
+            }
+            
         </div>
     </div>
 
-    <div class="mt-4">
-        <a href="@Url.Action("Editar", "Usuario")" class="btn btn-primary">Editar Perfil</a>
-        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Volver</a>
-    </div>
-    <h2 class="mt-5">Artículos Favoritos</h2>
-    @if (Model.Favoritos != null && Model.Favoritos.Any())
-    {
-        <div class="row">
-            @foreach (var item in Model.Favoritos)
-            {
-                <div class="col-md-3 mb-5">
-                    <div class="card h-100">
-                        <div class="card-img-top text-center">
-                            <a href="@Url.Action("Detalles", "Articulo", new { id = item.Id })">
-                                @if (!string.IsNullOrEmpty(item.Imagen))
-                                {
-                                    <img src="@item.Imagen" alt="@item.Nombre" class="img-fluid" style="max-height: 150px;" />
-                                }
-                                else
-                                {
-                                    <span>Sin imagen</span>
-                                }
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">@item.Nombre</h5>
-                            <p class="card-text fw-bold">Precio: @item.Precio €</p>
-                        </div>
-                        <div class="card-footer text-center">
-                            <!-- Formulario para eliminar de favoritos -->
-                            <form method="post" action="@Url.Action("EliminarFavorito", "Usuario")">
-                                <input type="hidden" name="idArticulo" value="@item.Id" />
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Eliminar de Favoritos
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    }
-    else
-    {
-        <p>No tienes artículos favoritos.</p>
-    }
+   
+   
 
 </div>

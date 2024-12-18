@@ -112,19 +112,48 @@ namespace Interfaz.Controllers
         }
 
         // GET: UsuarioController1/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
-            return View();
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
+            SessionInitialize();
+            UsuarioRepository usuRepository = new UsuarioRepository(session);
+            UsuarioCEN usuCEN = new UsuarioCEN(usuRepository);
+
+
+            UsuarioEN usuEN = usuCEN.DameOID(usuario.Email);
+            UsuarioViewModel usuView= new UsuarioAssembler().ConvertirENToViewModel(usuEN);
+            SessionClose(); 
+            return View(usuView);
         }
 
-        // POST: UsuarioController1/Edit/5
+        // POST: ArticuloController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit( UsuarioViewModel usu)
         {
+            UsuarioViewModel usuario = HttpContext.Session.GetObject<UsuarioViewModel>("usuario");
+
+            if (usuario == null)
+            {
+                // Si no hay un nombre de usuario en la sesión, redirigir a la página de login
+                return RedirectToAction("Login", "Usuario");
+            }
             try
             {
-                return RedirectToAction(nameof(Index));
+                UsuarioRepository usuRepository = new UsuarioRepository();
+                UsuarioCEN usuCEN = new UsuarioCEN(usuRepository);
+
+                usuCEN.Modificar(usuario.Email, usu.Nombre, usu.FechaNac, usu.Password);
+                UsuarioEN usuEN = usuCEN.DameOID(usu.Email);
+                UsuarioViewModel usuView = new UsuarioAssembler().ConvertirENToViewModel(usuEN);
+                HttpContext.Session.Set<UsuarioViewModel>("usuario",usuView);
+                return RedirectToAction(nameof(Perfil));
             }
             catch
             {
